@@ -23,6 +23,24 @@
 #include "Common/Core/TrackSelection.h"
 #include "Common/DataModel/TrackSelectionTables.h"
 
+namespace o2::aod
+{
+namespace matchedmuonmft
+{
+DECLARE_SOA_COLUMN(MFTx, mftx, double);
+DECLARE_SOA_COLUMN(MFTy, mfty, double);
+DECLARE_SOA_COLUMN(MUONx, muonx, double);
+DECLARE_SOA_COLUMN(MUONy, muony, double);
+DECLARE_SOA_COLUMN(MFTxMP, mftxmp, double);
+DECLARE_SOA_COLUMN(MFTyMP, mftymp, double);
+DECLARE_SOA_COLUMN(MUONxMP, muonxmp, double);
+DECLARE_SOA_COLUMN(MUONyMP, muonymp, double);
+}
+
+DECLARE_SOA_TABLE(FwdMatchingInfo, "AOD", "FWDMATCHINGINFO", matchedmuonmft::MFTx,matchedmuonmft::MFTy, matchedmuonmft::MUONx, matchedmuonmft::MUONy, matchedmuonmft::MFTxMP, matchedmuonmft::MFTyMP, matchedmuonmft::MUONxMP, matchedmuonmft::MUONyMP);
+
+}
+
 using namespace o2;
 using namespace o2::framework;
 using namespace o2::framework::expressions;
@@ -35,12 +53,15 @@ using o2::track::TrackParFwd;
 
 struct mftmchmatchinginfo {
 
+  Produces<aod::FwdMatchingInfo> matchedmuonmftTable;
+
   HistogramRegistry registry{
     "registry",
     {},
     OutputObjHandlingPolicy::AnalysisObject,
     true,
-    true};
+    true
+  };
 
   void init(o2::framework::InitContext&)
   {
@@ -74,9 +95,7 @@ struct mftmchmatchinginfo {
 		numberGlobalMuonTrack++;
         }
       }
-    }
-
-    double mchmftpair[numberGlobalMuonTrack][2];
+    } double mchmftpair[numberGlobalMuonTrack][2];
 
     int counttracknumber = 0;
 
@@ -129,6 +148,10 @@ struct mftmchmatchinginfo {
 		  double disX = muonpars1.getX() - mftpars1.getX();
 		  double disY = muonpars1.getY() - mftpars1.getY();
 		  registry.fill(HIST("MCHMFTDisp"), disX, disY);
+
+		  //update the talbe matchedmuonmft
+		  matchedmuonmftTable(track.x(), track.y(), mfttrack.x(), mfttrack.y(), muonpars1.getX(), muonpars1.getY(), mftpars1.getX(), mftpars1.getY());
+
 		}
 	      }
 	    }
