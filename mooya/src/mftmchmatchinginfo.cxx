@@ -84,82 +84,64 @@ struct mftmchmatchinginfo {
   void process(aod::Collisions::iterator const& collision, aod::FwdTracks const& tracks, aod::MFTTracks const& mfttracks)
   {
     static constexpr Double_t sLastMFTPlaneZ = o2::mft::constants::mft::LayerZCoordinate()[9];
-    float mBz = -5.f;
+    static const float mBz = -5.f;
 
-    int numberGlobalMuonTrack = 0;
-
-    //count the number of globalmuontrack to create a table;
-    for (auto const& track : tracks) {
-      if (track.has_collision()) {
-        if (track.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack) {
-		numberGlobalMuonTrack++;
-        }
-      }
-    } double mchmftpair[numberGlobalMuonTrack][2];
-
-    int counttracknumber = 0;
+    std::vector<std::array<int, 2>> mchmftpair;
 
     //create a pair of MFTTrack and MUONTrack in same globalmuontrack
     for (auto const& track : tracks) {
-      if (track.has_collision()) {
-        if (track.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack) {
-	  mchmftpair[counttracknumber][0] = track.matchMCHTrackId();
-	  mchmftpair[counttracknumber][1] = track.matchMFTTrackId();
-
-	  counttracknumber++;
-        }
+      if (track.has_collision() && track.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack) {
+        mchmftpair.push_back({track.matchMCHTrackId(), track.matchMFTTrackId()});
       }
     }
 
     for (auto const& track : tracks) {
-      if (track.has_collision()) {
-        if (track.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
-	  for (int i = 0; i<numberGlobalMuonTrack; i++){
-	    if (track.globalIndex() == mchmftpair[i][0]){
-	      for (auto const& mfttrack : mfttracks) {
-	        if (mfttrack.globalIndex() == mchmftpair[i][1]){
+      if (track.has_collision() && track.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
+        for (auto const& pair : mchmftpair) {
+	  if (track.globalIndex() == pair[0]) {
+	    for (auto const& mfttrack : mfttracks) {
+	      if (mfttrack.globalIndex() == pair[1]) {
 
-		  registry.fill(HIST("MUONXYPos"), track.x(), track.y());
-		  registry.fill(HIST("MUONZPos"), track.z());
-		  registry.fill(HIST("MFTXYPos"), mfttrack.x(), mfttrack.y());
-		  registry.fill(HIST("MFTZPos"), mfttrack.z());
+		registry.fill(HIST("MUONXYPos"), track.x(), track.y());
+		registry.fill(HIST("MUONZPos"), track.z());
+		registry.fill(HIST("MFTXYPos"), mfttrack.x(), mfttrack.y());
+		registry.fill(HIST("MFTZPos"), mfttrack.z());
 
-                  //propagate muontrack to matching position
-                  double muonchi2 = track.chi2();
-                  SMatrix5 muonpars(track.x(), track.y(), track.phi(), track.tgl(), track.signed1Pt());
-                  std::vector<double> muonv1;
-                  SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
-                  o2::track::TrackParCovFwd muonpars1{track.z(), muonpars, muoncovs, muonchi2};
-                  muonpars1.propagateToZ(sLastMFTPlaneZ,mBz);
-		  registry.fill(HIST("MUONXYPosProp"), muonpars1.getX(), muonpars1.getY());
-		  registry.fill(HIST("MUONZPosProp"), muonpars1.getZ());
+                //propagate muontrack to matching position
+                double muonchi2 = track.chi2();
+                SMatrix5 muonpars(track.x(), track.y(), track.phi(), track.tgl(), track.signed1Pt());
+                std::vector<double> muonv1;
+                SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
+                o2::track::TrackParCovFwd muonpars1{track.z(), muonpars, muoncovs, muonchi2};
+                muonpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+		registry.fill(HIST("MUONXYPosProp"), muonpars1.getX(), muonpars1.getY());
+		registry.fill(HIST("MUONZPosProp"), muonpars1.getZ());
 
-                  //propagate mfttrack to matching position
-                  double mftchi2 = mfttrack.chi2();
-                  SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
-                  std::vector<double> mftv1;
-                  SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
-                  o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-                  mftpars1.propagateToZ(sLastMFTPlaneZ,mBz);
-		  registry.fill(HIST("MFTXYPosProp"), mftpars1.getX(), mftpars1.getY());
-		  registry.fill(HIST("MFTZPosProp"), mftpars1.getZ());
+                //propagate mfttrack to matching position
+                double mftchi2 = mfttrack.chi2();
+                SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+                std::vector<double> mftv1;
+                SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+                o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+                mftpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+		registry.fill(HIST("MFTXYPosProp"), mftpars1.getX(), mftpars1.getY());
+		registry.fill(HIST("MFTZPosProp"), mftpars1.getZ());
 
-		  //Plot displacement
-		  double disX = muonpars1.getX() - mftpars1.getX();
-		  double disY = muonpars1.getY() - mftpars1.getY();
-		  registry.fill(HIST("MCHMFTDisp"), disX, disY);
+		//Plot displacement
+		double disX = muonpars1.getX() - mftpars1.getX();
+		double disY = muonpars1.getY() - mftpars1.getY();
+		registry.fill(HIST("MCHMFTDisp"), disX, disY);
 
-		  //update the talbe matchedmuonmft
-		  matchedmuonmftTable(track.x(), track.y(), mfttrack.x(), mfttrack.y(), muonpars1.getX(), muonpars1.getY(), mftpars1.getX(), mftpars1.getY());
-
-		}
+		//update the talbe matchedmuonmft
+		matchedmuonmftTable(track.x(), track.y(), mfttrack.x(), mfttrack.y(), muonpars1.getX(), muonpars1.getY(), mftpars1.getX(), mftpars1.getY());
 	      }
 	    }
 	  }
-        }
+	}
       }
     }
   }
+
 };
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
