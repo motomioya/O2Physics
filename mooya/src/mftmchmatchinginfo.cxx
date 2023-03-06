@@ -1,4 +1,4 @@
-// Copyright 2019-2020 CERN and copyright holders of ALICE O2.
+// Copyright 2019-2020 CERN and copyright holds of ALICE O2.
 // See https://alice-o2.web.cern.ch/copyright for details of the copyright holders.
 // All rights not expressly granted are reserved.
 //
@@ -10,18 +10,19 @@
 // or submit itself to any jurisdiction.
 // Made by mooya
 
-#include "Common/DataModel/TrackSelectionTables.h"
 #include "Framework/AnalysisDataModel.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/runDataProcessing.h"
+#include "Framework/runDataProcessing.h"
+
+#include "Common/DataModel/TrackSelectionTables.h"
+#include "Common/Core/trackUtilities.h"
+#include "Common/Core/TrackSelection.h"
+#include "Common/DataModel/TrackSelectionTables.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
 #include "Math/SMatrix.h"
 #include "DetectorsBase/Propagator.h"
 #include "MFTTracking/Tracker.h"
-#include "Common/Core/trackUtilities.h"
-#include "CommonUtils/NameConf.h"
-#include "Common/Core/TrackSelection.h"
-#include "Common/DataModel/TrackSelectionTables.h"
 
 namespace o2::aod
 {
@@ -50,10 +51,15 @@ using SMatrix5 = ROOT::Math::SVector<double, 5>;
 using o2::track::TrackParCovFwd;
 using o2::track::TrackParFwd;
 
+using FwdTracksLabeled = soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>;
+using MFTTracksLabeled = soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels>;
+
 
 struct mftmchmatchinginfo {
 
   Produces<aod::FwdMatchingInfo> matchedmuonmftTable;
+
+  Configurable<bool> isMC{"isMC", false, "MC or not"};
 
   HistogramRegistry registry{
     "registry",
@@ -65,9 +71,9 @@ struct mftmchmatchinginfo {
 
   void init(o2::framework::InitContext&)
   {
-    AxisSpec trackXPos = {100, -50, 50, "X in cm"};
-    AxisSpec trackYPos = {100, -50, 50, "Y in cm"};
-    AxisSpec trackZPos = {120, -100, 20, "Z in cm"};
+    AxisSpec trackXPos = {1000, -50, 50, "X in cm"};
+    AxisSpec trackYPos = {1000, -50, 50, "Y in cm"};
+    AxisSpec trackZPos = {1200, -100, 20, "Z in cm"};
 
     //HistogramConfigSpec HistVariable({HistType::kTHnSparseF, {ptRecoAxis, dcaxAxis, dcaxAxis, dcaAxis, zvtxAxis}});
     registry.add("MFTXYPos", "MFTTrack XYPosition", {HistType::kTH2F, {trackXPos, trackYPos}});
@@ -79,6 +85,16 @@ struct mftmchmatchinginfo {
     registry.add("MUONXYPosProp", "MUONTrack XYPosition at Last MFT Disk", {HistType::kTH2F, {trackXPos, trackYPos}});
     registry.add("MUONZPosProp", "MUONTrack ZPosition at Last MFT Disk", {HistType::kTH1F, {trackZPos}});
     registry.add("MCHMFTDisp", "Displacement MUONTrack and MFTTrack in XY plane", {HistType::kTH2F, {trackXPos, trackYPos}});
+
+    if (isMC){
+      registry.add("MCHMFTDispX", "Displacement of MUONTrack and MFTTrack in X", {HistType::kTH1F, {trackXPos}});
+      registry.add("MCHMFTDispY", "Displacement of MUONTrack and MFTTrack in Y", {HistType::kTH1F, {trackYPos}});
+      registry.add("MCHMFTTrueDispX", "Displacement of true MUONTrack and MFTTrack in X", {HistType::kTH1F, {trackXPos}});
+      registry.add("MCHMFTTrueDispY", "Displacement of true MUONTrack and MFTTrack in Y", {HistType::kTH1F, {trackYPos}});
+      registry.add("MCHMFTBkgDispX", "Displacement of bkg MUONTrack and MFTTrack in X", {HistType::kTH1F, {trackXPos}});
+      registry.add("MCHMFTBkgDispY", "Displacement of bkg MUONTrack and MFTTrack in Y", {HistType::kTH1F, {trackYPos}});
+    }
+
   }
 
   void process(aod::Collisions::iterator const& collision, aod::FwdTracks const& tracks, aod::MFTTracks const& mfttracks)
@@ -95,8 +111,9 @@ struct mftmchmatchinginfo {
       }
     }
 
+
     for (auto const& track : tracks) {
-      if (track.has_collision() && track.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
+      if (track.has_collision() && track.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
         for (auto const& pair : mchmftpair) {
 	  if (track.globalIndex() == pair[0]) {
 	    for (auto const& mfttrack : mfttracks) {
@@ -142,11 +159,92 @@ struct mftmchmatchinginfo {
     }
   }
 
+  void processGen(aod::Collisions::iterator const& collision, FwdTracksLabeled const& fwdtracks, MFTTracksLabeled const& mfttracks)
+  {
+    static constexpr Double_t sLastMFTPlaneZ = o2::mft::constants::mft::LayerZCoordinate()[9];
+    static const float mBz = -5.f;
+    for (auto const& fwdtrack : fwdtracks) {
+      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+        for (auto const& mfttrack : mfttracks) {
+	  if (mfttrack.has_collision()){
+            //propagate muontrack to matching position
+            double muonchi2 = fwdtrack.chi2();
+            SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
+            std::vector<double> muonv1;
+            SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
+            o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
+            muonpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+
+           //propagate mfttrack to matching position
+           double mftchi2 = mfttrack.chi2();
+           SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+           std::vector<double> mftv1;
+           SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+           o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+           mftpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+
+	   //Fill displacement of all MCH and MFT tracks combinations
+	   registry.fill(HIST("MCHMFTDispX"), muonpars1.getX() - mftpars1.getX());
+	   registry.fill(HIST("MCHMFTDispY"), muonpars1.getY() - mftpars1.getY());
+	   
+	   //Fill displacement of true MCH and MFT tracks combinations
+	   if (fwdtrack.mcParticleId() == mfttrack.mcParticleId())
+	   {
+	     registry.fill(HIST("MCHMFTTrueDispX"), muonpars1.getX() - mftpars1.getX());
+	     registry.fill(HIST("MCHMFTTrueDispY"), muonpars1.getY() - mftpars1.getY());
+	   }
+	   //Fill displacement of true MCH and MFT tracks combinations
+	  }
+	}
+      }
+    }
+  }
+  PROCESS_SWITCH(mftmchmatchinginfo, processGen, "Show displacement of mft and mch tracks", isMC);
+
+  void processGenMatchingBkg(FwdTracksLabeled const& fwdtracks, MFTTracksLabeled const& mfttracks, aod::McParticles const& particles)
+  {
+    static constexpr Double_t sLastMFTPlaneZ = o2::mft::constants::mft::LayerZCoordinate()[9];
+    static const float mBz = -5.f;
+    for (auto const& fwdtrack : fwdtracks) {
+      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+        for (auto const& mfttrack : mfttracks) {
+	  if (mfttrack.has_collision()){
+	    auto mcfwdparticle = fwdtrack.mcParticle();
+	    auto mcmftparticle = mfttrack.mcParticle();
+	    {
+               //propagate muontrack to matching position
+               double muonchi2 = fwdtrack.chi2();
+               SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
+               std::vector<double> muonv1;
+               SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
+               o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
+               muonpars1.propagateToZ(sLastMFTPlaneZ,mBz);             
+               //propagate mfttrack to matching position
+               double mftchi2 = mfttrack.chi2();
+               SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+               std::vector<double> mftv1;
+               SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+               o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+               mftpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+  
+               //Fill displacement of all MCH and MFT tracks combinations
+               registry.fill(HIST("MCHMFTBkgDispX"), muonpars1.getX() - mftpars1.getX());
+               registry.fill(HIST("MCHMFTBkgDispY"), muonpars1.getY() - mftpars1.getY());
+            }
+
+	  }
+	}
+      }
+    }
+  }
+  PROCESS_SWITCH(mftmchmatchinginfo, processGenMatchingBkg, "Show background of mch mft matching", isMC);
+
+
 };
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
   return WorkflowSpec{
-    adaptAnalysisTask<mftmchmatchinginfo>(cfgc),
+    adaptAnalysisTask<mftmchmatchinginfo>(cfgc)
   };
 }
