@@ -26,19 +26,96 @@
 
 namespace o2::aod
 {
-namespace matchedmuonmft
+namespace matchedfwd
 {
 DECLARE_SOA_COLUMN(MFTx, mftx, double);
 DECLARE_SOA_COLUMN(MFTy, mfty, double);
+DECLARE_SOA_COLUMN(MFTeta, mfteta, double);
+DECLARE_SOA_COLUMN(MFTphi, mftphi, double);
+DECLARE_SOA_COLUMN(MFTpt, mftpt, double);
 DECLARE_SOA_COLUMN(MUONx, muonx, double);
 DECLARE_SOA_COLUMN(MUONy, muony, double);
+DECLARE_SOA_COLUMN(MUONeta, muoneta, double);
+DECLARE_SOA_COLUMN(MUONphi, muonphi, double);
+DECLARE_SOA_COLUMN(MUONpt, muonpt, double);
 DECLARE_SOA_COLUMN(MFTxMP, mftxmp, double);
 DECLARE_SOA_COLUMN(MFTyMP, mftymp, double);
+DECLARE_SOA_COLUMN(MFTetaMP, mftetamp, double);
+DECLARE_SOA_COLUMN(MFTphiMP, mftphimp, double);
+DECLARE_SOA_COLUMN(MFTptMP, mftptmp, double);
 DECLARE_SOA_COLUMN(MUONxMP, muonxmp, double);
 DECLARE_SOA_COLUMN(MUONyMP, muonymp, double);
+DECLARE_SOA_COLUMN(MUONetaMP, muonetamp, double);
+DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
+DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
+DECLARE_SOA_COLUMN(Deltax, deltax, double);
+DECLARE_SOA_COLUMN(Deltay, deltay, double);
+DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
+DECLARE_SOA_COLUMN(Deltaphi, deltaphi, double);
+DECLARE_SOA_COLUMN(Deltapt, deltapt, double);
+}
+namespace matchedfwdtrue
+{
+DECLARE_SOA_COLUMN(MFTx, mftx, double);
+DECLARE_SOA_COLUMN(MFTy, mfty, double);
+DECLARE_SOA_COLUMN(MFTeta, mfteta, double);
+DECLARE_SOA_COLUMN(MFTphi, mftphi, double);
+DECLARE_SOA_COLUMN(MFTpt, mftpt, double);
+DECLARE_SOA_COLUMN(MUONx, muonx, double);
+DECLARE_SOA_COLUMN(MUONy, muony, double);
+DECLARE_SOA_COLUMN(MUONeta, muoneta, double);
+DECLARE_SOA_COLUMN(MUONphi, muonphi, double);
+DECLARE_SOA_COLUMN(MUONpt, muonpt, double);
+DECLARE_SOA_COLUMN(MFTxMP, mftxmp, double);
+DECLARE_SOA_COLUMN(MFTyMP, mftymp, double);
+DECLARE_SOA_COLUMN(MFTetaMP, mftetamp, double);
+DECLARE_SOA_COLUMN(MFTphiMP, mftphimp, double);
+DECLARE_SOA_COLUMN(MFTptMP, mftptmp, double);
+DECLARE_SOA_COLUMN(MUONxMP, muonxmp, double);
+DECLARE_SOA_COLUMN(MUONyMP, muonymp, double);
+DECLARE_SOA_COLUMN(MUONetaMP, muonetamp, double);
+DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
+DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
+DECLARE_SOA_COLUMN(Deltax, deltax, double);
+DECLARE_SOA_COLUMN(Deltay, deltay, double);
+DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
+DECLARE_SOA_COLUMN(Deltaphi, deltaphi, double);
+DECLARE_SOA_COLUMN(Deltapt, deltapt, double);
+}
+namespace matchedfwdbkg
+{
+DECLARE_SOA_COLUMN(MFTx, mftx, double);
+DECLARE_SOA_COLUMN(MFTy, mfty, double);
+DECLARE_SOA_COLUMN(MFTeta, mfteta, double);
+DECLARE_SOA_COLUMN(MFTphi, mftphi, double);
+DECLARE_SOA_COLUMN(MFTpt, mftpt, double);
+DECLARE_SOA_COLUMN(MUONx, muonx, double);
+DECLARE_SOA_COLUMN(MUONy, muony, double);
+DECLARE_SOA_COLUMN(MUONeta, muoneta, double);
+DECLARE_SOA_COLUMN(MUONphi, muonphi, double);
+DECLARE_SOA_COLUMN(MUONpt, muonpt, double);
+DECLARE_SOA_COLUMN(MFTxMP, mftxmp, double);
+DECLARE_SOA_COLUMN(MFTyMP, mftymp, double);
+DECLARE_SOA_COLUMN(MFTetaMP, mftetamp, double);
+DECLARE_SOA_COLUMN(MFTphiMP, mftphimp, double);
+DECLARE_SOA_COLUMN(MFTptMP, mftptmp, double);
+DECLARE_SOA_COLUMN(MUONxMP, muonxmp, double);
+DECLARE_SOA_COLUMN(MUONyMP, muonymp, double);
+DECLARE_SOA_COLUMN(MUONetaMP, muonetamp, double);
+DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
+DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
+DECLARE_SOA_COLUMN(Deltax, deltax, double);
+DECLARE_SOA_COLUMN(Deltay, deltay, double);
+DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
+DECLARE_SOA_COLUMN(Deltaphi, deltaphi, double);
+DECLARE_SOA_COLUMN(Deltapt, deltapt, double);
 }
 
-DECLARE_SOA_TABLE(FwdMatchingInfo, "AOD", "FWDMATCHINGINFO", matchedmuonmft::MFTx,matchedmuonmft::MFTy, matchedmuonmft::MUONx, matchedmuonmft::MUONy, matchedmuonmft::MFTxMP, matchedmuonmft::MFTyMP, matchedmuonmft::MUONxMP, matchedmuonmft::MUONyMP);
+DECLARE_SOA_TABLE(FwdMatch, "AOD", "FWDMATCH", matchedfwd::MFTx,matchedfwd::MFTy, matchedfwd::MFTeta, matchedfwd::MFTphi, matchedfwd::MFTpt, matchedfwd::MUONx, matchedfwd::MUONy, matchedfwd::MUONeta, matchedfwd::MUONphi, matchedfwd::MUONpt, matchedfwd::MFTxMP, matchedfwd::MFTyMP, matchedfwd::MFTetaMP, matchedfwd::MFTphiMP, matchedfwd::MFTptMP, matchedfwd::MUONxMP, matchedfwd::MUONyMP, matchedfwd::MUONetaMP,matchedfwd::MUONphiMP,matchedfwd::MUONptMP,matchedfwd::Deltax,matchedfwd::Deltay,matchedfwd::Deltaeta,matchedfwd::Deltaphi,matchedfwd::Deltapt);
+
+DECLARE_SOA_TABLE(FwdMatchTrue, "AOD", "FWDMATCHTRUE", matchedfwdtrue::MFTx,matchedfwdtrue::MFTy, matchedfwdtrue::MFTeta, matchedfwdtrue::MFTphi, matchedfwdtrue::MFTpt, matchedfwdtrue::MUONx, matchedfwdtrue::MUONy, matchedfwdtrue::MUONeta, matchedfwdtrue::MUONphi, matchedfwdtrue::MUONpt, matchedfwdtrue::MFTxMP, matchedfwdtrue::MFTyMP, matchedfwdtrue::MFTetaMP, matchedfwdtrue::MFTphiMP, matchedfwdtrue::MFTptMP, matchedfwdtrue::MUONxMP, matchedfwdtrue::MUONyMP, matchedfwdtrue::MUONetaMP,matchedfwdtrue::MUONphiMP,matchedfwdtrue::MUONptMP,matchedfwdtrue::Deltax,matchedfwdtrue::Deltay,matchedfwdtrue::Deltaeta,matchedfwdtrue::Deltaphi,matchedfwdtrue::Deltapt);
+
+DECLARE_SOA_TABLE(FwdMatchBkg, "AOD", "FWDMATCHBKG", matchedfwdbkg::MFTx,matchedfwdbkg::MFTy, matchedfwdbkg::MFTeta, matchedfwdbkg::MFTphi, matchedfwdbkg::MFTpt, matchedfwdbkg::MUONx, matchedfwdbkg::MUONy, matchedfwdbkg::MUONeta, matchedfwdbkg::MUONphi, matchedfwdbkg::MUONpt, matchedfwdbkg::MFTxMP, matchedfwdbkg::MFTyMP, matchedfwdbkg::MFTetaMP, matchedfwdbkg::MFTphiMP, matchedfwdbkg::MFTptMP, matchedfwdbkg::MUONxMP, matchedfwdbkg::MUONyMP, matchedfwdbkg::MUONetaMP,matchedfwdbkg::MUONphiMP,matchedfwdbkg::MUONptMP,matchedfwdbkg::Deltax,matchedfwdbkg::Deltay,matchedfwdbkg::Deltaeta,matchedfwdbkg::Deltaphi,matchedfwdbkg::Deltapt);
 
 }
 
@@ -57,7 +134,10 @@ using MFTTracksLabeled = soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels>;
 
 struct mftmchmatchinginfo {
 
-  Produces<aod::FwdMatchingInfo> matchedmuonmftTable;
+  Produces<aod::FwdMatch> matchedfwdTable;
+  Produces<aod::FwdMatchTrue> matchedfwdtrueTable;
+  Produces<aod::FwdMatchBkg> matchedfwdbkgTable;
+
 
   Configurable<bool> isMC{"isMC", false, "MC or not"};
 
@@ -84,23 +164,24 @@ struct mftmchmatchinginfo {
     registry.add("MFTZPosProp", "MFT ZPosition at Last MFT Disk", {HistType::kTH1F, {trackZPos}});
     registry.add("MUONXYPosProp", "MUONTrack XYPosition at Last MFT Disk", {HistType::kTH2F, {trackXPos, trackYPos}});
     registry.add("MUONZPosProp", "MUONTrack ZPosition at Last MFT Disk", {HistType::kTH1F, {trackZPos}});
+    
     registry.add("MCHMFTDisp", "Displacement MUONTrack and MFTTrack in XY plane", {HistType::kTH2F, {trackXPos, trackYPos}});
 
+    registry.add("MCHMFTDispX", "Displacement of MUONTrack and MFTTrack in X", {HistType::kTH1F, {trackXPos}});
+    registry.add("MCHMFTDispY", "Displacement of MUONTrack and MFTTrack in Y", {HistType::kTH1F, {trackYPos}});
+    registry.add("MCHMFTBkgDispX", "Displacement of bkg MUONTrack and MFTTrack in X", {HistType::kTH1F, {trackXPos}});
+    registry.add("MCHMFTBkgDispY", "Displacement of bkg MUONTrack and MFTTrack in Y", {HistType::kTH1F, {trackYPos}});
+
     if (isMC){
-      registry.add("MCHMFTDispX", "Displacement of MUONTrack and MFTTrack in X", {HistType::kTH1F, {trackXPos}});
-      registry.add("MCHMFTDispY", "Displacement of MUONTrack and MFTTrack in Y", {HistType::kTH1F, {trackYPos}});
       registry.add("MCHMFTTrueDispX", "Displacement of true MUONTrack and MFTTrack in X", {HistType::kTH1F, {trackXPos}});
       registry.add("MCHMFTTrueDispY", "Displacement of true MUONTrack and MFTTrack in Y", {HistType::kTH1F, {trackYPos}});
-      registry.add("MCHMFTBkgDispX", "Displacement of bkg MUONTrack and MFTTrack in X", {HistType::kTH1F, {trackXPos}});
-      registry.add("MCHMFTBkgDispY", "Displacement of bkg MUONTrack and MFTTrack in Y", {HistType::kTH1F, {trackYPos}});
     }
 
   }
 
   void process(aod::Collisions::iterator const& collision, aod::FwdTracks const& tracks, aod::MFTTracks const& mfttracks)
   {
-    static constexpr Double_t sLastMFTPlaneZ = o2::mft::constants::mft::LayerZCoordinate()[9];
-    static const float mBz = -5.f;
+    static constexpr Double_t MatchingPlaneZ = -505;
 
     std::vector<std::array<int, 2>> mchmftpair;
 
@@ -130,7 +211,7 @@ struct mftmchmatchinginfo {
                 std::vector<double> muonv1;
                 SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
                 o2::track::TrackParCovFwd muonpars1{track.z(), muonpars, muoncovs, muonchi2};
-                muonpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+                muonpars1.propagateToZlinear(MatchingPlaneZ);
 		registry.fill(HIST("MUONXYPosProp"), muonpars1.getX(), muonpars1.getY());
 		registry.fill(HIST("MUONZPosProp"), muonpars1.getZ());
 
@@ -140,7 +221,7 @@ struct mftmchmatchinginfo {
                 std::vector<double> mftv1;
                 SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
                 o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-                mftpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+                mftpars1.propagateToZlinear(MatchingPlaneZ);
 		registry.fill(HIST("MFTXYPosProp"), mftpars1.getX(), mftpars1.getY());
 		registry.fill(HIST("MFTZPosProp"), mftpars1.getZ());
 
@@ -149,8 +230,6 @@ struct mftmchmatchinginfo {
 		double disY = muonpars1.getY() - mftpars1.getY();
 		registry.fill(HIST("MCHMFTDisp"), disX, disY);
 
-		//update the talbe matchedmuonmft
-		matchedmuonmftTable(track.x(), track.y(), mfttrack.x(), mfttrack.y(), muonpars1.getX(), muonpars1.getY(), mftpars1.getX(), mftpars1.getY());
 	      }
 	    }
 	  }
@@ -159,21 +238,20 @@ struct mftmchmatchinginfo {
     }
   }
 
-  void processGen(aod::Collisions::iterator const& collision, FwdTracksLabeled const& fwdtracks, MFTTracksLabeled const& mfttracks)
+  void processAllMatch(aod::Collisions::iterator const& collision, FwdTracksLabeled const& fwdtracks, MFTTracksLabeled const& mfttracks)
   {
-    static constexpr Double_t sLastMFTPlaneZ = o2::mft::constants::mft::LayerZCoordinate()[9];
-    static const float mBz = -5.f;
+    static constexpr Double_t MatchingPlaneZ = -505;
     for (auto const& fwdtrack : fwdtracks) {
       if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
         for (auto const& mfttrack : mfttracks) {
 	  if (mfttrack.has_collision()){
-            //propagate muontrack to matching position
-            double muonchi2 = fwdtrack.chi2();
-            SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
-            std::vector<double> muonv1;
-            SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
-            o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
-            muonpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+           //propagate muontrack to matching position
+           double muonchi2 = fwdtrack.chi2();
+           SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
+           std::vector<double> muonv1;
+           SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
+           o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
+           muonpars1.propagateToZlinear(MatchingPlaneZ);
 
            //propagate mfttrack to matching position
            double mftchi2 = mfttrack.chi2();
@@ -181,17 +259,51 @@ struct mftmchmatchinginfo {
            std::vector<double> mftv1;
            SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
            o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-           mftpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+           mftpars1.propagateToZlinear(MatchingPlaneZ);
 
 	   //Fill displacement of all MCH and MFT tracks combinations
 	   registry.fill(HIST("MCHMFTDispX"), muonpars1.getX() - mftpars1.getX());
 	   registry.fill(HIST("MCHMFTDispY"), muonpars1.getY() - mftpars1.getY());
-	   
-	   //Fill displacement of true MCH and MFT tracks combinations
+
+	   //update the talbe matchedmuonmft
+	   matchedfwdTable(mfttrack.x(), mfttrack.y(),mfttrack.eta(),mfttrack.phi(),mfttrack.pt(),fwdtrack.x(), fwdtrack.y(),fwdtrack.eta(),fwdtrack.phi(),fwdtrack.pt(), mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt());
+	  }
+	}
+      }
+    }
+  }
+  PROCESS_SWITCH(mftmchmatchinginfo, processAllMatch, "Show displacement of mft and mch tracks", true);
+
+  void processGenTrueMatch(aod::Collisions::iterator const& collision, FwdTracksLabeled const& fwdtracks, MFTTracksLabeled const& mfttracks)
+  {
+    static constexpr Double_t MatchingPlaneZ = -505;
+    for (auto const& fwdtrack : fwdtracks) {
+      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+        for (auto const& mfttrack : mfttracks) {
+	  if (mfttrack.has_collision()){
 	   if (fwdtrack.mcParticleId() == mfttrack.mcParticleId())
 	   {
+              //propagate muontrack to matching position
+              double muonchi2 = fwdtrack.chi2();
+              SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
+              std::vector<double> muonv1;
+              SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
+              o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
+              muonpars1.propagateToZlinear(MatchingPlaneZ);
+
+             //propagate mfttrack to matching position
+             double mftchi2 = mfttrack.chi2();
+             SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+             std::vector<double> mftv1;
+             SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+             o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+             mftpars1.propagateToZlinear(MatchingPlaneZ);
+
+	     //Fill displacement of true MCH and MFT tracks combinations
 	     registry.fill(HIST("MCHMFTTrueDispX"), muonpars1.getX() - mftpars1.getX());
-	     registry.fill(HIST("MCHMFTTrueDispY"), muonpars1.getY() - mftpars1.getY());
+             registry.fill(HIST("MCHMFTTrueDispY"), muonpars1.getY() - mftpars1.getY());
+
+	     matchedfwdtrueTable(mfttrack.x(), mfttrack.y(),mfttrack.eta(),mfttrack.phi(),mfttrack.pt(),fwdtrack.x(), fwdtrack.y(),fwdtrack.eta(),fwdtrack.phi(),fwdtrack.pt(), mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt());
 	   }
 	   //Fill displacement of true MCH and MFT tracks combinations
 	  }
@@ -199,45 +311,45 @@ struct mftmchmatchinginfo {
       }
     }
   }
-  PROCESS_SWITCH(mftmchmatchinginfo, processGen, "Show displacement of mft and mch tracks", isMC);
+  PROCESS_SWITCH(mftmchmatchinginfo, processGenTrueMatch, "Show displacement of mft and mch tracks", isMC);
 
-  void processGenMatchingBkg(FwdTracksLabeled const& fwdtracks, MFTTracksLabeled const& mfttracks, aod::McParticles const& particles)
+  void processBkgMatch(FwdTracksLabeled const& fwdtracks, MFTTracksLabeled const& mfttracks)
   {
-    static constexpr Double_t sLastMFTPlaneZ = o2::mft::constants::mft::LayerZCoordinate()[9];
-    static const float mBz = -5.f;
+    static constexpr Double_t MatchingPlaneZ = -505;
     for (auto const& fwdtrack : fwdtracks) {
       if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
         for (auto const& mfttrack : mfttracks) {
 	  if (mfttrack.has_collision()){
-	    auto mcfwdparticle = fwdtrack.mcParticle();
-	    auto mcmftparticle = mfttrack.mcParticle();
 	    {
+              if (fwdtrack.collisionId() != mfttrack.collisionId()){
                //propagate muontrack to matching position
-               double muonchi2 = fwdtrack.chi2();
-               SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
-               std::vector<double> muonv1;
-               SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
-               o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
-               muonpars1.propagateToZ(sLastMFTPlaneZ,mBz);             
-               //propagate mfttrack to matching position
-               double mftchi2 = mfttrack.chi2();
-               SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
-               std::vector<double> mftv1;
-               SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
-               o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-               mftpars1.propagateToZ(sLastMFTPlaneZ,mBz);
+                double muonchi2 = fwdtrack.chi2();
+                SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
+                std::vector<double> muonv1;
+                SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
+                o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
+                muonpars1.propagateToZlinear(MatchingPlaneZ);             
+                //propagate mfttrack to matching position
+                double mftchi2 = mfttrack.chi2();
+                SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+                std::vector<double> mftv1;
+                SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+                o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+                mftpars1.propagateToZlinear(MatchingPlaneZ);
   
-               //Fill displacement of all MCH and MFT tracks combinations
-               registry.fill(HIST("MCHMFTBkgDispX"), muonpars1.getX() - mftpars1.getX());
-               registry.fill(HIST("MCHMFTBkgDispY"), muonpars1.getY() - mftpars1.getY());
-            }
+                //Fill displacement of all MCH and MFT tracks combinations
+                registry.fill(HIST("MCHMFTBkgDispX"), muonpars1.getX() - mftpars1.getX());
+                registry.fill(HIST("MCHMFTBkgDispY"), muonpars1.getY() - mftpars1.getY());
 
+	        matchedfwdbkgTable(mfttrack.x(), mfttrack.y(),mfttrack.eta(),mfttrack.phi(),mfttrack.pt(),fwdtrack.x(), fwdtrack.y(), fwdtrack.eta(),fwdtrack.phi(),fwdtrack.pt(), mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt());
+              }
+            }
 	  }
 	}
       }
     }
   }
-  PROCESS_SWITCH(mftmchmatchinginfo, processGenMatchingBkg, "Show background of mch mft matching", isMC);
+  PROCESS_SWITCH(mftmchmatchinginfo, processBkgMatch, "Show background of mch mft matching", true);
 
 
 };
