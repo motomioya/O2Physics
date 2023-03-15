@@ -77,8 +77,6 @@ add_subdirectory(EventFiltering)
 
 add_subdirectory(Scripts)
 
-add_subdirectory(mooya)
-
 # Testing and packaging only needed if we are the top level directory
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
   add_subdirectory(packaging)
