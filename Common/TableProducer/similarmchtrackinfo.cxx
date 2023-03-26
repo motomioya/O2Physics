@@ -55,6 +55,8 @@ DECLARE_SOA_TABLE(SimilarMch, "AOD", "SIMILARMCH",
                   similarmch::SECONDMUONpt);
 }
 
+//using BCsRun3 = soa::Join<aod::BCs, aod::Timestamps, aod::BcSels, aod::Run3MatchedToBCSparse>;
+//using ColEvSels = soa::Join<aod::Collisions, aod::EvSels>;
 
 struct simliarmchtrackinfo {
 
@@ -65,7 +67,7 @@ struct simliarmchtrackinfo {
   HistogramRegistry registry{
     "registry",
     {
-      {"SimilarMCHTracks","Number of similar MCH tracks", {HistType::kTH1F, {{3,0.5,3.5}}}}
+      {"SimilarMCHTracks","Number of similar MCH tracks", {HistType::kTH1F, {{4,0.5,4.5}}}}
     }
   };
   void init(o2::framework::InitContext&)
@@ -74,18 +76,37 @@ struct simliarmchtrackinfo {
     auto* x = simmch->GetXaxis();
     x->SetBinLabel(1,"All");
     x->SetBinLabel(2,"Ambiguous");
-    x->SetBinLabel(3,"In pileup event");
+    x->SetBinLabel(3,"Similar");
+    x->SetBinLabel(4,"Similar Ambiguous");
 
   }
 
 
-  using CollisionSels = soa::Join<aod::Collisions, aod::EvSels>;
-  void process(aod::FwdTracks const& fwdtracks, CollisionSels & collisions, aod::AmbiguousFwdTracks const & atracks)
+  //using BCsWithBcSels = o2::soa::Join<o2::aod::BCs, o2::aod::BcSels>;
+  //Preslice<ColEvSels> perFoundBC = aod::evsel::foundBCId;
+  void process(aod::FwdTracks const& fwdtracks, aod::AmbiguousFwdTracks const & atracks)
   {
-    int similarid = 0;
+    //int similarid = 0;
 
     for (auto const& fwdtrack : fwdtracks) {
       if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+        registry.fill(HIST("SimilarMCHTracks"),1.);
+
+        //pileup check
+        /*
+        auto col = fwdtrack.collision();
+        auto colbc = col.bc();
+        auto collisionsGrouped = collisions.sliceBy(perFoundBC, colbc.globalIndex());
+        LOGF(info,"collisionsGrouped.size() = %d", collisionsGrouped.size());
+        */
+
+        for (auto& atrack : atracks)
+        {
+          if (fwdtrack.globalIndex() == atrack.fwdtrackId())
+          {
+            registry.fill(HIST("SimilarMCHTracks"),2.);
+          }
+        }
 
         for (auto const& secondfwdtrack : fwdtracks) {
           if (secondfwdtrack.has_collision() && secondfwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
@@ -95,23 +116,26 @@ struct simliarmchtrackinfo {
                 if (fwdtrack.phi() - secondfwdtrack.phi() < slimilarThr && fwdtrack.phi() - secondfwdtrack.phi() > -slimilarThr){
                   if (fwdtrack.pt() - secondfwdtrack.pt() < slimilarThr && fwdtrack.pt() - secondfwdtrack.pt() > -slimilarThr){
 
-                    registry.fill(HIST("SimilarMCHTracks"),1.);
+                    registry.fill(HIST("SimilarMCHTracks"),3.);
+                    /*
                     similarmchTable(similarid, fwdtrack.x(),fwdtrack.y(),fwdtrack.eta(),fwdtrack.phi(),fwdtrack.pt(),secondfwdtrack.x(),secondfwdtrack.y(),secondfwdtrack.eta(),secondfwdtrack.phi(),secondfwdtrack.pt());
                     similarid++;
 
+                    */
                     for (auto& atrack : atracks)
                     {
                       if (fwdtrack.globalIndex() == atrack.fwdtrackId())
                       {
-                        registry.fill(HIST("SimilarMCHTracks"),2.);
+                        registry.fill(HIST("SimilarMCHTracks"),4.);
                       }
                     }
+                    /*
 
-                    auto col = fwdtrack.collision_as<CollisionSels>();
                     if (col.selection()[evsel::kNoPileupFromSPD] == 0)
                     {
-                      registry.fill(HIST("SimilarMCHTracks"),3.);
+                      registry.fill(HIST("SimilarMCHTracks"),4.);
                     }
+                    */
 
                   }
                 }
