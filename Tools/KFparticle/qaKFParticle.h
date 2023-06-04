@@ -31,30 +31,42 @@ namespace o2::aod
 {
 namespace kfparticle
 {
+DECLARE_SOA_COLUMN(RUNNUMBER, Runnumber, int);
+DECLARE_SOA_COLUMN(PVCONTRIB, PVContrib, int);
 DECLARE_SOA_COLUMN(PtPi, ptpi, float);
 DECLARE_SOA_COLUMN(PtKa, ptka, float);
+DECLARE_SOA_COLUMN(EtaPi, etapi, float);
+DECLARE_SOA_COLUMN(EtaKa, etaka, float);
+DECLARE_SOA_COLUMN(PhiPi, phipi, float);
+DECLARE_SOA_COLUMN(PhiKa, phika, float);
 DECLARE_SOA_COLUMN(DCAXYPiToPV, dcaxypvpi, float);
 DECLARE_SOA_COLUMN(DCAXYKaToPV, dcaxypvka, float);
-DECLARE_SOA_COLUMN(NSigmaPosPi, tpcnsigmapospi, float);
-DECLARE_SOA_COLUMN(NSigmaNegPi, tpcnsigmanegpi, float);
-DECLARE_SOA_COLUMN(NSigmaPosKA, tpcnsigmaposka, float);
-DECLARE_SOA_COLUMN(NSigmaNegKA, tpcnsigmanegka, float);
+DECLARE_SOA_COLUMN(DCAPiToPV, dcapvpi, float);
+DECLARE_SOA_COLUMN(DCAKaToPV, dcapvka, float);
+DECLARE_SOA_COLUMN(TPCNSigmaPi, tpcnsigmapi, float);
+DECLARE_SOA_COLUMN(TPCNSigmaKA, tpcnsigmaka, float);
+DECLARE_SOA_COLUMN(TOFNSigmaPi, tofnsigmapi, float);
+DECLARE_SOA_COLUMN(TOFNSigmaKA, tofnsigmaka, float);
 DECLARE_SOA_COLUMN(DCAXYPiToSV, distpisv, float);
 DECLARE_SOA_COLUMN(DCAXYKaToSV, distkasv, float);
-DECLARE_SOA_COLUMN(CosThetaStarPi, costhetastarpi, float);
-DECLARE_SOA_COLUMN(CosThetaStarKa, costhetastarka, float);
+DECLARE_SOA_COLUMN(CosThetaStar, costhetastar, float);
 DECLARE_SOA_COLUMN(DevDau, deviationdau, float);
 DECLARE_SOA_COLUMN(DCADau, distdau, float);
 DECLARE_SOA_COLUMN(ImpParPiKa, d0pid0ka, float);
 
 DECLARE_SOA_COLUMN(PtDGeo, ptdgeo, float);
+DECLARE_SOA_COLUMN(EtaDGeo, etadgeo, float);
+DECLARE_SOA_COLUMN(PhiDGeo, phidgeo, float);
 DECLARE_SOA_COLUMN(MassGeo, massgeo, float);
 DECLARE_SOA_COLUMN(CosPaGeo, cospageo, float);
+DECLARE_SOA_COLUMN(CosPaXYGeo, cospaxygeo, float);
 DECLARE_SOA_COLUMN(DCADPVGeo, distdpvgeo, float);
 DECLARE_SOA_COLUMN(DCADPVXYGeo, distdpvxygeo, float);
 DECLARE_SOA_COLUMN(Chi2Geo, chi2geo, float);
 
 DECLARE_SOA_COLUMN(PtD, ptd, float);
+DECLARE_SOA_COLUMN(EtaD, etad, float);
+DECLARE_SOA_COLUMN(PhiD, phid, float);
 DECLARE_SOA_COLUMN(Mass, mass, float);
 DECLARE_SOA_COLUMN(DecayLengthD, decaylengthd, float);
 DECLARE_SOA_COLUMN(DecayLengthDXY, decaylengthdxy, float);
@@ -66,37 +78,42 @@ DECLARE_SOA_COLUMN(DCADPVXY, distdpvxy, float);
 DECLARE_SOA_COLUMN(Chi2Topo, chi2topo, float);
 DECLARE_SOA_COLUMN(PartSource, source, float);
 
-DECLARE_SOA_COLUMN(PtDTopo, ptdtopo, float);
-DECLARE_SOA_COLUMN(MassTopo, masstopo, float);
-DECLARE_SOA_COLUMN(CosPaTopo, cospatopo, float);
-DECLARE_SOA_COLUMN(DCADPVTopo, distdpvtopo, float);
-DECLARE_SOA_COLUMN(DCADPVXYTopo, distdpvxytopo, float);
-DECLARE_SOA_COLUMN(Chi2GeoTopo, chi2geotopo, float);
-
 } // namespace kfparticle
 
 DECLARE_SOA_TABLE(TreeKF, "AOD", "TREEKF",
+                  kfparticle::RUNNUMBER,
+                  kfparticle::PVCONTRIB,
                   kfparticle::PtPi,
                   kfparticle::PtKa,
+                  kfparticle::EtaPi,
+                  kfparticle::EtaKa,
+                  kfparticle::PhiPi,
+                  kfparticle::PhiKa,
                   kfparticle::DCAXYPiToPV,
                   kfparticle::DCAXYKaToPV,
-                  kfparticle::NSigmaPosPi,
-                  kfparticle::NSigmaNegPi,
-                  kfparticle::NSigmaPosKA,
-                  kfparticle::NSigmaNegKA,
+                  kfparticle::DCAPiToPV,
+                  kfparticle::DCAKaToPV,
+                  kfparticle::TPCNSigmaPi,
+                  kfparticle::TPCNSigmaKA,
+                  kfparticle::TOFNSigmaPi,
+                  kfparticle::TOFNSigmaKA,
                   kfparticle::DCAXYPiToSV,
                   kfparticle::DCAXYKaToSV,
-                  kfparticle::CosThetaStarPi,
-                  kfparticle::CosThetaStarKa,
+                  kfparticle::CosThetaStar,
                   kfparticle::DCADau,
                   kfparticle::ImpParPiKa,
                   kfparticle::PtDGeo,
+                  kfparticle::EtaDGeo,
+                  kfparticle::PhiDGeo,
                   kfparticle::MassGeo,
                   kfparticle::CosPaGeo,
+                  kfparticle::CosPaXYGeo,
                   kfparticle::DCADPVGeo,
                   kfparticle::DCADPVXYGeo,
                   kfparticle::Chi2Geo,
                   kfparticle::PtD,
+                  kfparticle::EtaD,
+                  kfparticle::PhiD,
                   kfparticle::Mass,
                   kfparticle::DecayLengthD,
                   kfparticle::DecayLengthDXY,
@@ -106,12 +123,7 @@ DECLARE_SOA_TABLE(TreeKF, "AOD", "TREEKF",
                   kfparticle::DCADPV,
                   kfparticle::DCADPVXY,
                   kfparticle::Chi2Topo,
-                  kfparticle::PartSource,
-                  kfparticle::PtDTopo,
-                  kfparticle::MassTopo,
-                  kfparticle::DCADPVTopo,
-                  kfparticle::DCADPVXYTopo,
-                  kfparticle::Chi2GeoTopo);
+                  kfparticle::PartSource);
 
 } // namespace o2::aod
 

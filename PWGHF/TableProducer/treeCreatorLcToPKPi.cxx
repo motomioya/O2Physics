@@ -75,10 +75,13 @@ DECLARE_SOA_COLUMN(CPA, cpa, float);
 DECLARE_SOA_COLUMN(CPAXY, cpaXY, float);
 DECLARE_SOA_COLUMN(Ct, ct, float);
 DECLARE_SOA_COLUMN(MCflag, mcflag, int8_t);
+DECLARE_SOA_COLUMN(OriginMcRec, originMcRec, int8_t);
+DECLARE_SOA_COLUMN(OriginMcGen, originMcGen, int8_t);
 DECLARE_SOA_COLUMN(IsCandidateSwapped, isCandidateSwapped, int8_t);
 // Events
 DECLARE_SOA_COLUMN(IsEventReject, isEventReject, int);
 DECLARE_SOA_COLUMN(RunNumber, runNumber, int);
+DECLARE_SOA_COLUMN(GlobalIndex, globalIndex, int);
 } // namespace full
 
 DECLARE_SOA_TABLE(HfCand3ProngFull, "AOD", "HFCAND3PFull",
@@ -152,7 +155,9 @@ DECLARE_SOA_TABLE(HfCand3ProngFull, "AOD", "HFCAND3PFull",
                   full::Y,
                   full::E,
                   full::MCflag,
-                  full::IsCandidateSwapped);
+                  full::OriginMcRec,
+                  full::IsCandidateSwapped,
+                  full::GlobalIndex);
 
 DECLARE_SOA_TABLE(HfCand3ProngFullEvents, "AOD", "HFCAND3PFullE",
                   collision::BCId,
@@ -169,7 +174,9 @@ DECLARE_SOA_TABLE(HfCand3ProngFullParticles, "AOD", "HFCAND3PFullP",
                   full::Eta,
                   full::Phi,
                   full::Y,
-                  full::MCflag);
+                  full::MCflag,
+                  full::OriginMcGen,
+                  full::GlobalIndex);
 
 } // namespace o2::aod
 
@@ -290,7 +297,9 @@ struct HfTreeCreatorLcToPKPi {
             FunctionY,
             FunctionE,
             candidate.flagMcMatchRec(),
-            candidate.isCandidateSwapped());
+            candidate.originMcRec(),
+            candidate.isCandidateSwapped(),
+            candidate.globalIndex());
         }
       };
 
@@ -308,7 +317,9 @@ struct HfTreeCreatorLcToPKPi {
           particle.eta(),
           particle.phi(),
           RecoDecay::y(array{particle.px(), particle.py(), particle.pz()}, RecoDecay::getMassPDG(particle.pdgCode())),
-          particle.flagMcMatchGen());
+          particle.flagMcMatchGen(),
+          particle.originMcGen(),
+          particle.globalIndex());
       }
     }
   }
@@ -417,7 +428,9 @@ struct HfTreeCreatorLcToPKPi {
             FunctionY,
             FunctionE,
             0.,
-            0.);
+            0.,
+            0.,
+            candidate.globalIndex());
         }
       };
 

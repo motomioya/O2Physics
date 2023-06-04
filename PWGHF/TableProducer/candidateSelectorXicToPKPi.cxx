@@ -96,10 +96,31 @@ struct HfCandidateSelectorXicToPKPi {
       return false;
     }
 
+    // candidate decay length XY
+    if (candidate.decayLengthXY() <= cuts->get(pTBin, "decLengthXY")) {
+      return false;
+    }
+
+    // candidate normalized decay length XY
+    if (candidate.decayLengthXYNormalised() < cuts->get(pTBin, "normDecLXY")) {
+      return false;
+    }
+
     // candidate normalised decay length (Inspired from Lc selector)
     if (candidate.decayLengthXYNormalised() < decayLengthXYNormalisedMin) {
       return false;
     }
+
+    // candidate ct
+    if (ctXic(candidate) > cuts->get(pTBin, "ct")) {
+      return false;
+    }
+
+    // candidate impact parameter XY
+    if (candidate.impactParameterXY() > cuts->get(pTBin, "impParXY")) {
+      return false;
+    }
+
     return true;
   }
 
@@ -204,11 +225,11 @@ struct HfCandidateSelectorXicToPKPi {
         pidXicToPiKP = 1;
       } else {
         // track-level PID selection
-        auto pidTrackPos1Proton = selectorProton.getStatusTrackPIDAll(trackPos1);
-        auto pidTrackPos2Proton = selectorProton.getStatusTrackPIDAll(trackPos2);
-        auto pidTrackPos1Pion = selectorPion.getStatusTrackPIDAll(trackPos1);
-        auto pidTrackPos2Pion = selectorPion.getStatusTrackPIDAll(trackPos2);
-        auto pidTrackNegKaon = selectorKaon.getStatusTrackPIDAll(trackNeg);
+        auto pidTrackPos1Proton = selectorProton.getStatusTrackPIDTpcOrTof(trackPos1);
+        auto pidTrackPos2Proton = selectorProton.getStatusTrackPIDTpcOrTof(trackPos2);
+        auto pidTrackPos1Pion = selectorPion.getStatusTrackPIDTpcOrTof(trackPos1);
+        auto pidTrackPos2Pion = selectorPion.getStatusTrackPIDTpcOrTof(trackPos2);
+        auto pidTrackNegKaon = selectorKaon.getStatusTrackPIDTpcOrTof(trackNeg);
 
         if (pidTrackPos1Proton == TrackSelectorPID::Status::PIDAccepted &&
             pidTrackNegKaon == TrackSelectorPID::Status::PIDAccepted &&
