@@ -385,7 +385,7 @@ struct mftmchmatchinginfo {
     }
   }
   
-  void processGen(aod::Collisions const& collisions,soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&)
+  void processGen(soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&, aod::Collisions const& collisions,)
   {
     static constexpr Double_t MatchingPlaneZ = -505;
 
