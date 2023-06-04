@@ -1,6 +1,7 @@
 // Copyright 2019-2020 CERN and copyright holds of ALICE O2.
 // See https://alice-o2.web.cern.ch/copyright for details of the copyright holders.
 // All rights not expressly granted are reserved.
+
 //
 // This software is distributed under the terms of the GNU General Public
 // License v3 (GPL Version 3), copied verbatim in the file "COPYING".
@@ -45,18 +46,22 @@ DECLARE_SOA_COLUMN(MFTxMP, mftxmp, double);
 DECLARE_SOA_COLUMN(MFTyMP, mftymp, double);
 DECLARE_SOA_COLUMN(MFTetaMP, mftetamp, double);
 DECLARE_SOA_COLUMN(MFTphiMP, mftphimp, double);
+DECLARE_SOA_COLUMN(MFTtanlMP, mfttanlmp, double);
 DECLARE_SOA_COLUMN(MFTptMP, mftptmp, double);
 DECLARE_SOA_COLUMN(MFTrMP, mftrmp, double);
+DECLARE_SOA_COLUMN(MFTchi2MP, mftchi2mp, double);
 DECLARE_SOA_COLUMN(MUONxMP, muonxmp, double);
 DECLARE_SOA_COLUMN(MUONyMP, muonymp, double);
 DECLARE_SOA_COLUMN(MUONetaMP, muonetamp, double);
 DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
+DECLARE_SOA_COLUMN(MUONtanlMP, muontanlmp, double);
 DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
 DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
 DECLARE_SOA_COLUMN(Deltax, deltax, double);
 DECLARE_SOA_COLUMN(Deltay, deltay, double);
 DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
 DECLARE_SOA_COLUMN(Deltaphi, deltaphi, double);
+DECLARE_SOA_COLUMN(Deltatanl, deltatanl, double);
 DECLARE_SOA_COLUMN(Deltapt, deltapt, double);
 DECLARE_SOA_COLUMN(Deltar, deltar, double);
 }
@@ -66,18 +71,22 @@ DECLARE_SOA_COLUMN(MFTxMP, mftxmp, double);
 DECLARE_SOA_COLUMN(MFTyMP, mftymp, double);
 DECLARE_SOA_COLUMN(MFTetaMP, mftetamp, double);
 DECLARE_SOA_COLUMN(MFTphiMP, mftphimp, double);
+DECLARE_SOA_COLUMN(MFTtanlMP, mfttanlmp, double);
 DECLARE_SOA_COLUMN(MFTptMP, mftptmp, double);
 DECLARE_SOA_COLUMN(MFTrMP, mftrmp, double);
+DECLARE_SOA_COLUMN(MFTchi2MP, mftchi2mp, double);
 DECLARE_SOA_COLUMN(MUONxMP, muonxmp, double);
 DECLARE_SOA_COLUMN(MUONyMP, muonymp, double);
 DECLARE_SOA_COLUMN(MUONetaMP, muonetamp, double);
 DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
+DECLARE_SOA_COLUMN(MUONtanlMP, muontanlmp, double);
 DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
 DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
 DECLARE_SOA_COLUMN(Deltax, deltax, double);
 DECLARE_SOA_COLUMN(Deltay, deltay, double);
 DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
 DECLARE_SOA_COLUMN(Deltaphi, deltaphi, double);
+DECLARE_SOA_COLUMN(Deltatanl, deltatanl, double);
 DECLARE_SOA_COLUMN(Deltapt, deltapt, double);
 DECLARE_SOA_COLUMN(Deltar, deltar, double);
 }
@@ -87,18 +96,22 @@ DECLARE_SOA_COLUMN(MFTxMP, mftxmp, double);
 DECLARE_SOA_COLUMN(MFTyMP, mftymp, double);
 DECLARE_SOA_COLUMN(MFTetaMP, mftetamp, double);
 DECLARE_SOA_COLUMN(MFTphiMP, mftphimp, double);
+DECLARE_SOA_COLUMN(MFTtanlMP, mfttanlmp, double);
 DECLARE_SOA_COLUMN(MFTptMP, mftptmp, double);
 DECLARE_SOA_COLUMN(MFTrMP, mftrmp, double);
+DECLARE_SOA_COLUMN(MFTchi2MP, mftchi2mp, double);
 DECLARE_SOA_COLUMN(MUONxMP, muonxmp, double);
 DECLARE_SOA_COLUMN(MUONyMP, muonymp, double);
 DECLARE_SOA_COLUMN(MUONetaMP, muonetamp, double);
 DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
+DECLARE_SOA_COLUMN(MUONtanlMP, muontanlmp, double);
 DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
 DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
 DECLARE_SOA_COLUMN(Deltax, deltax, double);
 DECLARE_SOA_COLUMN(Deltay, deltay, double);
 DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
 DECLARE_SOA_COLUMN(Deltaphi, deltaphi, double);
+DECLARE_SOA_COLUMN(Deltatanl, deltatanl, double);
 DECLARE_SOA_COLUMN(Deltapt, deltapt, double);
 DECLARE_SOA_COLUMN(Deltar, deltar, double);
 }
@@ -108,39 +121,22 @@ DECLARE_SOA_COLUMN(MFTxMP, mftxmp, double);
 DECLARE_SOA_COLUMN(MFTyMP, mftymp, double);
 DECLARE_SOA_COLUMN(MFTetaMP, mftetamp, double);
 DECLARE_SOA_COLUMN(MFTphiMP, mftphimp, double);
+DECLARE_SOA_COLUMN(MFTtanlMP, mfttanlmp, double);
 DECLARE_SOA_COLUMN(MFTptMP, mftptmp, double);
 DECLARE_SOA_COLUMN(MFTrMP, mftrmp, double);
+DECLARE_SOA_COLUMN(MFTchi2MP, mftchi2mp, double);
 DECLARE_SOA_COLUMN(MUONxMP, muonxmp, double);
 DECLARE_SOA_COLUMN(MUONyMP, muonymp, double);
 DECLARE_SOA_COLUMN(MUONetaMP, muonetamp, double);
 DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
+DECLARE_SOA_COLUMN(MUONtanlMP, muontanlmp, double);
 DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
 DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
 DECLARE_SOA_COLUMN(Deltax, deltax, double);
 DECLARE_SOA_COLUMN(Deltay, deltay, double);
 DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
 DECLARE_SOA_COLUMN(Deltaphi, deltaphi, double);
-DECLARE_SOA_COLUMN(Deltapt, deltapt, double);
-DECLARE_SOA_COLUMN(Deltar, deltar, double);
-}
-namespace mchmftpairfrg
-{
-DECLARE_SOA_COLUMN(MFTxMP, mftxmp, double);
-DECLARE_SOA_COLUMN(MFTyMP, mftymp, double);
-DECLARE_SOA_COLUMN(MFTetaMP, mftetamp, double);
-DECLARE_SOA_COLUMN(MFTphiMP, mftphimp, double);
-DECLARE_SOA_COLUMN(MFTptMP, mftptmp, double);
-DECLARE_SOA_COLUMN(MFTrMP, mftrmp, double);
-DECLARE_SOA_COLUMN(MUONxMP, muonxmp, double);
-DECLARE_SOA_COLUMN(MUONyMP, muonymp, double);
-DECLARE_SOA_COLUMN(MUONetaMP, muonetamp, double);
-DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
-DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
-DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
-DECLARE_SOA_COLUMN(Deltax, deltax, double);
-DECLARE_SOA_COLUMN(Deltay, deltay, double);
-DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
-DECLARE_SOA_COLUMN(Deltaphi, deltaphi, double);
+DECLARE_SOA_COLUMN(Deltatanl, deltatanl, double);
 DECLARE_SOA_COLUMN(Deltapt, deltapt, double);
 DECLARE_SOA_COLUMN(Deltar, deltar, double);
 }
@@ -150,18 +146,22 @@ DECLARE_SOA_TABLE(MchmftPair, "AOD", "MCHMFTPAIR",
                   mchmftpair::MFTyMP,
                   mchmftpair::MFTetaMP,
                   mchmftpair::MFTphiMP,
+                  mchmftpair::MFTtanlMP,
                   mchmftpair::MFTptMP,
                   mchmftpair::MFTrMP,
+                  mchmftpair::MFTchi2MP,
                   mchmftpair::MUONxMP,
                   mchmftpair::MUONyMP,
                   mchmftpair::MUONetaMP,
                   mchmftpair::MUONphiMP,
+                  mchmftpair::MUONtanlMP,
                   mchmftpair::MUONptMP,
                   mchmftpair::MUONrMP,
                   mchmftpair::Deltax,
                   mchmftpair::Deltay,
                   mchmftpair::Deltaeta,
                   mchmftpair::Deltaphi,
+                  mchmftpair::Deltatanl,
                   mchmftpair::Deltapt,
                   mchmftpair::Deltar);
 
@@ -170,18 +170,22 @@ DECLARE_SOA_TABLE(MchmftPairTrue, "AOD", "MCHMFTPAIRTRUE",
                   mchmftpairtrue::MFTyMP,
                   mchmftpairtrue::MFTetaMP,
                   mchmftpairtrue::MFTphiMP,
+                  mchmftpairtrue::MFTtanlMP,
                   mchmftpairtrue::MFTptMP,
                   mchmftpairtrue::MFTrMP,
+                  mchmftpairtrue::MFTchi2MP,
                   mchmftpairtrue::MUONxMP,
                   mchmftpairtrue::MUONyMP,
                   mchmftpairtrue::MUONetaMP,
                   mchmftpairtrue::MUONphiMP,
+                  mchmftpairtrue::MUONtanlMP,
                   mchmftpairtrue::MUONptMP,
                   mchmftpairtrue::MUONrMP,
                   mchmftpairtrue::Deltax,
                   mchmftpairtrue::Deltay,
                   mchmftpairtrue::Deltaeta,
                   mchmftpairtrue::Deltaphi,
+                  mchmftpairtrue::Deltatanl,
                   mchmftpairtrue::Deltapt,
                   mchmftpairtrue::Deltar);
 
@@ -190,18 +194,22 @@ DECLARE_SOA_TABLE(MchmftPairWrong, "AOD", "MCHMFTPAIRWRONG",
                   mchmftpairwrong::MFTyMP,
                   mchmftpairwrong::MFTetaMP,
                   mchmftpairwrong::MFTphiMP,
+                  mchmftpairwrong::MFTtanlMP,
                   mchmftpairwrong::MFTptMP,
                   mchmftpairwrong::MFTrMP,
+                  mchmftpairwrong::MFTchi2MP,
                   mchmftpairwrong::MUONxMP,
                   mchmftpairwrong::MUONyMP,
                   mchmftpairwrong::MUONetaMP,
                   mchmftpairwrong::MUONphiMP,
+                  mchmftpairwrong::MUONtanlMP,
                   mchmftpairwrong::MUONptMP,
                   mchmftpairwrong::MUONrMP,
                   mchmftpairwrong::Deltax,
                   mchmftpairwrong::Deltay,
                   mchmftpairwrong::Deltaeta,
                   mchmftpairwrong::Deltaphi,
+                  mchmftpairwrong::Deltatanl,
                   mchmftpairwrong::Deltapt,
                   mchmftpairwrong::Deltar);
 
@@ -210,40 +218,25 @@ DECLARE_SOA_TABLE(MchmftPairBkg, "AOD", "MCHMFTPAIRBKG",
                   mchmftpairbkg::MFTyMP,
                   mchmftpairbkg::MFTetaMP,
                   mchmftpairbkg::MFTphiMP,
+                  mchmftpairbkg::MFTtanlMP,
                   mchmftpairbkg::MFTptMP,
                   mchmftpairbkg::MFTrMP,
+                  mchmftpairbkg::MFTchi2MP,
                   mchmftpairbkg::MUONxMP,
                   mchmftpairbkg::MUONyMP,
                   mchmftpairbkg::MUONetaMP,
                   mchmftpairbkg::MUONphiMP,
+                  mchmftpairbkg::MUONtanlMP,
                   mchmftpairbkg::MUONptMP,
                   mchmftpairbkg::MUONrMP,
                   mchmftpairbkg::Deltax,
                   mchmftpairbkg::Deltay,
                   mchmftpairbkg::Deltaeta,
                   mchmftpairbkg::Deltaphi,
+                  mchmftpairbkg::Deltatanl,
                   mchmftpairbkg::Deltapt,
                   mchmftpairbkg::Deltar);
 
-DECLARE_SOA_TABLE(MchmftPairFrg, "AOD", "MCHMFTPAIRFRG",
-                  mchmftpairfrg::MFTxMP,
-                  mchmftpairfrg::MFTyMP,
-                  mchmftpairfrg::MFTetaMP,
-                  mchmftpairfrg::MFTphiMP,
-                  mchmftpairfrg::MFTptMP,
-                  mchmftpairfrg::MFTrMP,
-                  mchmftpairfrg::MUONxMP,
-                  mchmftpairfrg::MUONyMP,
-                  mchmftpairfrg::MUONetaMP,
-                  mchmftpairfrg::MUONphiMP,
-                  mchmftpairfrg::MUONptMP,
-                  mchmftpairfrg::MUONrMP,
-                  mchmftpairfrg::Deltax,
-                  mchmftpairfrg::Deltay,
-                  mchmftpairfrg::Deltaeta,
-                  mchmftpairfrg::Deltaphi,
-                  mchmftpairfrg::Deltapt,
-                  mchmftpairfrg::Deltar);
 }
 
 
@@ -254,7 +247,6 @@ struct mftmchmatchinginfo {
   Produces<aod::MchmftPairTrue> mchmftpairtrueTable;
   Produces<aod::MchmftPairWrong> mchmftpairwrongTable;
   Produces<aod::MchmftPairBkg> mchmftpairbkgTable;
-  Produces<aod::MchmftPairFrg> mchmftpairfrgTable;
 
   //List of cut parameters
   float etalow = -4;
@@ -278,48 +270,34 @@ struct mftmchmatchinginfo {
   Filter chi2Filter = (aod::fwdtrack::chi2 < chi2up);
   Filter chi2MatchFilter = (aod::fwdtrack::chi2MatchMCHMID < chi2MatchMCHMIDup);
 
+  /*
+  Preslice<aod::FwdTracks> perCollision = aod::fwdtrack::collisionId;
+  Preslice<aod::MFTTracks> perCollisionMFT = aod::fwdtrack::collisionId;
+  */
+
   HistogramRegistry registry{
     "registry",
     {
-      {"counter","Count manything", {HistType::kTH1F, {{4,0.5,4.5}}}},
-      {"fwdinfo","FwdTracks Information", {HistType::kTH1F, {{3,0.5,3.5}}}},
-      {"mftinfo","MFTTracks Information", {HistType::kTH1F, {{3,0.5,3.5}}}},
-      {"hInvariantMass", "Invariant Mass of MCH standalone track;Invariant Mass (GeV/c^{2});Counts", {HistType::kTH1F, {{50, 0, 200}}}},
-      {"hInvariantMassMuon", "Invariant Mass of MCH standalone track (muon);Invariant Mass (GeV/c^{2});Counts", {HistType::kTH1F, {{50, 0, 200}}}},
-      {"frgpurity","Purity of true pair extraction", {HistType::kTH1F, {{2,0.5,2.5}}}},
-      {"frgMCHandAllMFT","frgMCHandAllMFT", {HistType::kTH1F, {{2000,-200,200}}}},
-      {"frgMCHandAllMFTTrue","frgMCHandAllMFTTrue", {HistType::kTH1F, {{2000,-200,200}}}},
+      //{"counter","Count manything", {HistType::kTH1F, {{3,0.5,3.5}}}},
+      {"hInvariantMass", "Invariant Mass of MCH standalone track;Invariant Mass (GeV/c^{2});Counts", {HistType::kTH1F, {{5000, 0, 50}}}},
+      //{"hInvariantMassMuon", "Invariant Mass of MCH standalone track (Muon);Invariant Mass (GeV/c^{2});Counts", {HistType::kTH1F, {{50, 0, 200}}}},
     }
   };
 
   void init(o2::framework::InitContext&)
   {
+    /*
     auto count = registry.get<TH1>(HIST("counter"));
     auto* x = count->GetXaxis();
     x->SetBinLabel(1,"Event");
     x->SetBinLabel(2,"MCH tracks");
-    x->SetBinLabel(3,"none");
-    x->SetBinLabel(4,"none");
-    auto fwd = registry.get<TH1>(HIST("fwdinfo"));
-    auto* xfwd = fwd->GetXaxis();
-    xfwd->SetBinLabel(1,"All");
-    xfwd->SetBinLabel(2,"Is muon");
-    xfwd->SetBinLabel(3,"Is generated muon");
-    auto mft = registry.get<TH1>(HIST("mftinfo"));
-    auto* xmft = mft->GetXaxis();
-    xmft->SetBinLabel(1,"All");
-    xmft->SetBinLabel(2,"Is muon");
-    xmft->SetBinLabel(3,"Is generated muon");
-    auto frg = registry.get<TH1>(HIST("frgpurity"));
-    auto* xfrg = frg->GetXaxis();
-    xfrg->SetBinLabel(1,"Number of frg");
-    xfrg->SetBinLabel(2,"True frg");
+    x->SetBinLabel(3,"MFT tracks");
+    */
   }
 
   void process(soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks, aod::Collisions const& collisions)
   {
     static constexpr Double_t MatchingPlaneZ = -505;
-
 
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 
@@ -344,11 +322,64 @@ struct mftmchmatchinginfo {
 
           //update the talbe matchedmuonmft
           if (fwdtrack.collisionId() == mfttrack.collisionId()){
-            mchmftpairTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+            mchmftpairTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
             if (fwdtrack.sign() != mfttrack.sign()){
-              mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
             }
           }
+          /*
+          else {
+            auto Col1 = fwdtrack.collision();
+            auto Col2 = mfttrack.collision();
+            auto groupedFwdTracks1 = fwdtracks.sliceBy(perCollision, Col1.globalIndex());
+            auto groupedFwdTracks2 = fwdtracks.sliceBy(perCollision, Col2.globalIndex());
+            auto groupedMFTTracks1 = mfttracks.sliceBy(perCollisionMFT, Col1.globalIndex());
+            auto groupedMFTTracks2 = mfttracks.sliceBy(perCollisionMFT, Col2.globalIndex());
+
+            if (groupedFwdTracks1.size() > 0 && groupedFwdTracks2.size() > 0){
+              for (int i = 0; i< 8; i++){
+                if (-20 + 5 * i < Col1.posZ() && Col1.posZ() < -20 + 5 * (i + 1) && -20 + 5 * i < Col2.posZ() && Col2.posZ() < -20 + 5 * (i + 1) ){
+                  if (0 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 20 && 0 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 20){
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (20 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 40 && 20 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 40) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (40 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 60 && 40 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 60) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (60 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 80 && 60 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 80) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (80 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 90 && 80 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 90) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (90 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 100 && 90 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 100) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (100 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 110 && 100 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 110) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (110 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 120 && 110 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 120) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (120 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 130 && 120 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 130) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (130 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 140 && 130 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 140) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (140 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 150 && 140 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 150) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                  else if (150 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 160 && 150 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 160) {
+                    mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                  }
+                }
+              }
+            }
+          }
+          */
         }
       }
     }
@@ -357,32 +388,6 @@ struct mftmchmatchinginfo {
   void processGen(aod::Collisions const& collisions,soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&)
   {
     static constexpr Double_t MatchingPlaneZ = -505;
-
-    for(auto const& fwdtrack : fwdtracks) {
-      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-        auto fwdparticle = fwdtrack.mcParticle();
-        registry.fill(HIST("counter"),2.);
-        registry.fill(HIST("fwdinfo"),1.);
-        if (fwdparticle.pdgCode() == 13 || fwdparticle.pdgCode() == -13) {
-          registry.fill(HIST("fwdinfo"),2.);
-          if (fwdparticle.producedByGenerator()) {
-            registry.fill(HIST("fwdinfo"),3.);
-          }
-        }
-      }
-    }
-    for(auto const& mfttrack : mfttracks) {
-      if (mfttrack.has_collision()){
-        auto mftparticle = mfttrack.mcParticle();
-        registry.fill(HIST("mftinfo"),1.);
-        if (mftparticle.pdgCode() == 13 || mftparticle.pdgCode() == -13) {
-          registry.fill(HIST("mftinfo"),2.);
-          if (mftparticle.producedByGenerator()) {
-            registry.fill(HIST("mftinfo"),3.);
-          }
-        }
-      }
-    }
 
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 
@@ -409,10 +414,10 @@ struct mftmchmatchinginfo {
             if (fwdtrack.mcParticleId() == mfttrack.mcParticleId())
             {
               //Write True MCH-MFT pair Table
-              mchmftpairtrueTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              mchmftpairtrueTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
             } else {
               //Write Wrong MCH-MFT pair Table
-              mchmftpairwrongTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              mchmftpairwrongTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
             }
 
 
@@ -423,6 +428,20 @@ struct mftmchmatchinginfo {
   }
   PROCESS_SWITCH(mftmchmatchinginfo, processGen, "Show displacement of mft and mch tracks", false);
 
+  void processDimuonMass(aod::Collisions::iterator const& collision, soa::Filtered<o2::aod::FwdTracks> const& fwdtracks){
+    for (auto& [fwdtrack1,fwdtrack2] : combinations(CombinationsStrictlyUpperIndexPolicy(fwdtracks, fwdtracks))) {
+      if (fwdtrack1.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrack2.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack) {
+        TLorentzVector lv1, lv2, lv;
+        lv1.SetPtEtaPhiM(fwdtrack1.pt(), fwdtrack1.eta(), fwdtrack1.phi(), muonMass);
+        lv2.SetPtEtaPhiM(fwdtrack2.pt(), fwdtrack2.eta(), fwdtrack2.phi(), muonMass);
+        lv = lv1 + lv2;
+        registry.fill(HIST("hInvariantMass"), lv.M());
+      }
+    }
+  }
+  PROCESS_SWITCH(mftmchmatchinginfo, processDimuonMass, "Show dimuon mass spectrum", true);
+
+  /*
   void processTrueMCHMFTPair(aod::Collisions::iterator const& collision,soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&){
 
     static constexpr Double_t MatchingPlaneZ = -505;
@@ -455,7 +474,7 @@ struct mftmchmatchinginfo {
                 int mftnumber = 0;
                 for(auto const& mfttrack : mfttracks) {
                   if (mfttrack.has_collision()){
-                    auto mftparticle = mfttrack.mcParticle();
+                    //auto mftparticle = mfttrack.mcParticle();
                     //propagate mfttrack to matching position
                     double mftchi2 = mfttrack.chi2();
                     SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
@@ -508,6 +527,7 @@ struct mftmchmatchinginfo {
 
   }
   PROCESS_SWITCH(mftmchmatchinginfo, processTrueMCHMFTPair, "Extract true MCH-MFT pair", false);
+  */
 
 };
 
