@@ -94,8 +94,22 @@ o2physics_add_dpl_workflow(mchmftmatching-info
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
                                           O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
+
 o2physics_add_dpl_workflow(similarmchtrack-info
                     SOURCES similarmchtrackinfo.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
+                                          O2::ReconstructionDataFormats
+                    COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(globalfwdmatchingml
+                    SOURCES globalFwdMatchingML.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore ONNXRuntime::ONNXRuntime O2::CCDB
+                                          O2::ReconstructionDataFormats
+                    COMPONENT_NAME Analysis)
+
+
+o2physics_add_dpl_workflow(mftsignefficiency
+                    SOURCES mftsignefficiency.cxx
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
                                           O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)

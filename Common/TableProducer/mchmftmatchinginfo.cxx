@@ -27,6 +27,8 @@
 #include "Framework/ASoAHelpers.h"
 #include <math.h>
 #include <TLorentzVector.h>
+#include "MCHTracking/TrackParam.h"
+#include "MCHTracking/TrackExtrap.h"
 
 using namespace o2;
 using namespace o2::framework;
@@ -295,14 +297,26 @@ struct mftmchmatchinginfo {
     */
   }
 
+  //void process(aod::FwdTracks const& fwdtracks, aod::MFTTracks const& mfttracks, aod::Collisions const& collisions)
   void process(soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks, aod::Collisions const& collisions)
   {
-    static constexpr Double_t MatchingPlaneZ = -505;
+    static constexpr Double_t MatchingPlaneZ = -77.5;
+    //static constexpr Double_t MatchingPlaneZ = -300;
+    //static constexpr Double_t MatchingPlaneZ = -505;
 
+    /*
+    for (auto& fwdtrack : fwdtracks){
+      LOGF(info,"---------------------------------");
+      LOGF(info,"fwdtrack.collisionId() = %d",fwdtrack.collisionId());
+      LOGF(info,"fwdtrack.globalIndex() = %d",fwdtrack.globalIndex());
+      LOGF(info,"fwdtrack.trackType() = %d",fwdtrack.trackType());
+      LOGF(info,"fwdtrack.matchMCHTrackId() = %d",fwdtrack.matchMCHTrackId());
+      LOGF(info,"fwdtrack.matchMFTTrackId() = %d",fwdtrack.matchMFTTrackId());
+    }
+    */
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 
       if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-
         if (mfttrack.has_collision()){
           //propagate muontrack to matching position
           double muonchi2 = fwdtrack.chi2();
@@ -319,6 +333,11 @@ struct mftmchmatchinginfo {
           SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
           o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
           mftpars1.propagateToZlinear(MatchingPlaneZ);
+
+          //adding
+          //TrackParam trackParamMuon(fwdtrack.z(), track.getParameters());
+          //< 5 parameters: X (cm), SlopeX, Y (cm), SlopeY, q/pYZ ((GeV/c)^-1)
+          //~adding
 
           //update the talbe matchedmuonmft
           if (fwdtrack.collisionId() == mfttrack.collisionId()){
@@ -385,8 +404,10 @@ struct mftmchmatchinginfo {
     }
   }
   
-  void processGen(soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&, aod::Collisions const& collisions,)
+  void processGen(soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&, aod::Collisions const& colllisions)
   {
+    //static constexpr Double_t MatchingPlaneZ = -77.5;
+    //static constexpr Double_t MatchingPlaneZ = -300;
     static constexpr Double_t MatchingPlaneZ = -505;
 
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
