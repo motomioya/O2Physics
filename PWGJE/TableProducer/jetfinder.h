@@ -40,7 +40,7 @@
 #include "PWGJE/Core/JetFinder.h"
 #include "PWGJE/DataModel/Jet.h"
 
-using JetTracks = soa::Filtered<soa::Join<aod::Tracks, aod::TracksExtra, aod::TracksDCA, aod::TrackSelection>>;
+using JetTracks = soa::Filtered<soa::Join<aod::Tracks, aod::TrackSelection>>;
 using JetClusters = o2::soa::Filtered<o2::aod::EMCALClusters>;
 
 using JetParticles2Prong = soa::Filtered<soa::Join<aod::McParticles, aod::HfCand2ProngMcGen>>;
@@ -62,12 +62,12 @@ using CandidateLcMC = soa::Filtered<soa::Join<aod::HfCand3Prong, aod::HfSelLc, a
 template <typename T>
 bool selectTrack(T const& track, std::string trackSelection)
 {
-  if (trackSelection == "globalTracks" && !track.isGlobalTrackWoPtEta()) {
-    return false;
-  } else if (trackSelection == "QualityTracks" && !track.isQualityTrack()) {
-    return false;
-  } else if (trackSelection == "hybridTracksJE" && !track.trackCutFlagFb5()) { // isQualityTrack
-    return false;
+  if (trackSelection == "globalTracks") {
+    return track.isGlobalTrackWoPtEta();
+  } else if (trackSelection == "QualityTracks") {
+    return track.isQualityTrack();
+  } else if (trackSelection == "hybridTracksJE") {
+    return track.trackCutFlagFb5();
   } else {
     return true;
   }
@@ -166,7 +166,7 @@ void findJets(JetFinder& jetFinder, std::vector<fastjet::PseudoJet>& inputPartic
       std::vector<int> trackconst;
       std::vector<int> candconst;
       std::vector<int> clusterconst;
-      jetsTable(collision, jet.pt(), jet.eta(), jet.phi(),
+      jetsTable(collision.globalIndex(), jet.pt(), jet.eta(), jet.phi(),
                 jet.E(), jet.m(), jet.area(), std::round(R * 100));
       for (const auto& constituent : sorted_by_pt(jet.constituents())) {
         // need to add seperate thing for constituent subtraction
@@ -186,7 +186,6 @@ void findJets(JetFinder& jetFinder, std::vector<fastjet::PseudoJet>& inputPartic
         }
       }
       constituentsTable(jetsTable.lastIndex(), trackconst, clusterconst, candconst);
-      break;
     }
   }
 }
@@ -237,12 +236,15 @@ void analyseParticles(std::vector<fastjet::PseudoJet>& inputParticles, float par
 }
 
 template <typename T>
-bool selectCollision(T const& collision)
+bool selectCollision(T const& collision, std::string eventSelection)
 {
-  if (!collision.sel8()) {
-    return false;
+  if (eventSelection == "sel8") {
+    return collision.sel8();
+  } else if (eventSelection == "sel7") {
+    return collision.sel7();
+  } else {
+    return true;
   }
-  return true;
 }
 
 #endif // PWGJE_TABLEPRODUCER_JETFINDER_H_

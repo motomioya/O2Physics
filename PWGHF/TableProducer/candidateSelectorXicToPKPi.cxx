@@ -16,11 +16,13 @@
 /// \author Mattia Faggin <mattia.faggin@cern.ch>, University and INFN PADOVA
 /// \author Vít Kučera <vit.kucera@cern.ch>, CERN
 
-#include "Framework/runDataProcessing.h"
 #include "Framework/AnalysisTask.h"
+#include "Framework/runDataProcessing.h"
+
+#include "Common/Core/TrackSelectorPID.h"
+
 #include "PWGHF/DataModel/CandidateReconstructionTables.h"
 #include "PWGHF/DataModel/CandidateSelectionTables.h"
-#include "Common/Core/TrackSelectorPID.h"
 
 using namespace o2;
 using namespace o2::framework;
@@ -117,7 +119,7 @@ struct HfCandidateSelectorXicToPKPi {
     }
 
     // candidate impact parameter XY
-    if (candidate.impactParameterXY() > cuts->get(pTBin, "impParXY")) {
+    if (std::abs(candidate.impactParameterXY()) > cuts->get(pTBin, "impParXY")) {
       return false;
     }
 

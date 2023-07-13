@@ -52,6 +52,8 @@ DECLARE_SOA_COLUMN(MomentumCovMat, momentumCovMat, float[6]); //! covariance mat
 // Momenta
 DECLARE_SOA_DYNAMIC_COLUMN(Pt, pt, //! V0 pT
                            [](float pxpos, float pypos, float pxneg, float pyneg) -> float { return RecoDecay::sqrtSumOfSquares(pxpos + pxneg, pypos + pyneg); });
+DECLARE_SOA_DYNAMIC_COLUMN(P, p, //! V0 pT
+                           [](float pxpos, float pypos, float pzpos, float pxneg, float pyneg, float pzneg) -> float { return std::hypot(pxpos + pxneg, pypos + pyneg, pzpos + pzneg); });
 // Account for rigidity in case of hypertriton
 DECLARE_SOA_DYNAMIC_COLUMN(PtHypertriton, ptHypertriton, //! V0 pT
                            [](float pxpos, float pypos, float pxneg, float pyneg) -> float { return RecoDecay::sqrtSumOfSquares(2.0f * pxpos + pxneg, 2.0f * pypos + pyneg); });
@@ -193,6 +195,7 @@ DECLARE_SOA_TABLE_FULL(StoredV0Datas, "V0Datas", "AOD", "V0DATA", //!
 
                        // Dynamic columns
                        v0data::Pt<v0data::PxPos, v0data::PyPos, v0data::PxNeg, v0data::PyNeg>,
+                       v0data::P<v0data::PxPos, v0data::PyPos, v0data::PzPos, v0data::PxNeg, v0data::PyNeg, v0data::PzNeg>,
                        v0data::PtHypertriton<v0data::PxPos, v0data::PyPos, v0data::PxNeg, v0data::PyNeg>,
                        v0data::PtAntiHypertriton<v0data::PxPos, v0data::PyPos, v0data::PxNeg, v0data::PyNeg>,
                        v0data::V0Radius<v0data::X, v0data::Y>,
@@ -334,6 +337,11 @@ DECLARE_SOA_COLUMN(DCAZCascToPV, dcaZCascToPV, float);         //!
 DECLARE_SOA_COLUMN(PositionCovMat, positionCovMat, float[6]); //! covariance matrix elements
 DECLARE_SOA_COLUMN(MomentumCovMat, momentumCovMat, float[6]); //! covariance matrix elements
 
+// Selection to avoid spurious invariant mass correlation
+// bachelor-baryon cosine of pointing angle / DCA to PV
+DECLARE_SOA_COLUMN(BachBaryonCosPA, bachBaryonCosPA, float);         //! avoid bach-baryon correlated inv mass structure in analysis
+DECLARE_SOA_COLUMN(BachBaryonDCAxyToPV, bachBaryonDCAxyToPV, float); //! avoid bach-baryon correlated inv mass structure in analysis
+
 // Saved from strangeness tracking
 DECLARE_SOA_COLUMN(MatchingChi2, matchingChi2, float); //!
 DECLARE_SOA_COLUMN(TopologyChi2, topologyChi2, float); //!
@@ -401,6 +409,7 @@ DECLARE_SOA_TABLE(StoredCascDatas, "AOD", "CASCDATA", //!
                   cascdata::Px, cascdata::Py, cascdata::Pz,
                   cascdata::DCAV0Daughters, cascdata::DCACascDaughters,
                   cascdata::DCAPosToPV, cascdata::DCANegToPV, cascdata::DCABachToPV, cascdata::DCAXYCascToPV, cascdata::DCAZCascToPV,
+                  cascdata::BachBaryonCosPA, cascdata::BachBaryonDCAxyToPV,
 
                   // Dynamic columns
                   cascdata::Pt<cascdata::Px, cascdata::Py>,
@@ -431,6 +440,7 @@ DECLARE_SOA_TABLE(StoredTraCascDatas, "AOD", "TRACASCDATA", //!
                   cascdata::Px, cascdata::Py, cascdata::Pz,
                   cascdata::DCAV0Daughters, cascdata::DCACascDaughters,
                   cascdata::DCAPosToPV, cascdata::DCANegToPV, cascdata::DCABachToPV, cascdata::DCAXYCascToPV, cascdata::DCAZCascToPV,
+                  cascdata::BachBaryonCosPA, cascdata::BachBaryonDCAxyToPV,
                   cascdata::MatchingChi2, cascdata::TopologyChi2, cascdata::ItsClsSize,
 
                   // Dynamic columns
@@ -529,11 +539,15 @@ using McFullV0Label = McFullV0Labels::iterator;
 namespace mccasclabel
 {
 DECLARE_SOA_INDEX_COLUMN(McParticle, mcParticle); //! MC particle for Cascade
+DECLARE_SOA_COLUMN(IsBachBaryonCandidate, isBachBaryonCandidate, bool); //! will this be built or not?
 } // namespace mccasclabel
 
 DECLARE_SOA_TABLE(McCascLabels, "AOD", "MCCASCLABEL", //! Table joinable with CascData containing the MC labels
                   mccasclabel::McParticleId);
+DECLARE_SOA_TABLE(McCascBBTags, "AOD", "MCCASCBBTAG", //! Table joinable with CascData containing yes / no for BB correlation
+                  mccasclabel::IsBachBaryonCandidate);
 using McCascLabel = McCascLabels::iterator;
+using McCascBBTag = McCascBBTags::iterator;
 
 // Definition of labels for tracked cascades
 namespace mctracasclabel
