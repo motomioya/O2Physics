@@ -103,8 +103,7 @@ o2physics_add_dpl_workflow(similarmchtrack-info
 
 o2physics_add_dpl_workflow(globalfwdmatchingml
                     SOURCES globalFwdMatchingML.cxx
-                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore ONNXRuntime::ONNXRuntime O2::CCDB
-                                          O2::ReconstructionDataFormats
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore ONNXRuntime::ONNXRuntime O2::CCDB O2Physics::MLCore O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
 
 

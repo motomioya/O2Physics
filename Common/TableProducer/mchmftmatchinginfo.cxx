@@ -406,9 +406,9 @@ struct mftmchmatchinginfo {
   
   void processGen(soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&, aod::Collisions const& colllisions)
   {
-    //static constexpr Double_t MatchingPlaneZ = -77.5;
+    static constexpr Double_t MatchingPlaneZ = -77.5;
     //static constexpr Double_t MatchingPlaneZ = -300;
-    static constexpr Double_t MatchingPlaneZ = -505;
+    //static constexpr Double_t MatchingPlaneZ = -505;
 
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 

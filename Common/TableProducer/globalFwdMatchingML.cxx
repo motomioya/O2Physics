@@ -33,11 +33,14 @@
 #include "GlobalTracking/MatchGlobalFwd.h"
 #include "CCDB/CcdbApi.h"
 #include <string>
+#include "Tools/ML/model.h"
+#include <regex>
 
 using namespace o2;
 using namespace o2::framework;
 using namespace o2::framework::expressions;
 using namespace o2::soa;
+using namespace o2::ml;
 using namespace evsel;
 using o2::track::TrackParCovFwd;
 using o2::track::TrackParFwd;
@@ -109,23 +112,9 @@ struct globalFwdMatchingML {
   Ort::Env env{ORT_LOGGING_LEVEL_WARNING, "example-model-explorer"};
   Ort::SessionOptions session_options;
   std::shared_ptr<Ort::Experimental::Session> onnx_session = nullptr;
-  //Ort::Experimental::Session onnx_session = Ort::Experimental::Session(env, modelName, session_options);
-  std::string modelDir = cfgModelDir;
-  std::string modelName = cfgModelName;
-
-  void loadModel(){
-    o2::ccdb::CcdbApi ccdbApi;
-    std::map<std::string, std::string> metadata;
-
-    ccdbApi.init(cfgCCDBURL);
-    bool retrieveSuccess = ccdbApi.retrieveBlob(modelDir, ".", metadata, 1000000000000, false, modelName);
-    if (retrieveSuccess) {
-      std::map<std::string, std::string> headers = ccdbApi.retrieveHeaders(modelDir, metadata, -1);
-      LOG(info) << "Network file downloaded from: " << modelDir << " to: " << "." << "/" << modelName;
-    } else {
-      LOG(fatal) << "Error encountered while fetching/loading the network from CCDB! Maybe the network doesn't exist yet for this run number/timestamp?";
-    }
-  }
+  //Ort::Experimental::Session onnx_session = Ort::Experimental::Session(env, cfgModelName.value, session_options);
+  
+  OnnxModel model;
 
   template <typename F, typename M>
   std::vector<float> getVariables(F const& fwdtrack, M const& mfttrack){
@@ -200,13 +189,7 @@ struct globalFwdMatchingML {
     std::vector<std::vector<int64_t>> input_shapes;
     std::vector<std::string> output_names;
     std::vector<std::vector<int64_t>> output_shapes;
-    
-    /*
-    input_names = onnx_session.GetInputNames();
-    input_shapes = onnx_session.GetInputShapes();
-    output_names = onnx_session.GetOutputNames();
-    output_shapes = onnx_session.GetOutputShapes();
-    */
+
     input_names = onnx_session->GetInputNames();
     input_shapes = onnx_session->GetInputShapes();
     output_names = onnx_session->GetOutputNames();
@@ -222,6 +205,7 @@ struct globalFwdMatchingML {
     input_tensors.push_back(Ort::Experimental::Value::CreateTensor<float>
             (input_tensor_values.data(), input_tensor_values.size(), input_shape));  
 
+
     std::vector<Ort::Value> output_tensors = onnx_session->Run(input_names, input_tensors, output_names);
      
     const float* output_value = output_tensors[0].GetTensorData<float>();
@@ -233,8 +217,22 @@ struct globalFwdMatchingML {
 
   void init(o2::framework::InitContext&)
   {
-    loadModel();
-    onnx_session = std::make_shared<Ort::Experimental::Session>(env, modelName, session_options);
+    o2::ccdb::CcdbApi ccdbApi;
+    std::map<std::string, std::string> metadata;
+
+    ccdbApi.init(cfgCCDBURL);
+    //retrieving onnx file from ccdb
+    bool retrieveSuccess = ccdbApi.retrieveBlob(cfgModelDir.value, ".", metadata, 1642502592629, false, cfgModelName.value);
+
+    //start session
+    if (retrieveSuccess){
+      std::map<std::string, std::string> headers = ccdbApi.retrieveHeaders(cfgModelDir.value, metadata, -1);
+      LOG(info) << "Network file downloaded from: " << cfgModelDir.value << " to: " << "." << "/" << cfgModelName.value;
+      model.initModel(cfgModelName, false, 1, strtoul(headers["Valid-From"].c_str(), NULL, 0), strtoul(headers["Valid-Until"].c_str(), NULL, 0)); //temporary
+      onnx_session = model.getSession();
+    }else{
+      LOG(info) << "Failed to retrieve Network file";
+    }
   }
 
   void process(aod::Collisions::iterator const& collision, soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks)
