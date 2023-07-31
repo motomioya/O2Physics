@@ -107,7 +107,7 @@ struct globalFwdMatchingML {
 
   Configurable<std::string> cfgCCDBURL{"ccdb-url", "http://ccdb-test.cern.ch", "URL of the CCDB repository"};
   Configurable<std::string> cfgModelDir{"ccdb-path", "Users/m/mooya/models", "base path to the ONNX models"};
-  Configurable<std::string> cfgModelName{"ccdb-file", "model.onnx", "name of ONNX model file"};
+  Configurable<std::string> cfgModelName{"ccdb-file", "model_LHC22o.onnx", "name of ONNX model file"};
     
   Ort::Env env{ORT_LOGGING_LEVEL_WARNING, "example-model-explorer"};
   Ort::SessionOptions session_options;
@@ -222,12 +222,14 @@ struct globalFwdMatchingML {
 
     ccdbApi.init(cfgCCDBURL);
     //retrieving onnx file from ccdb
-    bool retrieveSuccess = ccdbApi.retrieveBlob(cfgModelDir.value, ".", metadata, 1642502592629, false, cfgModelName.value);
+    std::string modelFile = cfgModelDir.value + "/" + cfgModelName.value;
+    //std::string modelFile = cfgModelDir.value;
+    bool retrieveSuccess = ccdbApi.retrieveBlob(modelFile, ".", metadata, 1642502592629, false, cfgModelName.value);
 
     //start session
     if (retrieveSuccess){
-      std::map<std::string, std::string> headers = ccdbApi.retrieveHeaders(cfgModelDir.value, metadata, -1);
-      LOG(info) << "Network file downloaded from: " << cfgModelDir.value << " to: " << "." << "/" << cfgModelName.value;
+      std::map<std::string, std::string> headers = ccdbApi.retrieveHeaders(modelFile, metadata, -1);
+      LOG(info) << "Network file downloaded from: " << modelFile << " to: " << "." << "/" << cfgModelName.value;
       model.initModel(cfgModelName, false, 1, strtoul(headers["Valid-From"].c_str(), NULL, 0), strtoul(headers["Valid-Until"].c_str(), NULL, 0)); //temporary
       onnx_session = model.getSession();
     }else{
