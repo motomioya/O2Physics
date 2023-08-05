@@ -83,7 +83,7 @@ DECLARE_SOA_TABLE(FwdTrackML, "AOD", "FWDTRACKML",
                   fwdtrack::P);
 }
 
-struct globalFwdMatchingML {
+struct mftmchMatchingML {
   Produces<aod::FwdTrackML> fwdtrackml;
 
   float etalow = -4;
@@ -96,23 +96,20 @@ struct globalFwdMatchingML {
   float pDCAcutdcaup2 = 324;
   float chi2up = 1000000;
   float chi2MatchMCHMIDup = 1000000;
-  int muonPDGCode = 13;
-  TParticlePDG* muonParticle = TDatabasePDG::Instance()->GetParticle(muonPDGCode);
-  double muonMass = muonParticle->Mass();
 
   Filter etaFilter = ((etalow < aod::fwdtrack::eta) && (etaup < aod::fwdtrack::eta ));
-  Filter pDcaFilter = (((pDCAcutrAtBsorberEndlow1 < aod::fwdtrack::rAtAbsorberEnd) || (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup1) || (aod::fwdtrack::pDca < pDCAcutrAtBsorberEndup2)) && ((aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndlow2) || (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup2) || (aod::fwdtrack::pDca < pDCAcutdcaup2)));
+  Filter pDcaFilter = (((pDCAcutrAtBsorberEndlow1 < aod::fwdtrack::rAtAbsorberEnd) || (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup1) || (aod::fwdtrack::pDca < pDCAcutdcaup1)) && ((aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndlow2) || (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup2) || (aod::fwdtrack::pDca < pDCAcutdcaup2)));
   Filter chi2Filter = (aod::fwdtrack::chi2 < chi2up);
   Filter chi2MatchFilter = (aod::fwdtrack::chi2MatchMCHMID < chi2MatchMCHMIDup);
 
-  Configurable<std::string> cfgCCDBURL{"ccdb-url", "http://ccdb-test.cern.ch", "URL of the CCDB repository"};
+  Configurable<std::string> cfgCCDBURL{"ccdb-url", "http://ccdb-test.cern.ch:8080", "URL of the CCDB repository"};
   Configurable<std::string> cfgModelDir{"ccdb-path", "Users/m/mooya/models", "base path to the ONNX models"};
   Configurable<std::string> cfgModelName{"ccdb-file", "model_LHC22o.onnx", "name of ONNX model file"};
-    
+  Configurable<float> cfgThrScore{"threshold-score", 0.5, "Threshold value for matching score"};
+
   Ort::Env env{ORT_LOGGING_LEVEL_WARNING, "example-model-explorer"};
   Ort::SessionOptions session_options;
   std::shared_ptr<Ort::Experimental::Session> onnx_session = nullptr;
-  //Ort::Experimental::Session onnx_session = Ort::Experimental::Session(env, cfgModelName.value, session_options);
   
   OnnxModel model;
 
@@ -181,7 +178,6 @@ struct globalFwdMatchingML {
     return input_tensor_values;  
   }
 
-  //double matchONNX(aod::FwdTrack const& fwdtrack, aod::MFTTrack const& mfttrack)
   template <typename F, typename M>
   double matchONNX(F const& fwdtrack, M const& mfttrack)
   {  
@@ -200,19 +196,22 @@ struct globalFwdMatchingML {
 
     std::vector<float> input_tensor_values;
     input_tensor_values = getVariables(fwdtrack,mfttrack);
-    
-    std::vector<Ort::Value> input_tensors;
-    input_tensors.push_back(Ort::Experimental::Value::CreateTensor<float>
-            (input_tensor_values.data(), input_tensor_values.size(), input_shape));  
 
+    if (input_tensor_values[8] < 3) {
+      std::vector<Ort::Value> input_tensors;
+      input_tensors.push_back(Ort::Experimental::Value::CreateTensor<float> (input_tensor_values.data(), input_tensor_values.size(), input_shape));  
 
-    std::vector<Ort::Value> output_tensors = onnx_session->Run(input_names, input_tensors, output_names);
-     
-    const float* output_value = output_tensors[0].GetTensorData<float>();
+      std::vector<Ort::Value> output_tensors = onnx_session->Run(input_names, input_tensors, output_names);
+       
+      const float* output_value = output_tensors[0].GetTensorData<float>();
 
-    auto score = 1-output_value[0];
-    
-    return score;
+      auto score = output_value[0];
+      
+      return score;
+    } else {
+      auto score = 0;
+      return score;
+    }
   };
 
   void init(o2::framework::InitContext&)
@@ -222,8 +221,7 @@ struct globalFwdMatchingML {
 
     ccdbApi.init(cfgCCDBURL);
     //retrieving onnx file from ccdb
-    std::string modelFile = cfgModelDir.value + "/" + cfgModelName.value;
-    //std::string modelFile = cfgModelDir.value;
+    std::string modelFile = cfgModelDir.value;
     bool retrieveSuccess = ccdbApi.retrieveBlob(modelFile, ".", metadata, 1642502592629, false, cfgModelName.value);
 
     //start session
@@ -245,11 +243,11 @@ struct globalFwdMatchingML {
 
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack){
         double result = matchONNX(fwdtrack, mfttrack);
-        if (result > 0.5){
+        if (result > cfgThrScore){
           double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
           double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
           double pz = fwdtrack.p() * cos(M_PI/2 - atan(mfttrack.tgl()));
-          fwdtrackml(fwdtrack.collisionId(),2,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)));
+          fwdtrackml(fwdtrack.collisionId(),0,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)));
           trackindex++;
         }
       }
