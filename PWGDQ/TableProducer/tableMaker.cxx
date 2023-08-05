@@ -90,6 +90,8 @@ using MyMuons = soa::Join<aod::FwdTracks, aod::FwdTracksDCA>;
 using MyMuonsWithCov = soa::Join<aod::FwdTracks, aod::FwdTracksCov, aod::FwdTracksDCA>;
 using MyMuonsColl = soa::Join<aod::FwdTracks, aod::FwdTracksDCA, aod::FwdTrkCompColls>;
 using MyMuonsCollWithCov = soa::Join<aod::FwdTracks, aod::FwdTracksCov, aod::FwdTracksDCA, aod::FwdTrkCompColls>;
+using MyMuonsML = soa::Join<aod::FwdTracksML, aod::FwdTracksDCA>;
+using MyMuonsMLWithCov = soa::Join<aod::FwdTracksML, aod::FwdTracksCov, aod::FwdTracksDCA>;
 using ExtBCs = soa::Join<aod::BCs, aod::Timestamps, aod::MatchedBCCollisionsSparseMulti>;
 
 namespace o2::aod
@@ -1219,11 +1221,27 @@ struct TableMaker {
   }
 
   // Produce muon tables only ------------------------------------------------------------------------------------------------------------------
+  void processMuonMLOnly(MyEvents::iterator const& collision, aod::BCsWithTimestamps const& bcs,
+                       soa::Filtered<MyMuonsML> const& tracksMuon)
+  {
+    fullSkimming<gkEventFillMap, 0u, gkMuonFillMap>(collision, bcs, nullptr, tracksMuon, nullptr, nullptr);
+  }
+
+  // Produce muon tables only, with muon cov matrix --------------------------------------------------------------------------------------------
+  void processMuonMLOnlyWithCov(MyEvents::iterator const& collision, aod::BCsWithTimestamps const& bcs,
+                              soa::Filtered<MyMuonsMLWithCov> const& tracksMuon)
+  {
+    fullSkimming<gkEventFillMap, 0u, gkMuonFillMapWithCov>(collision, bcs, nullptr, tracksMuon, nullptr, nullptr);
+  }
+
+  // Produce muon tables only ------------------------------------------------------------------------------------------------------------------
   void processMuonOnly(MyEvents::iterator const& collision, aod::BCsWithTimestamps const& bcs,
                        soa::Filtered<MyMuons> const& tracksMuon)
   {
     fullSkimming<gkEventFillMap, 0u, gkMuonFillMap>(collision, bcs, nullptr, tracksMuon, nullptr, nullptr);
   }
+
+  // Produce muon tables only, with event filtering --------------------------------------------------------------------------------------------
 
   // Produce muon tables only, with event filtering --------------------------------------------------------------------------------------------
   void processMuonOnlyWithFilter(MyEventsWithFilter::iterator const& collision, aod::BCsWithTimestamps const& bcs,
@@ -1370,6 +1388,8 @@ struct TableMaker {
   PROCESS_SWITCH(TableMaker, processMuonOnlyWithCov, "Build muon-only DQ skimmed data model, w/ muon cov matrix", false);
   PROCESS_SWITCH(TableMaker, processMuonOnly, "Build muon-only DQ skimmed data model", false);
   PROCESS_SWITCH(TableMaker, processMuonOnlyWithFilter, "Build muon-only DQ skimmed data model, w/ event filter", false);
+  PROCESS_SWITCH(TableMaker, processMuonMLOnlyWithCov, "Build muon-only DQ skimmed data model with global muon track by ML matching, w/ muon cov matrix", false);
+  PROCESS_SWITCH(TableMaker, processMuonMLOnly, "Build muon-only DQ skimmed data model with global muon track by ML matching", false);
   PROCESS_SWITCH(TableMaker, processOnlyBCs, "Analyze the BCs to store sampled lumi", false);
   PROCESS_SWITCH(TableMaker, processAmbiguousMuonOnly, "Build muon-only DQ skimmed data model with QA plots for ambiguous muons", false);
   PROCESS_SWITCH(TableMaker, processAmbiguousMuonOnlyWithCov, "Build muon-only with cov DQ skimmed data model with QA plots for ambiguous muons", false);
