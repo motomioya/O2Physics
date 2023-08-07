@@ -59,6 +59,7 @@ struct globalFwdtrackInfo {
   HistogramRegistry registry{
     "registry", //
     {
+      {"chi2mftmch", "chi2mftmch", {HistType::kTH1F, {{1000, 0, 100}}}},
       {"Pt_vs_chi2mftmch", "Pt_vs_chi2mftmch", {HistType::kTH2F, {{300, 0, 30},{300,0,300}}}},
       {"chi2mft_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{300,0,300},{300,0,300}}}},
       {"chi2global_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{300,0,300},{300,0,300}}}},
@@ -74,6 +75,7 @@ struct globalFwdtrackInfo {
   {
     for (auto& fwdtrack: fwdtracks) {
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
+        registry.fill(HIST("chi2mftmch"), fwdtrack.chi2MatchMCHMFT());
         registry.fill(HIST("Pt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
         registry.fill(HIST("chi2global_vs_chi2mftmch"), fwdtrack.chi2(),fwdtrack.chi2MatchMCHMFT());
         registry.fill(HIST("chi2mchmid_vs_chi2mftmch"), fwdtrack.chi2MatchMCHMID(),fwdtrack.chi2MatchMCHMFT());
