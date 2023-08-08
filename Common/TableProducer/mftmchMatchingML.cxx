@@ -13,28 +13,28 @@
 #include "Framework/AnalysisDataModel.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/runDataProcessing.h"
+#include "Framework/ASoAHelpers.h"
 #include "Common/DataModel/EventSelection.h"
 #include "Common/CCDB/EventSelectionParams.h"
-
 #include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/Core/trackUtilities.h"
 #include "Common/Core/TrackSelection.h"
 #include "Common/DataModel/TrackSelectionTables.h"
+#include "Common/DataModel/mftmchMatchingML.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
 #include "Math/SMatrix.h"
 #include "DetectorsBase/Propagator.h"
 #include "MFTTracking/Tracker.h"
-#include "Framework/ASoAHelpers.h"
-#include <math.h>
-#include <TLorentzVector.h>
 #include "MCHTracking/TrackParam.h"
 #include "MCHTracking/TrackExtrap.h"
-#include <onnxruntime/core/session/experimental_onnxruntime_cxx_api.h>
 #include "GlobalTracking/MatchGlobalFwd.h"
 #include "CCDB/CcdbApi.h"
-#include <string>
 #include "Tools/ML/model.h"
+#include <string>
 #include <regex>
+#include <math.h>
+#include <TLorentzVector.h>
+#include <onnxruntime/core/session/experimental_onnxruntime_cxx_api.h>
 
 using namespace o2;
 using namespace o2::framework;
@@ -48,43 +48,8 @@ using o2::globaltracking::MatchingFunc_t;
 using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
 using SMatrix5 = ROOT::Math::SVector<double, 5>;
 
-namespace o2::aod
-{
-DECLARE_SOA_TABLE(FwdTrackML, "AOD", "FWDTRACKML",
-                  o2::soa::Index<>,
-                  fwdtrack::CollisionId,
-                  fwdtrack::TrackType,
-                  fwdtrack::X,
-                  fwdtrack::Y,
-                  fwdtrack::Z,
-                  fwdtrack::Phi,
-                  fwdtrack::Tgl,
-                  fwdtrack::Signed1Pt,
-                  fwdtrack::NClusters,
-                  fwdtrack::PDca,
-                  fwdtrack::RAtAbsorberEnd,
-                  fwdtrack::Px<fwdtrack::Pt, fwdtrack::Phi>,
-                  fwdtrack::Py<fwdtrack::Pt, fwdtrack::Phi>,
-                  fwdtrack::Pz<fwdtrack::Pt, fwdtrack::Tgl>,
-                  fwdtrack::Sign<fwdtrack::Signed1Pt>,
-                  fwdtrack::Chi2,
-                  fwdtrack::Chi2MatchMCHMID,
-                  fwdtrack::Chi2MatchMCHMFT,
-                  fwdtrack::MatchScoreMCHMFT,
-                  fwdtrack::MFTTrackId,
-                  fwdtrack::MCHTrackId,
-                  fwdtrack::MCHBitMap,
-                  fwdtrack::MIDBitMap,
-                  fwdtrack::MIDBoards,
-                  fwdtrack::TrackTime,
-                  fwdtrack::TrackTimeRes,
-                  fwdtrack::Eta,
-                  fwdtrack::Pt,
-                  fwdtrack::P);
-}
-
 struct mftmchMatchingML {
-  Produces<aod::FwdTrackML> fwdtrackml;
+  Produces<aod::FwdTracksML> fwdtrackml;
 
   float etalow = -4;
   float etaup = -2.5;
@@ -98,7 +63,7 @@ struct mftmchMatchingML {
   float chi2MatchMCHMIDup = 1000000;
 
   Filter etaFilter = ((etalow < aod::fwdtrack::eta) && (etaup < aod::fwdtrack::eta ));
-  Filter pDcaFilter = (((pDCAcutrAtBsorberEndlow1 < aod::fwdtrack::rAtAbsorberEnd) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup1) && (aod::fwdtrack::pDca < pDCAcutdcaup1)) || ((pDCAcutrAtBsorberEndlow2 < aod::fwdtrack::rAtAbsorberEnd) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup2) && (aod::fwdtrack::pDca < pDCAcutdcaup2)));
+  Filter pDcaFilter = (((pDCAcutrAtBsorberEndlow1 < aod::fwdtrack::rAtAbsorberEnd) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup1) && (aod::fwdtrack::pDca < pDCAcutdcaup1)) || ((aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndlow2) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup2) && (aod::fwdtrack::pDca < pDCAcutdcaup2)));
   Filter chi2Filter = (aod::fwdtrack::chi2 < chi2up);
   Filter chi2MatchFilter = (aod::fwdtrack::chi2MatchMCHMID < chi2MatchMCHMIDup);
 
@@ -107,10 +72,9 @@ struct mftmchMatchingML {
   Configurable<std::string> cfgModelName{"ccdb-file", "model_LHC22o.onnx", "name of ONNX model file"};
   Configurable<float> cfgThrScore{"threshold-score", 0.5, "Threshold value for matching score"};
 
-  Ort::Env env{ORT_LOGGING_LEVEL_WARNING, "example-model-explorer"};
+  Ort::Env env{ORT_LOGGING_LEVEL_WARNING, "model-explorer"};
   Ort::SessionOptions session_options;
   std::shared_ptr<Ort::Experimental::Session> onnx_session = nullptr;
-  
   OnnxModel model;
 
   template <typename F, typename M>
@@ -237,25 +201,29 @@ struct mftmchMatchingML {
 
   void process(aod::Collisions::iterator const& collision, soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks)
   {
-    int trackindex = 0;
-
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack){
         double result = matchONNX(fwdtrack, mfttrack);
         if (result > cfgThrScore){
+          double mftchi2 = mfttrack.chi2();
+          SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+          std::vector<double> mftv1;
+          SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+          o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+          mftpars1.propagateToZlinear(collision.posZ());
+
+          float dcaX = (mftpars1.getX() - collision.posX());
+          float dcaY = (mftpars1.getY() - collision.posY());
           double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
           double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
           double pz = fwdtrack.p() * cos(M_PI/2 - atan(mfttrack.tgl()));
-          fwdtrackml(fwdtrack.collisionId(),0,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)));
-          trackindex++;
+          fwdtrackml(fwdtrack.collisionId(),0,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)), dcaX, dcaY);
         }
       }
     }
   }
 };
-  
-
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
