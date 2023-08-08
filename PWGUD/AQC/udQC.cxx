@@ -609,7 +609,9 @@ struct UDQC {
           ampFDDC += udhelpers::FDDAmplitudeA(bc.foundFDD());
         }
       }
+
       registry.get<TH2>(HIST("cleanFIT1"))->Fill(NDtcoll, isDGcandidate * 1.);
+
       if (isDGcandidate) {
         registry.get<TH2>(HIST("cF1FV0Aamp"))->Fill(NDtcoll, ampFV0A);
         registry.get<TH2>(HIST("cF1FT0Aamp"))->Fill(NDtcoll, ampFT0A);
@@ -667,6 +669,7 @@ struct UDQC {
           ampFDDC += udhelpers::FDDAmplitudeA(bc.foundFDD());
         }
       }
+
       registry.get<TH2>(HIST("cleanFIT2"))->Fill(nMinBC, isDGcandidate * 1.);
 
       if (isDGcandidate) {
