@@ -30,6 +30,7 @@
 #include "Common/CCDB/TriggerAliases.h"
 #include "Common/DataModel/PIDResponse.h"
 #include "Common/DataModel/TrackSelectionTables.h"
+#include "Common/DataModel/mftmchMatchingML.h"
 #include "PWGDQ/DataModel/ReducedInfoTables.h"
 #include "PWGDQ/Core/VarManager.h"
 #include "PWGDQ/Core/HistogramManager.h"
@@ -157,7 +158,6 @@ struct TableMaker {
   Configurable<bool> fConfigComputeTPCpostCalibKaon{"cfgTPCpostCalibKaon", false, "If true, compute TPC post-calibrated n-sigmas for kaons"};
   Configurable<std::string> fConfigRunPeriods{"cfgRunPeriods", "LHC22f", "run periods for used data"};
   Configurable<bool> fConfigIsOnlyforMaps{"cfgIsforMaps", false, "If true, run for postcalibration maps only"};
-  Configurable<bool> fConfigSaveElectronSample{"cfgSaveElectronSample", false, "If true, only save electron sample"};
 
   Service<o2::ccdb::BasicCCDBManager> fCCDB;
 
@@ -203,7 +203,6 @@ struct TableMaker {
 
     bool enableBarrelHistos = (context.mOptions.get<bool>("processFull") || context.mOptions.get<bool>("processFullWithCov") ||
                                context.mOptions.get<bool>("processFullWithCent") || context.mOptions.get<bool>("processFullWithCovAndEventFilter") ||
-                               context.mOptions.get<bool>("processFullWithCovMultsAndEventFilter") ||
                                context.mOptions.get<bool>("processBarrelOnly") || context.mOptions.get<bool>("processBarrelOnlyWithCent") ||
                                context.mOptions.get<bool>("processBarrelOnlyWithCov") || context.mOptions.get<bool>("processBarrelOnlyWithEventFilter") ||
                                context.mOptions.get<bool>("processBarrelOnlyWithMultsAndEventFilter") || context.mOptions.get<bool>("processBarrelOnlyWithCovAndEventFilter") ||
@@ -211,12 +210,12 @@ struct TableMaker {
                                context.mOptions.get<bool>("processBarrelOnlyWithV0BitsAndMaps") || context.mOptions.get<bool>("processAmbiguousBarrelOnly"));
     bool enableMuonHistos = (context.mOptions.get<bool>("processFull") || context.mOptions.get<bool>("processFullWithCov") ||
                              context.mOptions.get<bool>("processFullWithCent") || context.mOptions.get<bool>("processFullWithCovAndEventFilter") ||
-                             context.mOptions.get<bool>("processFullWithCovMultsAndEventFilter") ||
                              context.mOptions.get<bool>("processMuonOnly") || context.mOptions.get<bool>("processMuonOnlyWithCent") ||
                              context.mOptions.get<bool>("processMuonOnlyWithMults") || context.mOptions.get<bool>("processMuonOnlyWithCentAndMults") ||
                              context.mOptions.get<bool>("processMuonOnlyWithCovAndCent") ||
                              context.mOptions.get<bool>("processMuonOnlyWithCov") || context.mOptions.get<bool>("processMuonOnlyWithFilter") ||
-                             context.mOptions.get<bool>("processAmbiguousMuonOnlyWithCov") || context.mOptions.get<bool>("processAmbiguousMuonOnly"));
+                             context.mOptions.get<bool>("processAmbiguousMuonOnlyWithCov") || context.mOptions.get<bool>("processAmbiguousMuonOnly") || 
+                             context.mOptions.get<bool>("processMuonMLOnly") || context.mOptions.get<bool>("processMuonMLOnly"));
 
     if (enableBarrelHistos) {
       if (fDoDetailedQA) {
@@ -472,12 +471,6 @@ struct TableMaker {
           trackFilteringTag |= (uint64_t(track.dalitzBits()) << 7); // BIT7-14: Dalitz
         }
         trackFilteringTag |= (uint64_t(trackTempFilterMap) << 15); // BIT15-...:  user track filters
-
-        if (fConfigSaveElectronSample) { // only save electron sample
-          if (!(trackFilteringTag & (uint64_t(1) << 2))) {
-            continue;
-          }
-        }
 
         // create the track tables
         trackBasic(event.lastIndex(), trackFilteringTag, track.pt(), track.eta(), track.phi(), track.sign(), isAmbiguous);
@@ -1091,21 +1084,6 @@ struct TableMaker {
     }
   }
 
-  // Produce barrel + muon tables, with track covariance matrix and event filtering, with multiplicity -------------------------------------------
-  void processFullWithCovMultsAndEventFilter(MyEventsWithMultsAndFilter::iterator const& collision, aod::BCsWithTimestamps const& bcs,
-                                             soa::Filtered<MyBarrelTracksWithCov> const& tracksBarrel, soa::Filtered<MyMuonsWithCov> const& tracksMuon)
-  {
-    for (int i = 0; i < kNaliases; i++) {
-      if (collision.alias_bit(i) > 0) {
-        (reinterpret_cast<TH2I*>(fStatsList->At(0)))->Fill(1.0, static_cast<float>(i));
-      }
-    }
-    (reinterpret_cast<TH2I*>(fStatsList->At(0)))->Fill(1.0, static_cast<float>(kNaliases));
-    if (collision.eventFilter()) {
-      fullSkimming<gkEventFillMapWithMult, gkTrackFillMapWithCov, gkMuonFillMapWithCov>(collision, bcs, tracksBarrel, tracksMuon, nullptr, nullptr);
-    }
-  }
-
   // Produce barrel only tables, with V0Bits ------------------------------------------------------------------------------------------------
   void processBarrelOnlyWithV0Bits(MyEvents::iterator const& collision, aod::BCsWithTimestamps const& bcs,
                                    soa::Filtered<MyBarrelTracksWithV0Bits> const& tracksBarrel)
@@ -1243,11 +1221,21 @@ struct TableMaker {
   }
 
   // Produce muon tables only ------------------------------------------------------------------------------------------------------------------
+  void processMuonMLOnly(MyEvents::iterator const& collision, aod::BCsWithTimestamps const& bcs,
+                       soa::Filtered<aod::FwdTracksML> const& tracksMuon)
+  {
+    fullSkimming<gkEventFillMap, 0u, gkMuonFillMap>(collision, bcs, nullptr, tracksMuon, nullptr, nullptr);
+  }
+
+
+  // Produce muon tables only ------------------------------------------------------------------------------------------------------------------
   void processMuonOnly(MyEvents::iterator const& collision, aod::BCsWithTimestamps const& bcs,
                        soa::Filtered<MyMuons> const& tracksMuon)
   {
     fullSkimming<gkEventFillMap, 0u, gkMuonFillMap>(collision, bcs, nullptr, tracksMuon, nullptr, nullptr);
   }
+
+  // Produce muon tables only, with event filtering --------------------------------------------------------------------------------------------
 
   // Produce muon tables only, with event filtering --------------------------------------------------------------------------------------------
   void processMuonOnlyWithFilter(MyEventsWithFilter::iterator const& collision, aod::BCsWithTimestamps const& bcs,
@@ -1374,7 +1362,6 @@ struct TableMaker {
   PROCESS_SWITCH(TableMaker, processFull, "Build full DQ skimmed data model, w/o centrality", false);
   PROCESS_SWITCH(TableMaker, processFullWithCov, "Build full DQ skimmed data model, w/ track and fwdtrack covariance tables", false);
   PROCESS_SWITCH(TableMaker, processFullWithCovAndEventFilter, "Build full DQ skimmed data model, w/ track and fwdtrack covariance tables, w/ event filter", false);
-  PROCESS_SWITCH(TableMaker, processFullWithCovMultsAndEventFilter, "Build full DQ skimmed data model, w/ track and fwdtrack covariance tables, w/ event filter and multiplicities", false);
   PROCESS_SWITCH(TableMaker, processFullWithCent, "Build full DQ skimmed data model, w/ centrality", false);
   PROCESS_SWITCH(TableMaker, processFullWithCentAndMults, "Build full DQ skimmed data model, w/ centrality and multiplicities", false);
   PROCESS_SWITCH(TableMaker, processBarrelOnlyWithV0Bits, "Build full DQ skimmed data model, w/o centrality, w/ V0Bits", false);
@@ -1395,6 +1382,7 @@ struct TableMaker {
   PROCESS_SWITCH(TableMaker, processMuonOnlyWithCov, "Build muon-only DQ skimmed data model, w/ muon cov matrix", false);
   PROCESS_SWITCH(TableMaker, processMuonOnly, "Build muon-only DQ skimmed data model", false);
   PROCESS_SWITCH(TableMaker, processMuonOnlyWithFilter, "Build muon-only DQ skimmed data model, w/ event filter", false);
+  PROCESS_SWITCH(TableMaker, processMuonMLOnly, "Build muon-only DQ skimmed data model with global muon track by ML matching", false);
   PROCESS_SWITCH(TableMaker, processOnlyBCs, "Analyze the BCs to store sampled lumi", false);
   PROCESS_SWITCH(TableMaker, processAmbiguousMuonOnly, "Build muon-only DQ skimmed data model with QA plots for ambiguous muons", false);
   PROCESS_SWITCH(TableMaker, processAmbiguousMuonOnlyWithCov, "Build muon-only with cov DQ skimmed data model with QA plots for ambiguous muons", false);
