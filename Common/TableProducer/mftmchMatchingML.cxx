@@ -260,6 +260,6 @@ struct mftmchMatchingML {
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
   return WorkflowSpec{
-    adaptAnalysisTask<globalFwdMatchingML>(cfgc)
+    adaptAnalysisTask<mftmchMatchingML>(cfgc)
   };
 }
