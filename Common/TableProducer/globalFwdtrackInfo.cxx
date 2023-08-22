@@ -59,10 +59,15 @@ struct globalFwdtrackInfo {
   HistogramRegistry registry{
     "registry", //
     {
-      {"Pt_vs_chi2mftmch", "Pt_vs_chi2mftmch", {HistType::kTH2F, {{300, 0, 30},{300,0,300}}}},
-      {"chi2mft_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{300,0,300},{300,0,300}}}},
-      {"chi2global_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{300,0,300},{300,0,300}}}},
-      {"chi2mchmid_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{300,0,300},{300,0,300}}}},
+      {"Pt_vs_chi2mftmch", "Pt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"chi2mft_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{400,0,200},{400,0,200}}}},
+      {"chi2global_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{400,0,200},{400,0,200}}}},
+      {"chi2mchmid_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{400,0,200},{400,0,200}}}},
+      {"Pt_vs_phi_vs_chi2mftmch", "Pt_vs_phi_vs_chi2mftmch", {HistType::kTH3F, {{200,0,20},{100,-5,5},{400,0,200}}}},
+      {"Pt_vs_Zvtx_vs_chi2mftmch", "Pt_vs_Zvtx_vs_chi2mftmch", {HistType::kTH3F, {{200,0,20},{200,-10,10},{400,0,200}}}},
+      {"Pt_vs_chi2mft_vs_chi2mftmch", "Pt_vs_chi2mft_vs_chi2mftmch", {HistType::kTH3F, {{200,0,20},{400,0,200},{400,0,200}}}},
+      {"Pt_vs_chi2mchmid_vs_chi2mftmch", "Pt_vs_chi2mchmid_vs_chi2mftmch", {HistType::kTH3F, {{200,0,20},{400,0,200},{400,0,200}}}},
+      {"Pt_vs_chi2global_vs_chi2mftmch", "Pt_vs_chi2global_vs_chi2mftmch", {HistType::kTH3F, {{200,0,20},{400,0,200},{400,0,200}}}},
     },
   };
 
@@ -75,11 +80,16 @@ struct globalFwdtrackInfo {
     for (auto& fwdtrack: fwdtracks) {
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
         registry.fill(HIST("Pt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
-        registry.fill(HIST("chi2global_vs_chi2mftmch"), fwdtrack.chi2(),fwdtrack.chi2MatchMCHMFT());
-        registry.fill(HIST("chi2mchmid_vs_chi2mftmch"), fwdtrack.chi2MatchMCHMID(),fwdtrack.chi2MatchMCHMFT());
+        registry.fill(HIST("chi2global_vs_chi2mftmch"),fwdtrack.chi2(),fwdtrack.chi2MatchMCHMFT());
+        registry.fill(HIST("chi2mchmid_vs_chi2mftmch"),fwdtrack.chi2MatchMCHMID(),fwdtrack.chi2MatchMCHMFT());
+        registry.fill(HIST("Pt_vs_chi2global_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.chi2(), fwdtrack.chi2MatchMCHMFT());
+        registry.fill(HIST("Pt_vs_chi2mchmid_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.chi2MatchMCHMID(), fwdtrack.chi2MatchMCHMFT());
+        registry.fill(HIST("Pt_vs_phi_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.phi(), fwdtrack.chi2MatchMCHMFT());
+        registry.fill(HIST("Pt_vs_Zvtx_vs_chi2mftmch"), fwdtrack.pt(), collision.posZ(), fwdtrack.chi2MatchMCHMFT());
         for (auto& mfttrack: mfttracks){
           if (fwdtrack.matchMFTTrackId() == mfttrack.globalIndex()){
             registry.fill(HIST("chi2mft_vs_chi2mftmch"), mfttrack.chi2(),fwdtrack.chi2MatchMCHMFT());
+            registry.fill(HIST("Pt_vs_chi2mft_vs_chi2mftmch"), fwdtrack.pt(), mfttrack.chi2(), fwdtrack.chi2MatchMCHMFT());
           }
         }
       }
