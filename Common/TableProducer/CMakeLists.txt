@@ -101,7 +101,7 @@ o2physics_add_dpl_workflow(similarmchtrack-info
                                           O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
 
-                  o2physics_add_dpl_workflow(mftmchmatchingml
+o2physics_add_dpl_workflow(mftmchmatchingml
                     SOURCES mftmchMatchingML.cxx
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore ONNXRuntime::ONNXRuntime O2::CCDB O2Physics::MLCore O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
@@ -145,4 +145,9 @@ o2physics_add_dpl_workflow(fwdtrack-to-collision-associator
 o2physics_add_dpl_workflow(mccollisionextra
                     SOURCES mcCollsExtra.cxx
                     PUBLIC_LINK_LIBRARIES O2::DetectorsBase O2Physics::AnalysisCore
+                    COMPONENT_NAME Analysis)
+
+                  o2physics_add_dpl_workflow(comparemlmatching
+                    SOURCES compareMlMatching.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore ONNXRuntime::ONNXRuntime O2::CCDB O2Physics::MLCore O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)

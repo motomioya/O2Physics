@@ -48,7 +48,7 @@ using o2::globaltracking::MatchingFunc_t;
 using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
 using SMatrix5 = ROOT::Math::SVector<double, 5>;
 
-struct mftmchMatchingML {
+struct compareMlMatching {
   Produces<aod::FwdTracksML> fwdtrackml;
 
   float etalow = -4;
@@ -76,6 +76,31 @@ struct mftmchMatchingML {
   Ort::SessionOptions session_options;
   std::shared_ptr<Ort::Experimental::Session> onnx_session = nullptr;
   OnnxModel model;
+
+  HistogramRegistry registry{
+    "registry",
+    {
+      {"hmlscore", "mlscore", {HistType::kTH1F, {{100, 0, 1}}}},
+      {"hXchi2", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYchi2", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZchi2", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTchi2", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhichi2", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlchi2", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXchi2cut50", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYchi2cut50", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZchi2cut50", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTchi2cut50", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhichi2cut50", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlchi2cut50", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXml", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYml", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZml", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTml", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhiml", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlml", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+    }
+  };
 
   template <typename F, typename M>
   std::vector<float> getVariables(F const& fwdtrack, M const& mfttrack){
@@ -201,10 +226,30 @@ struct mftmchMatchingML {
 
   void process(aod::Collisions::iterator const& collision, soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks)
   {
+    for (auto const& fwdtrack : fwdtracks){
+      if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
+        registry.fill(HIST("hXchi2"), fwdtrack.x());
+        registry.fill(HIST("hYchi2"), fwdtrack.y());
+        registry.fill(HIST("hZchi2"), fwdtrack.z());
+        registry.fill(HIST("hPTchi2"), fwdtrack.pt());
+        registry.fill(HIST("hPhichi2"), fwdtrack.phi());
+        registry.fill(HIST("hTanlchi2"), fwdtrack.tgl());
+        if (fwdtrack.chi2MatchMCHMFT() < 50){
+          registry.fill(HIST("hXchi2cut50"), fwdtrack.x());
+          registry.fill(HIST("hYchi2cut50"), fwdtrack.y());
+          registry.fill(HIST("hZchi2cut50"), fwdtrack.z());
+          registry.fill(HIST("hPTchi2cut50"), fwdtrack.pt());
+          registry.fill(HIST("hPhichi2cut50"), fwdtrack.phi());
+          registry.fill(HIST("hTanlchi2cut50"), fwdtrack.tgl());
+        }
+      }
+    }
+
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack){
         double result = matchONNX(fwdtrack, mfttrack);
+        registry.fill(HIST("hmlscore"), result);
         if (result > cfgThrScore){
           double mftchi2 = mfttrack.chi2();
           SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
@@ -219,6 +264,12 @@ struct mftmchMatchingML {
           double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
           double pz = fwdtrack.p() * cos(M_PI/2 - atan(mfttrack.tgl()));
           fwdtrackml(fwdtrack.collisionId(),0,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)), dcaX, dcaY);
+          registry.fill(HIST("hXml"), fwdtrack.x());
+          registry.fill(HIST("hYml"), fwdtrack.y());
+          registry.fill(HIST("hZml"), fwdtrack.z());
+          registry.fill(HIST("hPTml"), fwdtrack.pt());
+          registry.fill(HIST("hPhiml"), fwdtrack.phi());
+          registry.fill(HIST("hTanlml"), fwdtrack.tgl());
         }
       }
     }
@@ -228,6 +279,6 @@ struct mftmchMatchingML {
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
   return WorkflowSpec{
-    adaptAnalysisTask<mftmchMatchingML>(cfgc)
+    adaptAnalysisTask<compareMlMatching>(cfgc)
   };
 }
