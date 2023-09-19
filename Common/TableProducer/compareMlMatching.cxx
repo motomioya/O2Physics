@@ -80,13 +80,37 @@ struct compareMlMatching {
   HistogramRegistry registry{
     "registry",
     {
-      {"hmlscore", "mlscore", {HistType::kTH1F, {{100, 0, 1}}}},
+      {"hmlscore", "mlscore", {HistType::kTH1F, {{10000, 0, 1}}}},
       {"hXchi2", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
       {"hYchi2", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
       {"hZchi2", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
       {"hPTchi2", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
       {"hPhichi2", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
       {"hTanlchi2", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXchi2cut10", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYchi2cut10", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZchi2cut10", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTchi2cut10", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhichi2cut10", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlchi2cut10", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXchi2cut20", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYchi2cut20", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZchi2cut20", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTchi2cut20", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhichi2cut20", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlchi2cut20", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXchi2cut30", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYchi2cut30", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZchi2cut30", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTchi2cut30", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhichi2cut30", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlchi2cut30", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXchi2cut40", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYchi2cut40", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZchi2cut40", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTchi2cut40", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhichi2cut40", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlchi2cut40", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
       {"hXchi2cut50", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
       {"hYchi2cut50", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
       {"hZchi2cut50", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
@@ -99,6 +123,42 @@ struct compareMlMatching {
       {"hPTml", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
       {"hPhiml", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
       {"hTanlml", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXmlfwdtrue", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYmlfwdtrue", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZmlfwdtrue", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTmlfwdtrue", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhimlfwdtrue", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlmlfwdtrue", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXmlmfttrue", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYmlmfttrue", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZmlmfttrue", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTmlmfttrue", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhimlmfttrue", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlmlmfttrue", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXmldeltatrue", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYmldeltatrue", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZmldeltatrue", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTmldeltatrue", "PT", {HistType::kTH1F, {{10000, -50, 50}}}},
+      {"hPhimldeltatrue", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlmldeltatrue", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXmlfwdfalse", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYmlfwdfalse", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZmlfwdfalse", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTmlfwdfalse", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhimlfwdfalse", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlmlfwdfalse", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXmlmftfalse", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYmlmftfalse", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZmlmftfalse", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTmlmftfalse", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPhimlmftfalse", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlmlmftfalse", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXmldeltafalse", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hYmldeltafalse", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
+      {"hZmldeltafalse", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
+      {"hPTmldeltafalse", "PT", {HistType::kTH1F, {{5000, -50, 50}}}},
+      {"hPhimldeltafalse", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hTanlmldeltafalse", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
     }
   };
 
@@ -241,6 +301,38 @@ struct compareMlMatching {
           registry.fill(HIST("hPTchi2cut50"), fwdtrack.pt());
           registry.fill(HIST("hPhichi2cut50"), fwdtrack.phi());
           registry.fill(HIST("hTanlchi2cut50"), fwdtrack.tgl());
+          if (fwdtrack.chi2MatchMCHMFT() < 40){
+            registry.fill(HIST("hXchi2cut40"), fwdtrack.x());
+            registry.fill(HIST("hYchi2cut40"), fwdtrack.y());
+            registry.fill(HIST("hZchi2cut40"), fwdtrack.z());
+            registry.fill(HIST("hPTchi2cut40"), fwdtrack.pt());
+            registry.fill(HIST("hPhichi2cut40"), fwdtrack.phi());
+            registry.fill(HIST("hTanlchi2cut40"), fwdtrack.tgl());
+            if (fwdtrack.chi2MatchMCHMFT() < 30){
+              registry.fill(HIST("hXchi2cut30"), fwdtrack.x());
+              registry.fill(HIST("hYchi2cut30"), fwdtrack.y());
+              registry.fill(HIST("hZchi2cut30"), fwdtrack.z());
+              registry.fill(HIST("hPTchi2cut30"), fwdtrack.pt());
+              registry.fill(HIST("hPhichi2cut30"), fwdtrack.phi());
+              registry.fill(HIST("hTanlchi2cut30"), fwdtrack.tgl());
+              if (fwdtrack.chi2MatchMCHMFT() < 20){
+                registry.fill(HIST("hXchi2cut20"), fwdtrack.x());
+                registry.fill(HIST("hYchi2cut20"), fwdtrack.y());
+                registry.fill(HIST("hZchi2cut20"), fwdtrack.z());
+                registry.fill(HIST("hPTchi2cut20"), fwdtrack.pt());
+                registry.fill(HIST("hPhichi2cut20"), fwdtrack.phi());
+                registry.fill(HIST("hTanlchi2cut20"), fwdtrack.tgl());
+                if (fwdtrack.chi2MatchMCHMFT() < 10){
+                  registry.fill(HIST("hXchi2cut10"), fwdtrack.x());
+                  registry.fill(HIST("hYchi2cut10"), fwdtrack.y());
+                  registry.fill(HIST("hZchi2cut10"), fwdtrack.z());
+                  registry.fill(HIST("hPTchi2cut10"), fwdtrack.pt());
+                  registry.fill(HIST("hPhichi2cut10"), fwdtrack.phi());
+                  registry.fill(HIST("hTanlchi2cut10"), fwdtrack.tgl());
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -264,12 +356,50 @@ struct compareMlMatching {
           double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
           double pz = fwdtrack.p() * cos(M_PI/2 - atan(mfttrack.tgl()));
           fwdtrackml(fwdtrack.collisionId(),0,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)), dcaX, dcaY);
-          registry.fill(HIST("hXml"), fwdtrack.x());
-          registry.fill(HIST("hYml"), fwdtrack.y());
-          registry.fill(HIST("hZml"), fwdtrack.z());
-          registry.fill(HIST("hPTml"), fwdtrack.pt());
-          registry.fill(HIST("hPhiml"), fwdtrack.phi());
-          registry.fill(HIST("hTanlml"), fwdtrack.tgl());
+          registry.fill(HIST("hXml"), mfttrack.x());
+          registry.fill(HIST("hYml"), mfttrack.y());
+          registry.fill(HIST("hZml"), mfttrack.z());
+          registry.fill(HIST("hPTml"), std::sqrt(std::pow(px,2) + std::pow(py,2)));
+          registry.fill(HIST("hPhiml"), mfttrack.phi());
+          registry.fill(HIST("hTanlml"), mfttrack.tgl());
+
+          registry.fill(HIST("hXmlfwdtrue"), fwdtrack.x());
+          registry.fill(HIST("hYmlfwdtrue"), fwdtrack.y());
+          registry.fill(HIST("hZmlfwdtrue"), fwdtrack.z());
+          registry.fill(HIST("hPTmlfwdtrue"), fwdtrack.pt());
+          registry.fill(HIST("hPhimlfwdtrue"), fwdtrack.phi());
+          registry.fill(HIST("hTanlmlfwdtrue"), fwdtrack.tgl());
+          registry.fill(HIST("hXmlmfttrue"), mfttrack.x());
+          registry.fill(HIST("hYmlmfttrue"), mfttrack.y());
+          registry.fill(HIST("hZmlmfttrue"), mfttrack.z());
+          registry.fill(HIST("hPTmlmfttrue"), mfttrack.pt());
+          registry.fill(HIST("hPhimlmfttrue"), mfttrack.phi());
+          registry.fill(HIST("hTanlmlmfttrue"), mfttrack.tgl());
+          registry.fill(HIST("hXmldeltatrue"), fwdtrack.x() - mfttrack.x());
+          registry.fill(HIST("hYmldeltatrue"), fwdtrack.y() - mfttrack.y());
+          registry.fill(HIST("hZmldeltatrue"), fwdtrack.z() - mfttrack.z());
+          registry.fill(HIST("hPTmldeltatrue"), fwdtrack.pt() - mfttrack.pt());
+          registry.fill(HIST("hPhimldeltatrue"), fwdtrack.phi() - mfttrack.phi());
+          registry.fill(HIST("hTanlmldeltatrue"), fwdtrack.tgl() - mfttrack.tgl());
+        } else {
+          registry.fill(HIST("hXmlfwdfalse"), fwdtrack.x());
+          registry.fill(HIST("hYmlfwdfalse"), fwdtrack.y());
+          registry.fill(HIST("hZmlfwdfalse"), fwdtrack.z());
+          registry.fill(HIST("hPTmlfwdfalse"), fwdtrack.pt());
+          registry.fill(HIST("hPhimlfwdfalse"), fwdtrack.phi());
+          registry.fill(HIST("hTanlmlfwdfalse"), fwdtrack.tgl());
+          registry.fill(HIST("hXmlmftfalse"), mfttrack.x());
+          registry.fill(HIST("hYmlmftfalse"), mfttrack.y());
+          registry.fill(HIST("hZmlmftfalse"), mfttrack.z());
+          registry.fill(HIST("hPTmlmftfalse"), mfttrack.pt());
+          registry.fill(HIST("hPhimlmftfalse"), mfttrack.phi());
+          registry.fill(HIST("hTanlmlmftfalse"), mfttrack.tgl());
+          registry.fill(HIST("hXmldeltafalse"), fwdtrack.x() - mfttrack.x());
+          registry.fill(HIST("hYmldeltafalse"), fwdtrack.y() - mfttrack.y());
+          registry.fill(HIST("hZmldeltafalse"), fwdtrack.z() - mfttrack.z());
+          registry.fill(HIST("hPTmldeltafalse"), fwdtrack.pt() - mfttrack.pt());
+          registry.fill(HIST("hPhimldeltafalse"), fwdtrack.phi() - mfttrack.phi());
+          registry.fill(HIST("hTanlmldeltafalse"), fwdtrack.tgl() - mfttrack.tgl());
         }
       }
     }
