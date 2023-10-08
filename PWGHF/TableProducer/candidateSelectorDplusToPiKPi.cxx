@@ -29,6 +29,12 @@ using namespace o2::framework;
 using namespace o2::aod::hf_cand_3prong;
 using namespace o2::analysis::hf_cuts_dplus_to_pi_k_pi;
 
+/// Struct to extend TracksPid tables
+struct HfCandidateSelectorDplusToPiKPiExpressions {
+  Spawns<aod::TracksPidPiExt> rowTracksPidFullPi;
+  Spawns<aod::TracksPidKaExt> rowTracksPidFullKa;
+};
+
 /// Struct for applying Dplus to piKpi selection cuts
 struct HfCandidateSelectorDplusToPiKPi {
   Produces<aod::HfSelDplusToPiKPi> hfSelDplusToPiKPiCandidate;
@@ -56,14 +62,13 @@ struct HfCandidateSelectorDplusToPiKPi {
   // ML inference
   Configurable<bool> applyMl{"applyMl", false, "Flag to apply ML selections"};
   Configurable<std::vector<double>> binsPtMl{"binsPtMl", std::vector<double>{hf_cuts_ml::vecBinsPt}, "pT bin limits for ML application"};
-  Configurable<std::vector<std::string>> modelPathsMl{"modelPathsMl", std::vector<std::string>{hf_cuts_ml::modelPaths}, "Paths of the ML models, one for each pT bin"};
   Configurable<std::vector<int>> cutDirMl{"cutDirMl", std::vector<int>{hf_cuts_ml::vecCutDir}, "Whether to reject score values greater or smaller than the threshold"};
   Configurable<LabeledArray<double>> cutsMl{"cutsMl", {hf_cuts_ml::cuts[0], hf_cuts_ml::nBinsPt, hf_cuts_ml::nCutScores, hf_cuts_ml::labelsPt, hf_cuts_ml::labelsCutScore}, "ML selections per pT bin"};
   Configurable<int8_t> nClassesMl{"nClassesMl", (int8_t)hf_cuts_ml::nCutScores, "Number of classes in ML model"};
   // CCDB configuration
   Configurable<std::string> ccdbUrl{"ccdbUrl", "http://alice-ccdb.cern.ch", "url of the ccdb repository"};
-  Configurable<std::string> modelPathsCCDB{"modelPathsCCDB", "EventFiltering/PWGHF/BDTDplus", "Path on CCDB"};
-  Configurable<std::vector<std::string>> onnxFilesCCDB{"onnxFilesCCDB", std::vector<std::string>{"ModelHandler_onnx_DplusToPiKPi.onnx"}, "ONNX file names on CCDB, for each pT bin"};
+  Configurable<std::string> modelPathsCCDB{"modelPathsCCDB", "EventFiltering/PWGHF/BDTD0", "Path on CCDB"};
+  Configurable<std::vector<std::string>> onnxFileNames{"onnxFileNames", std::vector<std::string>{"ModelHandler_onnx_D0ToKPi.onnx"}, "ONNX file names for each pT bin (if not from CCDB full path)"};
   Configurable<int64_t> timestampCCDB{"timestampCCDB", -1, "timestamp of the ONNX file for ML model used to query in CCDB"};
   Configurable<bool> loadModelsFromCCDB{"loadModelsFromCCDB", false, "Flag to enable or disable the loading of models from CCDB"};
 
@@ -75,7 +80,7 @@ struct HfCandidateSelectorDplusToPiKPi {
   TrackSelectorPi selectorPion;
   TrackSelectorKa selectorKaon;
 
-  using TracksSel = soa::Join<aod::TracksWExtra, aod::TracksPidPi, aod::TracksPidKa>;
+  using TracksSel = soa::Join<aod::TracksWExtra, aod::TracksPidPiExt, aod::TracksPidKaExt>;
 
   HistogramRegistry registry{"registry"};
 
@@ -105,10 +110,12 @@ struct HfCandidateSelectorDplusToPiKPi {
     }
 
     if (applyMl) {
-      hfMlResponse.configure(binsPtMl, cutsMl, cutDirMl, nClassesMl, modelPathsMl);
+      hfMlResponse.configure(binsPtMl, cutsMl, cutDirMl, nClassesMl);
       if (loadModelsFromCCDB) {
         ccdbApi.init(ccdbUrl);
-        hfMlResponse.setModelPathsCCDB(onnxFilesCCDB, ccdbApi, modelPathsCCDB.value, timestampCCDB);
+        hfMlResponse.setModelPathsCCDB(onnxFileNames, ccdbApi, modelPathsCCDB.value, timestampCCDB);
+      } else {
+        hfMlResponse.setModelPathsLocal(onnxFileNames);
       }
       hfMlResponse.init();
       outputMl.assign(((std::vector<int>)cutDirMl).size(), -1.f); // dummy value for ML output
@@ -183,10 +190,11 @@ struct HfCandidateSelectorDplusToPiKPi {
     return true;
   }
 
-  void process(aod::HfCand3Prong const& candidates, TracksSel const&)
+  void process(aod::HfCand3Prong const& candidates,
+               TracksSel const&)
   {
     // looping over 3-prong candidates
-    for (auto& candidate : candidates) {
+    for (const auto& candidate : candidates) {
 
       // final selection flag:
       auto statusDplusToPiKPi = 0;
@@ -243,19 +251,6 @@ struct HfCandidateSelectorDplusToPiKPi {
       }
 
       if (applyMl) {
-        // tracks without TPC nor TOF already rejected at PID selection level
-        // tag tracks with TPC and TOF, only TPC, only TOF
-        auto tagPIDPos1 = o2::analysis::tagPID(trackPos1);
-        auto tagPIDNeg = o2::analysis::tagPID(trackNeg);
-        auto tagPIDPos2 = o2::analysis::tagPID(trackPos2);
-
-        auto combinedNSigmaPiPos1 = o2::analysis::getCombinedNSigma(trackPos1.tpcNSigmaPi(), trackPos1.tofNSigmaPi(), tagPIDPos1);
-        auto combinedNSigmaKaPos1 = o2::analysis::getCombinedNSigma(trackPos1.tpcNSigmaKa(), trackPos1.tofNSigmaKa(), tagPIDPos1);
-        auto combinedNSigmaPiNeg = o2::analysis::getCombinedNSigma(trackNeg.tpcNSigmaPi(), trackNeg.tofNSigmaPi(), tagPIDNeg);
-        auto combinedNSigmaKaNeg = o2::analysis::getCombinedNSigma(trackNeg.tpcNSigmaKa(), trackNeg.tofNSigmaKa(), tagPIDNeg);
-        auto combinedNSigmaPiPos2 = o2::analysis::getCombinedNSigma(trackPos2.tpcNSigmaPi(), trackPos2.tofNSigmaPi(), tagPIDPos2);
-        auto combinedNSigmaKaPos2 = o2::analysis::getCombinedNSigma(trackPos2.tpcNSigmaKa(), trackPos2.tofNSigmaKa(), tagPIDPos2);
-
         // ML selections
         std::vector<float> inputFeatures{candidate.ptProng0(),
                                          candidate.impactParameter0(),
@@ -268,12 +263,12 @@ struct HfCandidateSelectorDplusToPiKPi {
                                          candidate.cpa(),
                                          candidate.cpaXY(),
                                          candidate.maxNormalisedDeltaIP(),
-                                         combinedNSigmaPiPos1,
-                                         combinedNSigmaKaPos1,
-                                         combinedNSigmaPiNeg,
-                                         combinedNSigmaKaNeg,
-                                         combinedNSigmaPiPos2,
-                                         combinedNSigmaKaPos2};
+                                         trackPos1.tpcTofNSigmaPi(),
+                                         trackPos1.tpcTofNSigmaKa(),
+                                         trackNeg.tpcTofNSigmaPi(),
+                                         trackNeg.tpcTofNSigmaKa(),
+                                         trackPos2.tpcTofNSigmaPi(),
+                                         trackPos2.tpcTofNSigmaKa()};
 
         bool isSelectedMl = hfMlResponse.isSelectedMl(inputFeatures, ptCand, outputMl);
         hfMlDplusToPiKPiCandidate(outputMl);
@@ -296,5 +291,6 @@ struct HfCandidateSelectorDplusToPiKPi {
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
   return WorkflowSpec{
+    adaptAnalysisTask<HfCandidateSelectorDplusToPiKPiExpressions>(cfgc),
     adaptAnalysisTask<HfCandidateSelectorDplusToPiKPi>(cfgc)};
 }

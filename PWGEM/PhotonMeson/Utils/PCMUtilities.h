@@ -55,8 +55,8 @@ void Vtx_recalculation(o2::base::Propagator* prop, T lTrackPos, T lTrackNeg, flo
 
   // I think this calculation gets the closest point on the track to the conversion point
   // This alpha is a different alpha than the usual alpha and I think it is the angle between X axis and conversion point
-  Double_t alphaPos = TMath::Pi() + TMath::ATan2(-(xyz[1] - helixPos.yC), (xyz[0] - helixPos.xC));
-  Double_t alphaNeg = TMath::Pi() + TMath::ATan2(-(xyz[1] - helixNeg.yC), (xyz[0] - helixNeg.xC));
+  Double_t alphaPos = TMath::Pi() + TMath::ATan2(-(xyz[1] - helixPos.yC), -(xyz[0] - helixPos.xC));
+  Double_t alphaNeg = TMath::Pi() + TMath::ATan2(-(xyz[1] - helixNeg.yC), -(xyz[0] - helixNeg.xC));
 
   Double_t vertexXPos = helixPos.xC + helixPos.rC * TMath::Cos(alphaPos);
   Double_t vertexYPos = helixPos.yC + helixPos.rC * TMath::Sin(alphaPos);
@@ -168,7 +168,7 @@ float getPsiPair(float pxpos, float pypos, float pzpos, float pxneg, float pyneg
 
   auto clipToPM1 = [](float x) { return x < -1.f ? -1.f : (x > 1.f ? 1.f : x); };
   float ptot2 = RecoDecay::p2(pxpos, pypos, pzpos) * RecoDecay::p2(pxneg, pyneg, pzneg);
-  float argcos = RecoDecay::dotProd(array{pxpos, pypos, pzpos}, array{pxneg, pyneg, pzneg}) / std::sqrt(ptot2);
+  float argcos = RecoDecay::dotProd(std::array{pxpos, pypos, pzpos}, std::array{pxneg, pyneg, pzneg}) / std::sqrt(ptot2);
   float thetaPos = std::atan2(RecoDecay::sqrtSumOfSquares(pxpos, pypos), pzpos);
   float thetaNeg = std::atan2(RecoDecay::sqrtSumOfSquares(pxneg, pyneg), pzneg);
   float argsin = (thetaNeg - thetaPos) / std::acos(clipToPM1(argcos));

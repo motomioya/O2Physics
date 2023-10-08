@@ -44,6 +44,11 @@ o2physics_add_dpl_workflow(skimmer-phos
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2::PHOSBase
                     COMPONENT_NAME Analysis)
 
+o2physics_add_dpl_workflow(skimmer-dalitz-ee
+                    SOURCES skimmerDalitzEE.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
+                    COMPONENT_NAME Analysis)
+
 o2physics_add_dpl_workflow(gamma-table-producer
                     SOURCES gammaSelection.cxx
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
@@ -52,9 +57,4 @@ o2physics_add_dpl_workflow(gamma-table-producer
 o2physics_add_dpl_workflow(produce-meson-calo
                     SOURCES produceMesonCalo.cxx
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
-                    COMPONENT_NAME Analysis)
-
-o2physics_add_dpl_workflow(check-v0-mc
-                    SOURCES checkV0MC.cxx
-                    PUBLIC_LINK_LIBRARIES O2::Framework O2::DCAFitter O2Physics::AnalysisCore
                     COMPONENT_NAME Analysis)

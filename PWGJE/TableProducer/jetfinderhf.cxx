@@ -197,7 +197,7 @@ struct JetFinderHFTask {
 
     for (auto const& particle : particles) {
       if (std::abs(particle.flagMcMatchGen()) & (1 << candDecay)) {
-        auto particleY = RecoDecay::y(array{particle.px(), particle.py(), particle.pz()}, RecoDecay::getMassPDG(particle.pdgCode()));
+        auto particleY = RecoDecay::y(std::array{particle.px(), particle.py(), particle.pz()}, RecoDecay::getMassPDG(particle.pdgCode()));
         if (particleY < candYMin || particleY > candYMax) {
           continue;
         }
@@ -208,7 +208,7 @@ struct JetFinderHFTask {
       }
     }
     for (auto& candidate : candidates) {
-      analyseParticles(inputParticles, particleSelection, trackEtaMin, trackEtaMax, jetTypeParticleLevel, particles, pdg->Instance(), std::optional{candidate});
+      analyseParticles(inputParticles, particleSelection, jetTypeParticleLevel, particles, pdg->Instance(), std::optional{candidate});
       FastJetUtilities::fillTracks(candidate, inputParticles, candidate.globalIndex(), static_cast<int>(JetConstituentStatus::candidateHF), RecoDecay::getMassPDG(candidate.pdgCode()));
       findJets(jetFinder, inputParticles, jetRadius, collision, jetsTable, constituentsTable, constituentsSubTable, DoConstSub, true);
     }

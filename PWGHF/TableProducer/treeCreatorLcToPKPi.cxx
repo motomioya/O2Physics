@@ -80,6 +80,7 @@ DECLARE_SOA_COLUMN(OriginMcGen, originMcGen, int8_t);
 DECLARE_SOA_COLUMN(IsCandidateSwapped, isCandidateSwapped, int8_t);
 DECLARE_SOA_INDEX_COLUMN_FULL(Candidate, candidate, int, HfCand3Prong, "_0");
 // Events
+DECLARE_SOA_INDEX_COLUMN(McCollision, mcCollision);
 DECLARE_SOA_COLUMN(IsEventReject, isEventReject, int);
 DECLARE_SOA_COLUMN(RunNumber, runNumber, int);
 } // namespace full
@@ -160,6 +161,7 @@ DECLARE_SOA_TABLE(HfCandLcFulls, "AOD", "HFCANDLCFULL",
 
 DECLARE_SOA_TABLE(HfCandLcFullEvs, "AOD", "HFCANDLCFULLEV",
                   full::CollisionId,
+                  full::McCollisionId,
                   collision::NumContrib,
                   collision::PosX,
                   collision::PosY,
@@ -168,7 +170,7 @@ DECLARE_SOA_TABLE(HfCandLcFullEvs, "AOD", "HFCANDLCFULLEV",
                   full::RunNumber);
 
 DECLARE_SOA_TABLE(HfCandLcFullPs, "AOD", "HFCANDLCFULLP",
-                  full::CollisionId,
+                  full::McCollisionId,
                   full::Pt,
                   full::Eta,
                   full::Phi,
@@ -193,8 +195,8 @@ struct HfTreeCreatorLcToPKPi {
   {
   }
 
-  void processMc(aod::Collisions const& collisions,
-                 aod::McCollisions const& mccollisions,
+  void processMc(soa::Join<aod::Collisions, aod::McCollisionLabels> const& collisions,
+                 aod::McCollisions const& mcCollisions,
                  soa::Join<aod::HfCand3Prong, aod::HfCand3ProngMcRec, aod::HfSelLc> const& candidates,
                  soa::Join<aod::McParticles, aod::HfCand3ProngMcGen> const& particles,
                  TracksWPid const& tracks, aod::BCs const&)
@@ -202,9 +204,10 @@ struct HfTreeCreatorLcToPKPi {
 
     // Filling event properties
     rowCandidateFullEvents.reserve(collisions.size());
-    for (auto& collision : collisions) {
+    for (const auto& collision : collisions) {
       rowCandidateFullEvents(
         collision.globalIndex(),
+        collision.mcCollisionId(),
         collision.numContrib(),
         collision.posX(),
         collision.posY(),
@@ -215,7 +218,7 @@ struct HfTreeCreatorLcToPKPi {
 
     // Filling candidate properties
     rowCandidateFull.reserve(candidates.size());
-    for (auto& candidate : candidates) {
+    for (const auto& candidate : candidates) {
       auto trackPos1 = candidate.prong0_as<TracksWPid>(); // positive daughter (negative for the antiparticles)
       auto trackNeg = candidate.prong1_as<TracksWPid>();  // negative daughter (positive for the antiparticles)
       auto trackPos2 = candidate.prong2_as<TracksWPid>(); // positive daughter (negative for the antiparticles)
@@ -309,14 +312,14 @@ struct HfTreeCreatorLcToPKPi {
 
     // Filling particle properties
     rowCandidateFullParticles.reserve(particles.size());
-    for (auto& particle : particles) {
+    for (const auto& particle : particles) {
       if (std::abs(particle.flagMcMatchGen()) == 1 << DecayType::LcToPKPi) {
         rowCandidateFullParticles(
           particle.mcCollisionId(),
           particle.pt(),
           particle.eta(),
           particle.phi(),
-          RecoDecay::y(array{particle.px(), particle.py(), particle.pz()}, RecoDecay::getMassPDG(particle.pdgCode())),
+          RecoDecay::y(std::array{particle.px(), particle.py(), particle.pz()}, RecoDecay::getMassPDG(particle.pdgCode())),
           particle.flagMcMatchGen(),
           particle.originMcGen(),
           particle.globalIndex());
@@ -332,9 +335,10 @@ struct HfTreeCreatorLcToPKPi {
 
     // Filling event properties
     rowCandidateFullEvents.reserve(collisions.size());
-    for (auto& collision : collisions) {
+    for (const auto& collision : collisions) {
       rowCandidateFullEvents(
         collision.globalIndex(),
+        -1,
         collision.numContrib(),
         collision.posX(),
         collision.posY(),
@@ -345,7 +349,7 @@ struct HfTreeCreatorLcToPKPi {
 
     // Filling candidate properties
     rowCandidateFull.reserve(candidates.size());
-    for (auto& candidate : candidates) {
+    for (const auto& candidate : candidates) {
       auto trackPos1 = candidate.prong0_as<TracksWPid>(); // positive daughter (negative for the antiparticles)
       auto trackNeg = candidate.prong1_as<TracksWPid>();  // negative daughter (positive for the antiparticles)
       auto trackPos2 = candidate.prong2_as<TracksWPid>(); // positive daughter (negative for the antiparticles)

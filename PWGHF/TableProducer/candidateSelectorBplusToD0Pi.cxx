@@ -93,9 +93,9 @@ struct HfCandidateSelectorBplusToD0Pi {
     int selectionFlagD0 = -1;
     int selectionFlagD0bar = -1;
     auto& workflows = initContext.services().get<RunningWorkflowInfo const>();
-    for (DeviceSpec const& device : workflows.devices) {
+    for (const DeviceSpec& device : workflows.devices) {
       if (device.name.compare("hf-candidate-creator-bplus") == 0) {
-        for (auto const& option : device.options) {
+        for (const auto& option : device.options) {
           if (option.name.compare("selectionFlagD0") == 0) {
             selectionFlagD0 = option.defaultValue.get<int>();
             LOGF(info, "selectionFlagD0 = %d", selectionFlagD0);
@@ -133,10 +133,12 @@ struct HfCandidateSelectorBplusToD0Pi {
     return true;
   }
 
-  void process(aod::HfCandBplus const& hfCandBs, soa::Join<aod::HfCand2Prong, aod::HfSelD0> const&, TracksPidWithSel const&)
+  void process(aod::HfCandBplus const& hfCandBs,
+               soa::Join<aod::HfCand2Prong, aod::HfSelD0> const&,
+               TracksPidWithSel const&)
   {
 
-    for (auto& hfCandB : hfCandBs) { // looping over Bplus candidates
+    for (const auto& hfCandB : hfCandBs) { // looping over Bplus candidates
 
       int statusBplus = 0;
       auto ptCandB = hfCandB.pt();
@@ -144,7 +146,7 @@ struct HfCandidateSelectorBplusToD0Pi {
       // check if flagged as B+ --> D0bar Pi
       if (!(hfCandB.hfflag() & 1 << hf_cand_bplus::DecayType::BplusToD0Pi)) {
         hfSelBplusToD0PiCandidate(statusBplus);
-        // Printf("B+ candidate selection failed at hfflag check");
+        // LOGF(debug, "B+ candidate selection failed at hfflag check");
         continue;
       }
       SETBIT(statusBplus, SelectionStep::RecoSkims); // RecoSkims = 0 --> statusBplus = 1
@@ -158,7 +160,7 @@ struct HfCandidateSelectorBplusToD0Pi {
       // topological cuts
       if (!hf_sel_candidate_bplus::selectionTopol(hfCandB, cuts, binsPt)) {
         hfSelBplusToD0PiCandidate(statusBplus);
-        // Printf("B+ candidate selection failed at topology selection");
+        // LOGF(debug, "B+ candidate selection failed at topology selection");
         continue;
       }
       SETBIT(statusBplus, SelectionStep::RecoTopol); // RecoTopol = 1 --> statusBplus = 3

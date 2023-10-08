@@ -1,8 +1,6 @@
-// Copyright 2019-2020 CERN and copyright holds of ALICE O2.
+// Copyright 2020-2022 CERN and copyright holders of ALICE O2.
 // See https://alice-o2.web.cern.ch/copyright for details of the copyright holders.
 // All rights not expressly granted are reserved.
-
-//
 // This software is distributed under the terms of the GNU General Public
 // License v3 (GPL Version 3), copied verbatim in the file "COPYING".
 //
@@ -10,6 +8,12 @@
 // granted to it by virtue of its status as an Intergovernmental Organization
 // or submit itself to any jurisdiction.
 
+#include <math.h>
+#include <onnxruntime/core/session/experimental_onnxruntime_cxx_api.h>
+#include <string>
+#include <regex>
+#include <TLorentzVector.h>
+#include "Common/DataModel/MftmchMatchingML.h"
 #include "Framework/AnalysisDataModel.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/runDataProcessing.h"
@@ -19,7 +23,6 @@
 #include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/Core/trackUtilities.h"
 #include "Common/Core/TrackSelection.h"
-#include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/DataModel/mftmchMatchingML.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
 #include "Math/SMatrix.h"
@@ -30,11 +33,6 @@
 #include "GlobalTracking/MatchGlobalFwd.h"
 #include "CCDB/CcdbApi.h"
 #include "Tools/ML/model.h"
-#include <string>
-#include <regex>
-#include <math.h>
-#include <TLorentzVector.h>
-#include <onnxruntime/core/session/experimental_onnxruntime_cxx_api.h>
 
 using namespace o2;
 using namespace o2::framework;
@@ -42,9 +40,9 @@ using namespace o2::framework::expressions;
 using namespace o2::soa;
 using namespace o2::ml;
 using namespace evsel;
+using o2::globaltracking::MatchingFunc_t;
 using o2::track::TrackParCovFwd;
 using o2::track::TrackParFwd;
-using o2::globaltracking::MatchingFunc_t;
 using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
 using SMatrix5 = ROOT::Math::SVector<double, 5>;
 
@@ -78,11 +76,12 @@ struct mftmchMatchingML {
   OnnxModel model;
 
   template <typename F, typename M>
-  std::vector<float> getVariables(F const& fwdtrack, M const& mfttrack){
+  std::vector<float> getVariables(F const& fwdtrack, M const& mfttrack)
+  {
 
     static constexpr Double_t MatchingPlaneZ = -77.5;
 
-    //propagate muontrack to matching position
+    // propagate muontrack to matching position
     double muonchi2 = fwdtrack.chi2();
     SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
     std::vector<double> muonv1;
@@ -90,7 +89,7 @@ struct mftmchMatchingML {
     o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
     muonpars1.propagateToZlinear(MatchingPlaneZ);
 
-    //propagate mfttrack to matching position
+    // propagate mfttrack to matching position
     double mftchi2 = mfttrack.chi2();
     SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
     std::vector<double> mftv1;
@@ -98,28 +97,28 @@ struct mftmchMatchingML {
     o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
     mftpars1.propagateToZlinear(MatchingPlaneZ);
 
-    Float_t MFT_X      = mftpars1.getX();
-    Float_t MFT_Y      = mftpars1.getY();
-    Float_t MFT_Phi    = mftpars1.getPhi();
-    Float_t MFT_Tanl   = mftpars1.getTanl();
+    Float_t MFT_X = mftpars1.getX();
+    Float_t MFT_Y = mftpars1.getY();
+    Float_t MFT_Phi = mftpars1.getPhi();
+    Float_t MFT_Tanl = mftpars1.getTanl();
 
-    Float_t MCH_X      = muonpars1.getX();
-    Float_t MCH_Y      = muonpars1.getY();
-    Float_t MCH_Phi    = muonpars1.getPhi();
-    Float_t MCH_Tanl   = muonpars1.getTanl();
+    Float_t MCH_X = muonpars1.getX();
+    Float_t MCH_Y = muonpars1.getY();
+    Float_t MCH_Phi = muonpars1.getPhi();
+    Float_t MCH_Tanl = muonpars1.getTanl();
 
-    Float_t Ratio_X      = MFT_X      / MCH_X;
-    Float_t Ratio_Y      = MFT_Y      / MCH_Y;
-    Float_t Ratio_Phi    = MFT_Phi    / MCH_Phi;
-    Float_t Ratio_Tanl   = MFT_Tanl   / MCH_Tanl;
-          
-    Float_t Delta_X      = MFT_X      - MCH_X;
-    Float_t Delta_Y      = MFT_Y      - MCH_Y;
-    Float_t Delta_Phi    = MFT_Phi    - MCH_Phi;
-    Float_t Delta_Tanl   = MFT_Tanl   - MCH_Tanl;
+    Float_t Ratio_X = MFT_X / MCH_X;
+    Float_t Ratio_Y = MFT_Y / MCH_Y;
+    Float_t Ratio_Phi = MFT_Phi / MCH_Phi;
+    Float_t Ratio_Tanl = MFT_Tanl / MCH_Tanl;
 
-    Float_t Delta_XY     = sqrt(Delta_X*Delta_X + Delta_Y*Delta_Y);
-    
+    Float_t Delta_X = MFT_X - MCH_X;
+    Float_t Delta_Y = MFT_Y - MCH_Y;
+    Float_t Delta_Phi = MFT_Phi - MCH_Phi;
+    Float_t Delta_Tanl = MFT_Tanl - MCH_Tanl;
+
+    Float_t Delta_XY = sqrt(Delta_X * Delta_X + Delta_Y * Delta_Y);
+
     std::vector<float> input_tensor_values{
       MFT_X,
       MFT_Y,
@@ -139,12 +138,12 @@ struct mftmchMatchingML {
       Ratio_Phi,
       Ratio_Tanl,
     };
-    return input_tensor_values;  
+    return input_tensor_values;
   }
 
   template <typename F, typename M>
   double matchONNX(F const& fwdtrack, M const& mfttrack)
-  {  
+  {
     std::vector<std::string> input_names;
     std::vector<std::vector<int64_t>> input_shapes;
     std::vector<std::string> output_names;
@@ -154,23 +153,26 @@ struct mftmchMatchingML {
     input_shapes = onnx_session->GetInputShapes();
     output_names = onnx_session->GetOutputNames();
     output_shapes = onnx_session->GetOutputShapes();
-    
+
     auto input_shape = input_shapes[0];
     input_shape[0] = 1;
 
     std::vector<float> input_tensor_values;
+
     input_tensor_values = getVariables(fwdtrack,mfttrack);
+
+    input_tensor_values = getVariables(fwdtrack, mfttrack);
 
     if (input_tensor_values[8] < 3) {
       std::vector<Ort::Value> input_tensors;
-      input_tensors.push_back(Ort::Experimental::Value::CreateTensor<float> (input_tensor_values.data(), input_tensor_values.size(), input_shape));  
+      input_tensors.push_back(Ort::Experimental::Value::CreateTensor<float>(input_tensor_values.data(), input_tensor_values.size(), input_shape));
 
       std::vector<Ort::Value> output_tensors = onnx_session->Run(input_names, input_tensors, output_names);
-       
+
       const float* output_value = output_tensors[0].GetTensorData<float>();
 
       auto score = output_value[0];
-      
+
       return score;
     } else {
       auto score = 0;
@@ -184,17 +186,19 @@ struct mftmchMatchingML {
     std::map<std::string, std::string> metadata;
 
     ccdbApi.init(cfgCCDBURL);
-    //retrieving onnx file from ccdb
+    // retrieving onnx file from ccdb
     std::string modelFile = cfgModelDir.value;
     bool retrieveSuccess = ccdbApi.retrieveBlob(modelFile, ".", metadata, 1642502592629, false, cfgModelName.value);
 
-    //start session
-    if (retrieveSuccess){
+    // start session
+    if (retrieveSuccess) {
       std::map<std::string, std::string> headers = ccdbApi.retrieveHeaders(modelFile, metadata, -1);
-      LOG(info) << "Network file downloaded from: " << modelFile << " to: " << "." << "/" << cfgModelName.value;
-      model.initModel(cfgModelName, false, 1, strtoul(headers["Valid-From"].c_str(), NULL, 0), strtoul(headers["Valid-Until"].c_str(), NULL, 0)); //temporary
+      LOG(info) << "Network file downloaded from: " << modelFile << " to: "
+                << "."
+                << "/" << cfgModelName.value;
+      model.initModel(cfgModelName, false, 1, strtoul(headers["Valid-From"].c_str(), NULL, 0), strtoul(headers["Valid-Until"].c_str(), NULL, 0));
       onnx_session = model.getSession();
-    }else{
+    } else {
       LOG(info) << "Failed to retrieve Network file";
     }
   }
@@ -203,9 +207,9 @@ struct mftmchMatchingML {
   {
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 
-      if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack){
+      if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
         double result = matchONNX(fwdtrack, mfttrack);
-        if (result > cfgThrScore){
+        if (result > cfgThrScore) {
           double mftchi2 = mfttrack.chi2();
           SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
           std::vector<double> mftv1;
@@ -215,6 +219,7 @@ struct mftmchMatchingML {
 
           float dcaX = (mftpars1.getX() - collision.posX());
           float dcaY = (mftpars1.getY() - collision.posY());
+<<<<<<< HEAD
           double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
           double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
           double pz = fwdtrack.p() * cos(M_PI/2 - atan(mfttrack.tgl()));

@@ -216,6 +216,7 @@ struct centralEventFilterTask {
   Configurable<float> cfgTimingCut{"cfgTimingCut", 1.f, "nsigma timing cut associating BC and collisions"};
   Service<o2::ccdb::BasicCCDBManager> ccdb;
 
+  FILTER_CONFIGURABLE(F1ProtonFilters);
   FILTER_CONFIGURABLE(NucleiFilters);
   FILTER_CONFIGURABLE(DiffractionFilters);
   FILTER_CONFIGURABLE(DqFilters);
@@ -332,12 +333,12 @@ struct centralEventFilterTask {
     }
 
     int startCollision{0};
-    for (int iC{0}; iC < CollBCIdArray->length(); ++iC) {
-      if (o2::InteractionRecord::long2IR(GloBCArray->Value(CollBCIdArray->Value(iC))) > mEndOfITSramp) {
-        break;
-      }
-      startCollision = iC;
-    }
+    // for (int iC{0}; iC < CollBCIdArray->length(); ++iC) {
+    //   if (o2::InteractionRecord::long2IR(GloBCArray->Value(CollBCIdArray->Value(iC))) > mEndOfITSramp) {
+    //     break;
+    //   }
+    //   startCollision = iC;
+    // }
 
     auto mScalers{scalers.get<TH1>(HIST("mScalers"))};
     auto mFiltered{scalers.get<TH1>(HIST("mFiltered"))};

@@ -12,6 +12,7 @@
 /// \author Junlee Kim (jikim1290@gmail.com)
 
 #include <TLorentzVector.h>
+#include "TVector2.h"
 
 #include "Common/DataModel/Centrality.h"
 #include "Common/DataModel/EventSelection.h"
@@ -40,9 +41,11 @@ struct f0980analysis {
                                "Minimum transverse momentum for charged track"};
   Configurable<float> cfgMaxEta{"cfgMaxEta", 0.8,
                                 "Maximum pseudorapidiy for charged track"};
+  Configurable<float> cfgMinDCArToPVcut{"cfgMinDCArToPVcut", -0.5,
+                                        "Minimum transverse DCA"};
   Configurable<float> cfgMaxDCArToPVcut{"cfgMaxDCArToPVcut", 0.5,
                                         "Maximum transverse DCA"};
-  Configurable<float> cfgMinDCAzToPVcut{"cfgMinDCAzToPVcut", 0.0,
+  Configurable<float> cfgMinDCAzToPVcut{"cfgMinDCAzToPVcut", -2.0,
                                         "Minimum longitudinal DCA"};
   Configurable<float> cfgMaxDCAzToPVcut{"cfgMaxDCAzToPVcut", 2.0,
                                         "Maximum longitudinal DCA"};
@@ -70,31 +73,39 @@ struct f0980analysis {
   Configurable<bool> cfgPVContributor{
     "cfgPVContributor", true,
     "PV contributor track selection"}; // PV Contriuibutor
+  Configurable<bool> cfgUseTOF{
+    "cfgUseTOF", false,
+    "Flag for the usage of TOF for PID"};
 
   void init(o2::framework::InitContext&)
   {
     std::vector<double> ptBinning = {0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8,
                                      1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5,
                                      5.0, 6.0, 7.0, 8.0, 10.0, 13.0, 20.0};
+    std::vector<double> lptBinning = {0, 5.0, 13.0, 20.0, 50.0, 1000.0};
 
-    AxisSpec centAxis = {20, 0, 100};
+    AxisSpec centAxis = {22, 0, 110};
     AxisSpec ptAxis = {ptBinning};
     AxisSpec massAxis = {400, 0.2, 2.2};
-    AxisSpec epAxis = {20, -constants::math::PI, constants::math::PI};
+    AxisSpec RTAxis = {3, 0, 3};
+    AxisSpec LptAxis = {lptBinning}; // Minimum leading hadron pT selection
 
     AxisSpec PIDqaAxis = {120, -6, 6};
     AxisSpec pTqaAxis = {200, 0, 20};
+    AxisSpec phiqaAxis = {72, -constants::math::PI, constants::math::PI};
 
     histos.add("hInvMass_f0980_US", "unlike invariant mass",
-               {HistType::kTH3F, {massAxis, ptAxis, centAxis}});
+               {HistType::kTHnSparseF, {massAxis, ptAxis, centAxis, RTAxis, LptAxis}});
     histos.add("hInvMass_f0980_LSpp", "++ invariant mass",
-               {HistType::kTH3F, {massAxis, ptAxis, centAxis}});
+               {HistType::kTHnSparseF, {massAxis, ptAxis, centAxis, RTAxis, LptAxis}});
     histos.add("hInvMass_f0980_LSmm", "-- invariant mass",
-               {HistType::kTH3F, {massAxis, ptAxis, centAxis}});
+               {HistType::kTHnSparseF, {massAxis, ptAxis, centAxis, RTAxis, LptAxis}});
 
     histos.add("QA/Nsigma_TPC", "", {HistType::kTH2F, {pTqaAxis, PIDqaAxis}});
     histos.add("QA/Nsigma_TOF", "", {HistType::kTH2F, {pTqaAxis, PIDqaAxis}});
     histos.add("QA/TPC_TOF", "", {HistType::kTH2F, {PIDqaAxis, PIDqaAxis}});
+
+    histos.add("QA/LTpt", "", {HistType::kTH3F, {pTqaAxis, centAxis, phiqaAxis}});
 
     if (doprocessMCLight) {
       histos.add("MCL/hpT_f0980_GEN", "generated f0 signals", HistType::kTH1F,
@@ -108,6 +119,19 @@ struct f0980analysis {
 
   double massPi = TDatabasePDG::Instance()->GetParticle(kPiPlus)->Mass();
 
+  int RTIndex(double pairphi, double lhphi)
+  {
+    double dphi = std::fabs(TVector2::Phi_mpi_pi(lhphi - pairphi));
+    if (dphi < constants::math::PI / 3.0)
+      return 0;
+    if (dphi < 2.0 * constants::math::PI / 3.0 && dphi > constants::math::PI / 3.0)
+      return 1;
+    if (dphi > 2.0 * constants::math::PI / 3.0)
+      return 2;
+
+    return -1;
+  }
+
   template <typename TrackType>
   bool SelTrack(const TrackType track)
   {
@@ -115,7 +139,7 @@ struct f0980analysis {
       return false;
     if (std::fabs(track.eta()) > cfgMaxEta)
       return false;
-    if (track.dcaXY() > cfgMaxDCArToPVcut)
+    if (track.dcaXY() < cfgMinDCArToPVcut || track.dcaXY() > cfgMaxDCArToPVcut)
       return false;
     if (track.dcaZ() < cfgMinDCAzToPVcut || track.dcaZ() > cfgMaxDCAzToPVcut)
       return false;
@@ -133,7 +157,8 @@ struct f0980analysis {
   bool SelPion(const TrackType track)
   {
     if ((track.tofPIDselectionFlag() & aod::resodaughter::kHasTOF) !=
-        aod::resodaughter::kHasTOF) {
+          aod::resodaughter::kHasTOF ||
+        !cfgUseTOF) {
       if (std::fabs(track.tpcNSigmaPi()) > cfgMaxTPCStandalone) {
         return false;
       }
@@ -150,10 +175,19 @@ struct f0980analysis {
   void fillHistograms(const CollisionType& collision,
                       const TracksType& dTracks)
   {
+    double LHpt = 0.;
+    double LHphi;
+    for (auto& trk : dTracks) {
+      if (trk.pt() > LHpt) {
+        LHpt = trk.pt();
+        LHphi = trk.phi();
+      }
+    }
+    histos.fill(HIST("QA/LTpt"), LHpt, collision.multV0M(), LHphi);
+
     TLorentzVector Pion1, Pion2, Reco;
     for (auto& [trk1, trk2] :
          combinations(CombinationsUpperIndexPolicy(dTracks, dTracks))) {
-
       if (trk1.index() == trk2.index()) {
         if (!SelTrack(trk1))
           continue;
@@ -177,7 +211,7 @@ struct f0980analysis {
 
       if (trk1.sign() * trk2.sign() < 0) {
         histos.fill(HIST("hInvMass_f0980_US"), Reco.M(), Reco.Pt(),
-                    collision.multV0M());
+                    collision.multV0M(), RTIndex(Reco.Phi(), LHphi), LHpt);
         if constexpr (IsMC) {
           if (abs(trk1.pdgCode()) != kPiPlus || abs(trk2.pdgCode()) != kPiPlus)
             continue;
@@ -190,10 +224,10 @@ struct f0980analysis {
         }
       } else if (trk1.sign() > 0 && trk2.sign() > 0) {
         histos.fill(HIST("hInvMass_f0980_LSpp"), Reco.M(), Reco.Pt(),
-                    collision.multV0M());
+                    collision.multV0M(), RTIndex(Reco.Phi(), LHphi), LHpt);
       } else if (trk1.sign() < 0 && trk2.sign() < 0) {
         histos.fill(HIST("hInvMass_f0980_LSmm"), Reco.M(), Reco.Pt(),
-                    collision.multV0M());
+                    collision.multV0M(), RTIndex(Reco.Phi(), LHphi), LHpt);
       }
     }
   }
@@ -216,8 +250,11 @@ struct f0980analysis {
 
   void processMCTrue(aod::ResoMCParents& resoParents)
   {
+
     for (auto& part : resoParents) { // loop over all pre-filtered MC particles
       if (abs(part.pdgCode()) != 9010221)
+        continue;
+      if (!part.producedByGenerator())
         continue;
       if (part.y() < cfgMinRap || part.y() > cfgMaxRap) {
         continue;
