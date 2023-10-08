@@ -62,7 +62,7 @@ struct compareMlMatching {
   float chi2up = 1000000;
   float chi2MatchMCHMIDup = 1000000;
 
-  Filter etaFilter = ((etalow < aod::fwdtrack::eta) && (etaup < aod::fwdtrack::eta ));
+  Filter etaFilter = ((etalow < aod::fwdtrack::eta) && (aod::fwdtrack::eta < etaup ));
   Filter pDcaFilter = (((pDCAcutrAtBsorberEndlow1 < aod::fwdtrack::rAtAbsorberEnd) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup1) && (aod::fwdtrack::pDca < pDCAcutdcaup1)) || ((pDCAcutrAtBsorberEndlow2 < aod::fwdtrack::rAtAbsorberEnd) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup2) && (aod::fwdtrack::pDca < pDCAcutdcaup2)));
   Filter chi2Filter = (aod::fwdtrack::chi2 < chi2up);
   Filter chi2MatchFilter = (aod::fwdtrack::chi2MatchMCHMID < chi2MatchMCHMIDup);
@@ -141,6 +141,7 @@ struct compareMlMatching {
       {"hPTmldeltatrue", "PT", {HistType::kTH1F, {{10000, -50, 50}}}},
       {"hPhimldeltatrue", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
       {"hTanlmldeltatrue", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXYmldeltatrue", "ZY", {HistType::kTH1F, {{200, -10, 10}}}},
       {"hXmlfwdfalse", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
       {"hYmlfwdfalse", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
       {"hZmlfwdfalse", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
@@ -159,6 +160,7 @@ struct compareMlMatching {
       {"hPTmldeltafalse", "PT", {HistType::kTH1F, {{5000, -50, 50}}}},
       {"hPhimldeltafalse", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
       {"hTanlmldeltafalse", "Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hXYmldeltafalse", "XY", {HistType::kTH1F, {{200, -10, 10}}}},
     }
   };
 
@@ -342,20 +344,30 @@ struct compareMlMatching {
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack){
         double result = matchONNX(fwdtrack, mfttrack);
         registry.fill(HIST("hmlscore"), result);
-        if (result > cfgThrScore){
-          double mftchi2 = mfttrack.chi2();
-          SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
-          std::vector<double> mftv1;
-          SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
-          o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-          mftpars1.propagateToZlinear(collision.posZ());
 
-          float dcaX = (mftpars1.getX() - collision.posX());
-          float dcaY = (mftpars1.getY() - collision.posY());
-          double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
-          double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
-          double pz = fwdtrack.p() * cos(M_PI/2 - atan(mfttrack.tgl()));
-          fwdtrackml(fwdtrack.collisionId(),0,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)), dcaX, dcaY);
+        static constexpr Double_t MatchingPlaneZ = -77.5;
+
+        //propagate muontrack to matching position
+        double muonchi2 = fwdtrack.chi2();
+        SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
+        std::vector<double> muonv1;
+        SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
+        o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
+        muonpars1.propagateToZlinear(MatchingPlaneZ);
+
+        //propagate mfttrack to matching position
+        double mftchi2 = mfttrack.chi2();
+        SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+        std::vector<double> mftv1;
+        SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+        o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+        mftpars1.propagateToZlinear(MatchingPlaneZ);
+
+        double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
+        double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
+
+        Float_t Delta_XY     = sqrt((muonpars1.getX() - mftpars1.getX())*(muonpars1.getX() - mftpars1.getX()) + (muonpars1.getY() - mftpars1.getY())*(muonpars1.getY() - mftpars1.getY()));
+        if (result > cfgThrScore){
           registry.fill(HIST("hXml"), mfttrack.x());
           registry.fill(HIST("hYml"), mfttrack.y());
           registry.fill(HIST("hZml"), mfttrack.z());
@@ -363,43 +375,47 @@ struct compareMlMatching {
           registry.fill(HIST("hPhiml"), mfttrack.phi());
           registry.fill(HIST("hTanlml"), mfttrack.tgl());
 
-          registry.fill(HIST("hXmlfwdtrue"), fwdtrack.x());
-          registry.fill(HIST("hYmlfwdtrue"), fwdtrack.y());
-          registry.fill(HIST("hZmlfwdtrue"), fwdtrack.z());
-          registry.fill(HIST("hPTmlfwdtrue"), fwdtrack.pt());
-          registry.fill(HIST("hPhimlfwdtrue"), fwdtrack.phi());
-          registry.fill(HIST("hTanlmlfwdtrue"), fwdtrack.tgl());
-          registry.fill(HIST("hXmlmfttrue"), mfttrack.x());
-          registry.fill(HIST("hYmlmfttrue"), mfttrack.y());
-          registry.fill(HIST("hZmlmfttrue"), mfttrack.z());
-          registry.fill(HIST("hPTmlmfttrue"), mfttrack.pt());
-          registry.fill(HIST("hPhimlmfttrue"), mfttrack.phi());
-          registry.fill(HIST("hTanlmlmfttrue"), mfttrack.tgl());
-          registry.fill(HIST("hXmldeltatrue"), fwdtrack.x() - mfttrack.x());
-          registry.fill(HIST("hYmldeltatrue"), fwdtrack.y() - mfttrack.y());
-          registry.fill(HIST("hZmldeltatrue"), fwdtrack.z() - mfttrack.z());
-          registry.fill(HIST("hPTmldeltatrue"), fwdtrack.pt() - mfttrack.pt());
-          registry.fill(HIST("hPhimldeltatrue"), fwdtrack.phi() - mfttrack.phi());
-          registry.fill(HIST("hTanlmldeltatrue"), fwdtrack.tgl() - mfttrack.tgl());
+          registry.fill(HIST("hXmlfwdtrue"), muonpars1.getX());
+          registry.fill(HIST("hYmlfwdtrue"), muonpars1.getY());
+          registry.fill(HIST("hZmlfwdtrue"), muonpars1.getY());
+          registry.fill(HIST("hPTmlfwdtrue"), muonpars1.getPt());
+          registry.fill(HIST("hPhimlfwdtrue"), muonpars1.getPhi());
+          registry.fill(HIST("hTanlmlfwdtrue"), muonpars1.getTanl());
+          registry.fill(HIST("hXmlmfttrue"), mftpars1.getX());
+          registry.fill(HIST("hYmlmfttrue"), mftpars1.getY());
+          registry.fill(HIST("hZmlmfttrue"), mftpars1.getZ());
+          registry.fill(HIST("hPTmlmfttrue"), mftpars1.getPt());
+          registry.fill(HIST("hPhimlmfttrue"), mftpars1.getPhi());
+          registry.fill(HIST("hTanlmlmfttrue"), mftpars1.getTanl());
+          registry.fill(HIST("hXmldeltatrue"), muonpars1.getX() - mftpars1.getX());
+          registry.fill(HIST("hYmldeltatrue"), muonpars1.getY() - mftpars1.getY());
+          registry.fill(HIST("hZmldeltatrue"), muonpars1.getZ() - mftpars1.getZ());
+          registry.fill(HIST("hPTmldeltatrue"), muonpars1.getPt() - mftpars1.getPt());
+          registry.fill(HIST("hPhimldeltatrue"), muonpars1.getPhi() - mftpars1.getPhi());
+          registry.fill(HIST("hTanlmldeltatrue"), muonpars1.getTanl() - mftpars1.getTanl());
+          registry.fill(HIST("hXYmldeltatrue"), Delta_XY);
         } else {
-          registry.fill(HIST("hXmlfwdfalse"), fwdtrack.x());
-          registry.fill(HIST("hYmlfwdfalse"), fwdtrack.y());
-          registry.fill(HIST("hZmlfwdfalse"), fwdtrack.z());
-          registry.fill(HIST("hPTmlfwdfalse"), fwdtrack.pt());
-          registry.fill(HIST("hPhimlfwdfalse"), fwdtrack.phi());
-          registry.fill(HIST("hTanlmlfwdfalse"), fwdtrack.tgl());
-          registry.fill(HIST("hXmlmftfalse"), mfttrack.x());
-          registry.fill(HIST("hYmlmftfalse"), mfttrack.y());
-          registry.fill(HIST("hZmlmftfalse"), mfttrack.z());
-          registry.fill(HIST("hPTmlmftfalse"), mfttrack.pt());
-          registry.fill(HIST("hPhimlmftfalse"), mfttrack.phi());
-          registry.fill(HIST("hTanlmlmftfalse"), mfttrack.tgl());
-          registry.fill(HIST("hXmldeltafalse"), fwdtrack.x() - mfttrack.x());
-          registry.fill(HIST("hYmldeltafalse"), fwdtrack.y() - mfttrack.y());
-          registry.fill(HIST("hZmldeltafalse"), fwdtrack.z() - mfttrack.z());
-          registry.fill(HIST("hPTmldeltafalse"), fwdtrack.pt() - mfttrack.pt());
-          registry.fill(HIST("hPhimldeltafalse"), fwdtrack.phi() - mfttrack.phi());
-          registry.fill(HIST("hTanlmldeltafalse"), fwdtrack.tgl() - mfttrack.tgl());
+          if (Delta_XY < 3) {
+            registry.fill(HIST("hXmlfwdfalse"), muonpars1.getX());
+            registry.fill(HIST("hYmlfwdfalse"), muonpars1.getY());
+            registry.fill(HIST("hZmlfwdfalse"), muonpars1.getY());
+            registry.fill(HIST("hPTmlfwdfalse"), muonpars1.getPt());
+            registry.fill(HIST("hPhimlfwdfalse"), muonpars1.getPhi());
+            registry.fill(HIST("hTanlmlfwdfalse"), muonpars1.getTanl());
+            registry.fill(HIST("hXmlmftfalse"), mftpars1.getX());
+            registry.fill(HIST("hYmlmftfalse"), mftpars1.getY());
+            registry.fill(HIST("hZmlmftfalse"), mftpars1.getZ());
+            registry.fill(HIST("hPTmlmftfalse"), mftpars1.getPt());
+            registry.fill(HIST("hPhimlmftfalse"), mftpars1.getPhi());
+            registry.fill(HIST("hTanlmlmftfalse"), mftpars1.getTanl());
+            registry.fill(HIST("hXmldeltafalse"), muonpars1.getX() - mftpars1.getX());
+            registry.fill(HIST("hYmldeltafalse"), muonpars1.getY() - mftpars1.getY());
+            registry.fill(HIST("hZmldeltafalse"), muonpars1.getZ() - mftpars1.getZ());
+            registry.fill(HIST("hPTmldeltafalse"), muonpars1.getPt() - mftpars1.getPt());
+            registry.fill(HIST("hPhimldeltafalse"), muonpars1.getPhi() - mftpars1.getPhi());
+            registry.fill(HIST("hTanlmldeltafalse"), muonpars1.getTanl() - mftpars1.getTanl());
+            registry.fill(HIST("hXYmldeltafalse"), Delta_XY);
+          }
         }
       }
     }

@@ -51,7 +51,7 @@ struct globalFwdtrackInfo {
   TParticlePDG* muonParticle = TDatabasePDG::Instance()->GetParticle(muonPDGCode);
   double muonMass = muonParticle->Mass();
 
-  Filter etaFilter = ((etalow < aod::fwdtrack::eta) && (etaup < aod::fwdtrack::eta ));
+  Filter etaFilter = ((etalow < aod::fwdtrack::eta) && (aod::fwdtrack::eta < etaup ));
   Filter pDcaFilter = (((pDCAcutrAtBsorberEndlow1 < aod::fwdtrack::rAtAbsorberEnd) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup1) && (aod::fwdtrack::pDca < pDCAcutdcaup1)) || ((pDCAcutrAtBsorberEndlow2 < aod::fwdtrack::rAtAbsorberEnd) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup2) && (aod::fwdtrack::pDca < pDCAcutdcaup2)));
   Filter chi2Filter = (aod::fwdtrack::chi2 < chi2up);
   Filter chi2MatchFilter = (aod::fwdtrack::chi2MatchMCHMID < chi2MatchMCHMIDup);
@@ -60,6 +60,8 @@ struct globalFwdtrackInfo {
     "registry", //
     {
       {"Pt_vs_chi2mftmch", "Pt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"SameCollisionPt_vs_chi2mftmch", "SameCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"DifferentCollisionPt_vs_chi2mftmch", "DifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
       {"chi2mft_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{400,0,200},{400,0,200}}}},
       {"chi2global_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{400,0,200},{400,0,200}}}},
       {"chi2mchmid_vs_chi2mftmch", "chi2mft_vs_chi2mftmch", {HistType::kTH2F, {{400,0,200},{400,0,200}}}},
@@ -68,6 +70,16 @@ struct globalFwdtrackInfo {
       {"Pt_vs_chi2mft_vs_chi2mftmch", "Pt_vs_chi2mft_vs_chi2mftmch", {HistType::kTH3F, {{200,0,20},{400,0,200},{400,0,200}}}},
       {"Pt_vs_chi2mchmid_vs_chi2mftmch", "Pt_vs_chi2mchmid_vs_chi2mftmch", {HistType::kTH3F, {{200,0,20},{400,0,200},{400,0,200}}}},
       {"Pt_vs_chi2global_vs_chi2mftmch", "Pt_vs_chi2global_vs_chi2mftmch", {HistType::kTH3F, {{200,0,20},{400,0,200},{400,0,200}}}},
+
+      {"McPt_vs_chi2mftmch", "McPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McTruePt_vs_chi2mftmch", "McTruePt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McTrueSameCollisionPt_vs_chi2mftmch", "McTrueSameCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McTrueDifferentCollisionPt_vs_chi2mftmch", "McTrueDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McTrueDifferentCollisiontime_vs_chi2mftmch", "McTrueDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200000, -100000, 100000},{400,0,200}}}},
+      {"McFalsePt_vs_chi2mftmch", "McFalsePt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McFalseSameCollisionPt_vs_chi2mftmch", "McFalseSameCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McFalseDifferentCollisionPt_vs_chi2mftmch", "McFalseDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McFalseDifferentCollisiontime_vs_chi2mftmch", "McFalseDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200000, -100000, 100000},{400,0,200}}}},
     },
   };
 
@@ -75,27 +87,70 @@ struct globalFwdtrackInfo {
   {
   }
 
-  void process(aod::Collisions::iterator const& collision, soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks)
+  void process(aod::Collisions const& collisions, soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks)
   {
     for (auto& fwdtrack: fwdtracks) {
-      if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
-        registry.fill(HIST("Pt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
-        registry.fill(HIST("chi2global_vs_chi2mftmch"),fwdtrack.chi2(),fwdtrack.chi2MatchMCHMFT());
-        registry.fill(HIST("chi2mchmid_vs_chi2mftmch"),fwdtrack.chi2MatchMCHMID(),fwdtrack.chi2MatchMCHMFT());
-        registry.fill(HIST("Pt_vs_chi2global_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.chi2(), fwdtrack.chi2MatchMCHMFT());
-        registry.fill(HIST("Pt_vs_chi2mchmid_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.chi2MatchMCHMID(), fwdtrack.chi2MatchMCHMFT());
-        registry.fill(HIST("Pt_vs_phi_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.phi(), fwdtrack.chi2MatchMCHMFT());
-        registry.fill(HIST("Pt_vs_Zvtx_vs_chi2mftmch"), fwdtrack.pt(), collision.posZ(), fwdtrack.chi2MatchMCHMFT());
-        for (auto& mfttrack: mfttracks){
-          if (fwdtrack.matchMFTTrackId() == mfttrack.globalIndex()){
-            registry.fill(HIST("chi2mft_vs_chi2mftmch"), mfttrack.chi2(),fwdtrack.chi2MatchMCHMFT());
-            registry.fill(HIST("Pt_vs_chi2mft_vs_chi2mftmch"), fwdtrack.pt(), mfttrack.chi2(), fwdtrack.chi2MatchMCHMFT());
+      if (fwdtrack.has_collision()){
+        if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
+          registry.fill(HIST("Pt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+          registry.fill(HIST("chi2global_vs_chi2mftmch"),fwdtrack.chi2(),fwdtrack.chi2MatchMCHMFT());
+          registry.fill(HIST("chi2mchmid_vs_chi2mftmch"),fwdtrack.chi2MatchMCHMID(),fwdtrack.chi2MatchMCHMFT());
+          registry.fill(HIST("Pt_vs_chi2global_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.chi2(), fwdtrack.chi2MatchMCHMFT());
+          registry.fill(HIST("Pt_vs_chi2mchmid_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.chi2MatchMCHMID(), fwdtrack.chi2MatchMCHMFT());
+          registry.fill(HIST("Pt_vs_phi_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.phi(), fwdtrack.chi2MatchMCHMFT());
+          registry.fill(HIST("Pt_vs_Zvtx_vs_chi2mftmch"), fwdtrack.pt(), fwdtrack.collision().posZ(), fwdtrack.chi2MatchMCHMFT());
+          for (auto& mfttrack: mfttracks){
+            if (mfttrack.has_collision()){
+              if (fwdtrack.matchMFTTrackId() == mfttrack.globalIndex()){
+                registry.fill(HIST("chi2mft_vs_chi2mftmch"), mfttrack.chi2(),fwdtrack.chi2MatchMCHMFT());
+                registry.fill(HIST("Pt_vs_chi2mft_vs_chi2mftmch"), fwdtrack.pt(), mfttrack.chi2(), fwdtrack.chi2MatchMCHMFT());
+              }
+            }
           }
         }
       }
     }
 
   }
+
+  void processGen(aod::Collisions const& collisions, soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&, aod::BCsWithTimestamps const&)
+  {
+    for (auto& fwdtrack: fwdtracks) {
+      if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
+        registry.fill(HIST("McPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+        //bool isTrue = false;
+        //bool HasMFT = false;
+        for (auto& mfttrack: mfttracks){
+          if (fwdtrack.has_collision() && mfttrack.has_collision() && fwdtrack.has_mcParticle() && mfttrack.has_mcParticle()){
+            auto fwdparticle = fwdtrack.mcParticle();
+            auto mftparticle = mfttrack.mcParticle();
+            auto fwdbc = fwdtrack.collision().bc_as<aod::BCsWithTimestamps>();
+            auto mftbc = mfttrack.collision().bc_as<aod::BCsWithTimestamps>();
+            if (fwdtrack.matchMFTTrackId() == mfttrack.globalIndex()){
+              if (fwdparticle.globalIndex() == mftparticle.globalIndex()){
+                registry.fill(HIST("McTruePt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                if (fwdtrack.collisionId() == mfttrack.collisionId() ) {
+                  registry.fill(HIST("McTrueSameCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                } else {
+                  registry.fill(HIST("McTrueDifferentCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                  registry.fill(HIST("McTrueDifferentCollisiontime_vs_chi2mftmch"), fwdbc.timestamp() - mftbc.timestamp(),fwdtrack.chi2MatchMCHMFT());
+                }
+              } else {
+                registry.fill(HIST("McFalsePt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                if (fwdtrack.collisionId() == mfttrack.collisionId() ) {
+                  registry.fill(HIST("McFalseSameCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                } else {
+                  registry.fill(HIST("McFalseDifferentCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                  registry.fill(HIST("McFalseDifferentCollisiontime_vs_chi2mftmch"), fwdbc.timestamp() - mftbc.timestamp(),fwdtrack.chi2MatchMCHMFT());
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  PROCESS_SWITCH(globalFwdtrackInfo, processGen, "Process generator-level info", false);
 };
   
 
