@@ -33,7 +33,7 @@ using namespace o2;
 using namespace o2::framework;
 using namespace o2::framework::expressions;
 using namespace o2::soa;
-using namespace evsel;
+using namespace o2::aod::evsel;
 
 struct globalFwdtrackInfo {
 
@@ -75,11 +75,21 @@ struct globalFwdtrackInfo {
       {"McTruePt_vs_chi2mftmch", "McTruePt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
       {"McTrueSameCollisionPt_vs_chi2mftmch", "McTrueSameCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
       {"McTrueDifferentCollisionPt_vs_chi2mftmch", "McTrueDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
-      {"McTrueDifferentCollisiontime_vs_chi2mftmch", "McTrueDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200000, -100000, 100000},{400,0,200}}}},
+      {"McTrueDifferentCollisiontime_vs_chi2mftmch", "McTrueDifferentCollisiontime_vs_chi2mftmch", {HistType::kTH2F, {{20000, -100, 100},{400,0,200}}}},
       {"McFalsePt_vs_chi2mftmch", "McFalsePt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
       {"McFalseSameCollisionPt_vs_chi2mftmch", "McFalseSameCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
       {"McFalseDifferentCollisionPt_vs_chi2mftmch", "McFalseDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
-      {"McFalseDifferentCollisiontime_vs_chi2mftmch", "McFalseDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200000, -100000, 100000},{400,0,200}}}},
+      {"McFalseDifferentCollisiontime_vs_chi2mftmch", "McFalseDifferentCollisiontime_vs_chi2mftmch", {HistType::kTH2F, {{20000, -100, 100},{400,0,200}}}},
+
+      {"McMbPt_vs_chi2mftmch", "McMbPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McMbTruePt_vs_chi2mftmch", "McMbTruePt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McMbTrueSameCollisionPt_vs_chi2mftmch", "McMbTrueSameCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McMbTrueDifferentCollisionPt_vs_chi2mftmch", "McMbTrueDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McMbTrueDifferentCollisiontime_vs_chi2mftmch", "McMbTrueDifferentCollisiontime_vs_chi2mftmch", {HistType::kTH2F, {{20000, -100, 100},{400,0,200}}}},
+      {"McMbFalsePt_vs_chi2mftmch", "McMbFalsePt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McMbFalseSameCollisionPt_vs_chi2mftmch", "McMbFalseSameCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McMbFalseDifferentCollisionPt_vs_chi2mftmch", "McMbFalseDifferentCollisionPt_vs_chi2mftmch", {HistType::kTH2F, {{200, 0, 20},{400,0,200}}}},
+      {"McMbFalseDifferentCollisiontime_vs_chi2mftmch", "McMbFalseDifferentCollisiontime_vs_chi2mftmch", {HistType::kTH2F, {{20000, -100, 100},{400,0,200}}}},
     },
   };
 
@@ -117,31 +127,31 @@ struct globalFwdtrackInfo {
   {
     for (auto& fwdtrack: fwdtracks) {
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
-        registry.fill(HIST("McPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
-        //bool isTrue = false;
-        //bool HasMFT = false;
         for (auto& mfttrack: mfttracks){
           if (fwdtrack.has_collision() && mfttrack.has_collision() && fwdtrack.has_mcParticle() && mfttrack.has_mcParticle()){
             auto fwdparticle = fwdtrack.mcParticle();
             auto mftparticle = mfttrack.mcParticle();
             auto fwdbc = fwdtrack.collision().bc_as<aod::BCsWithTimestamps>();
             auto mftbc = mfttrack.collision().bc_as<aod::BCsWithTimestamps>();
-            if (fwdtrack.matchMFTTrackId() == mfttrack.globalIndex()){
-              if (fwdparticle.globalIndex() == mftparticle.globalIndex()){
-                registry.fill(HIST("McTruePt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
-                if (fwdtrack.collisionId() == mfttrack.collisionId() ) {
-                  registry.fill(HIST("McTrueSameCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+            if (fwdparticle.fromBackgroundEvent() == 1 && mftparticle.fromBackgroundEvent() == 1) {
+              if (fwdtrack.matchMFTTrackId() == mfttrack.globalIndex()){
+                registry.fill(HIST("McPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                if (fwdparticle.globalIndex() == mftparticle.globalIndex()){
+                  registry.fill(HIST("McTruePt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                  if (fwdtrack.collisionId() == mfttrack.collisionId() ) {
+                    registry.fill(HIST("McTrueSameCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                  } else {
+                    registry.fill(HIST("McTrueDifferentCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                    registry.fill(HIST("McTrueDifferentCollisiontime_vs_chi2mftmch"), fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime(),fwdtrack.chi2MatchMCHMFT());
+                  }
                 } else {
-                  registry.fill(HIST("McTrueDifferentCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
-                  registry.fill(HIST("McTrueDifferentCollisiontime_vs_chi2mftmch"), fwdbc.timestamp() - mftbc.timestamp(),fwdtrack.chi2MatchMCHMFT());
-                }
-              } else {
-                registry.fill(HIST("McFalsePt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
-                if (fwdtrack.collisionId() == mfttrack.collisionId() ) {
-                  registry.fill(HIST("McFalseSameCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
-                } else {
-                  registry.fill(HIST("McFalseDifferentCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
-                  registry.fill(HIST("McFalseDifferentCollisiontime_vs_chi2mftmch"), fwdbc.timestamp() - mftbc.timestamp(),fwdtrack.chi2MatchMCHMFT());
+                  registry.fill(HIST("McFalsePt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                  if (fwdtrack.collisionId() == mfttrack.collisionId() ) {
+                    registry.fill(HIST("McFalseSameCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                  } else {
+                    registry.fill(HIST("McFalseDifferentCollisionPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());
+                    registry.fill(HIST("McFalseDifferentCollisiontime_vs_chi2mftmch"), fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime(),fwdtrack.chi2MatchMCHMFT());
+                  }
                 }
               }
             }

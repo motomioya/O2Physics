@@ -39,7 +39,7 @@ using namespace o2::framework;
 using namespace o2::framework::expressions;
 using namespace o2::soa;
 using namespace o2::ml;
-using namespace evsel;
+using namespace o2::aod::evsel;
 using o2::globaltracking::MatchingFunc_t;
 using o2::track::TrackParCovFwd;
 using o2::track::TrackParFwd;
@@ -219,7 +219,6 @@ struct mftmchMatchingML {
 
           float dcaX = (mftpars1.getX() - collision.posX());
           float dcaY = (mftpars1.getY() - collision.posY());
-<<<<<<< HEAD
           double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
           double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
           double pz = fwdtrack.p() * cos(M_PI/2 - atan(mfttrack.tgl()));

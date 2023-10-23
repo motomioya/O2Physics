@@ -34,7 +34,7 @@ using namespace o2;
 using namespace o2::framework;
 using namespace o2::framework::expressions;
 using namespace o2::soa;
-using namespace evsel;
+using namespace o2::aod::evsel;
 using o2::track::TrackParCovFwd;
 using o2::track::TrackParFwd;
 using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;

@@ -53,14 +53,18 @@ struct quickcheck {
   HistogramRegistry registry{
     "registry",
     {
-      {"TrackType", "TType", {HistType::kTH1F, {{5, 0, 5}}}},
-      {"GlobalMuonTrackPt", "GMTPT", {HistType::kTH1F, {{5000, 0, 50}}}},
-      {"MuonStandaloneTrackPt", "MSPT", {HistType::kTH1F, {{5000, 0, 50}}}},
-      {"PDca", "PDca", {HistType::kTH1F, {{10000, 0, 1000}}}},
-      {"NFTrackType", "TType", {HistType::kTH1F, {{5, 0, 5}}}},
-      {"NFGlobalMuonTrackPt", "GMTPT", {HistType::kTH1F, {{5000, 0, 50}}}},
-      {"NFMuonStandaloneTrackPt", "MSPT", {HistType::kTH1F, {{5000, 0, 50}}}},
-      {"NFPDca", "NFPDca", {HistType::kTH1F, {{10000, 0, 1000}}}},
+      {"TrueSameCollisionBcID", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"FalseSameCollisionBcID", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"TrueDifferentCollisionBcID", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"FalseDifferentCollisionBcID", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"TrueSameCollisionTimestamp", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"FalseSameCollisionTimestamp", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"TrueDifferentCollisionTimestamp", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"FalseDifferentCollisionTimestamp", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"TrueSameCollisionTime", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"FalseSameCollisionTime", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"TrueDifferentCollisionTime", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"FalseDifferentCollisionTime", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
     }
   };
 
@@ -68,34 +72,58 @@ struct quickcheck {
   {
   }
 
-  void process(aod::Collisions::iterator const& collision, soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks)
+  void process(aod::Collisions const& collisions, soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks, aod::BCs const&)
   {
-    for (auto const& fwdtrack : fwdtracks){
-      registry.fill(HIST("TrackType"), fwdtrack.trackType());
-      registry.fill(HIST("PDca"), fwdtrack.pDca());
-      if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
-        registry.fill(HIST("GlobalMuonTrackPt"), fwdtrack.pt());
-      }
-      else if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack){
-        registry.fill(HIST("MuonStandaloneTrackPt"), fwdtrack.pt());
+    for (auto& fwdtrack: fwdtracks) {
+      if (fwdtrack.has_collision()){
+        if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
+          for (auto& mfttrack: mfttracks){
+            if (mfttrack.has_collision()){
+              if (fwdtrack.matchMFTTrackId() == mfttrack.globalIndex()){
+              }
+            }
+          }
+        }
       }
     }
   }
 
-  void processNoFilter(aod::Collisions::iterator const& collision, aod::FwdTracks const& fwdtracks, aod::MFTTracks const& mfttracks)
+  void processGen(aod::Collisions const& collisions, soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&, aod::BCsWithTimestamps const&)
   {
-    for (auto const& fwdtrack : fwdtracks){
-      registry.fill(HIST("NFTrackType"), fwdtrack.trackType());
-      registry.fill(HIST("NFPDca"), fwdtrack.pDca());
-      if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
-        registry.fill(HIST("NFGlobalMuonTrackPt"), fwdtrack.pt());
-      }
-      else if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack){
-        registry.fill(HIST("NFMuonStandaloneTrackPt"), fwdtrack.pt());
+    for (auto& [fwdtrack, mfttrack] : combinations(o2::soa::CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
+
+      if (fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+        if (fwdtrack.has_collision() && mfttrack.has_collision() && fwdtrack.has_mcParticle() && mfttrack.has_mcParticle()){
+          auto fwdparticle = fwdtrack.mcParticle();
+          auto mftparticle = mfttrack.mcParticle();
+          auto fwdbc = fwdtrack.collision().bc_as<aod::BCsWithTimestamps>();
+          auto mftbc = mfttrack.collision().bc_as<aod::BCsWithTimestamps>();
+          if (fwdparticle.globalIndex() == mftparticle.globalIndex()){
+            if (fwdtrack.collisionId() == mfttrack.collisionId() ) {
+              registry.fill(HIST("TrueSameCollisionBcID"), fwdbc.globalBC() - mftbc.globalBC());
+              registry.fill(HIST("TrueSameCollisionTimestamp"), fwdbc.timestamp() - mftbc.timestamp());
+              registry.fill(HIST("TrueSameCollisionTime"), fwdbc.timestamp() - mftbc.timestamp() + fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime());
+            } else {
+              registry.fill(HIST("TrueDifferentCollisionBcID"), fwdbc.globalBC() - mftbc.globalBC());
+              registry.fill(HIST("TrueDifferentCollisionTimestamp"), fwdbc.timestamp() - mftbc.timestamp());
+              registry.fill(HIST("TrueDifferentCollisionTime"), fwdbc.timestamp() - mftbc.timestamp() + fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime());
+            }
+          } else {
+            if (fwdtrack.collisionId() == mfttrack.collisionId() ) {
+              registry.fill(HIST("FalseSameCollisionBcID"), fwdbc.globalBC() - mftbc.globalBC());
+              registry.fill(HIST("FalseSameCollisionTimestamp"), fwdbc.timestamp() - mftbc.timestamp());
+              registry.fill(HIST("FalseSameCollisionTime"), fwdbc.timestamp() - mftbc.timestamp() + fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime());
+            } else {
+              registry.fill(HIST("FalseDifferentCollisionBcID"), fwdbc.globalBC() - mftbc.globalBC());
+              registry.fill(HIST("FalseDifferentCollisionTimestamp"), fwdbc.timestamp() - mftbc.timestamp());
+              registry.fill(HIST("FalseDifferentCollisionTime"), fwdbc.timestamp() - mftbc.timestamp() + fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime());
+            }
+          }
+        }
       }
     }
   }
-  PROCESS_SWITCH(quickcheck, processNoFilter, "Process generator-level info", true);
+  PROCESS_SWITCH(quickcheck, processGen, "Process generator-level info", false);
 };
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
