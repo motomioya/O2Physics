@@ -161,8 +161,6 @@ struct mftmchMatchingML {
 
     input_tensor_values = getVariables(fwdtrack,mfttrack);
 
-    input_tensor_values = getVariables(fwdtrack, mfttrack);
-
     if (input_tensor_values[8] < 3) {
       std::vector<Ort::Value> input_tensors;
       input_tensors.push_back(Ort::Experimental::Value::CreateTensor<float>(input_tensor_values.data(), input_tensor_values.size(), input_shape));

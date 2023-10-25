@@ -131,8 +131,8 @@ struct globalFwdtrackInfo {
           if (fwdtrack.has_collision() && mfttrack.has_collision() && fwdtrack.has_mcParticle() && mfttrack.has_mcParticle()){
             auto fwdparticle = fwdtrack.mcParticle();
             auto mftparticle = mfttrack.mcParticle();
-            auto fwdbc = fwdtrack.collision().bc_as<aod::BCsWithTimestamps>();
-            auto mftbc = mfttrack.collision().bc_as<aod::BCsWithTimestamps>();
+//            auto fwdbc = fwdtrack.collision().bc_as<aod::BCsWithTimestamps>();
+ //           auto mftbc = mfttrack.collision().bc_as<aod::BCsWithTimestamps>();
             if (fwdparticle.fromBackgroundEvent() == 1 && mftparticle.fromBackgroundEvent() == 1) {
               if (fwdtrack.matchMFTTrackId() == mfttrack.globalIndex()){
                 registry.fill(HIST("McPt_vs_chi2mftmch"), fwdtrack.pt(),fwdtrack.chi2MatchMCHMFT());

@@ -53,8 +53,8 @@ struct quickcheck {
   HistogramRegistry registry{
     "registry",
     {
-      {"TrueSameCollisionBcID", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
-      {"FalseSameCollisionBcID", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"TrueSameCollisionBcID", "TType", {HistType::kTH1F, {{20001, -10000.5, 10000.5}}}},
+      {"FalseSameCollisionBcID", "TType", {HistType::kTH1F, {{20001, -10000.5, 10000.5}}}},
       {"TrueDifferentCollisionBcID", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
       {"FalseDifferentCollisionBcID", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
       {"TrueSameCollisionTimestamp", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
@@ -65,6 +65,10 @@ struct quickcheck {
       {"FalseSameCollisionTime", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
       {"TrueDifferentCollisionTime", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
       {"FalseDifferentCollisionTime", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"TrueSameCollisionId", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"FalseSameCollisionId", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"TrueDifferentCollisionId", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
+      {"FalseDifferentCollisionId", "TType", {HistType::kTH1F, {{20000, -10000, 10000}}}},
     }
   };
 
@@ -79,8 +83,6 @@ struct quickcheck {
         if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack){
           for (auto& mfttrack: mfttracks){
             if (mfttrack.has_collision()){
-              if (fwdtrack.matchMFTTrackId() == mfttrack.globalIndex()){
-              }
             }
           }
         }
@@ -103,20 +105,24 @@ struct quickcheck {
               registry.fill(HIST("TrueSameCollisionBcID"), fwdbc.globalBC() - mftbc.globalBC());
               registry.fill(HIST("TrueSameCollisionTimestamp"), fwdbc.timestamp() - mftbc.timestamp());
               registry.fill(HIST("TrueSameCollisionTime"), fwdbc.timestamp() - mftbc.timestamp() + fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime());
+              registry.fill(HIST("TrueSameCollisionId"), fwdtrack.collisionId() - mfttrack.collisionId());
             } else {
               registry.fill(HIST("TrueDifferentCollisionBcID"), fwdbc.globalBC() - mftbc.globalBC());
               registry.fill(HIST("TrueDifferentCollisionTimestamp"), fwdbc.timestamp() - mftbc.timestamp());
               registry.fill(HIST("TrueDifferentCollisionTime"), fwdbc.timestamp() - mftbc.timestamp() + fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime());
+              registry.fill(HIST("TrueDifferentCollisionId"), fwdtrack.collisionId() - mfttrack.collisionId());
             }
           } else {
             if (fwdtrack.collisionId() == mfttrack.collisionId() ) {
               registry.fill(HIST("FalseSameCollisionBcID"), fwdbc.globalBC() - mftbc.globalBC());
               registry.fill(HIST("FalseSameCollisionTimestamp"), fwdbc.timestamp() - mftbc.timestamp());
               registry.fill(HIST("FalseSameCollisionTime"), fwdbc.timestamp() - mftbc.timestamp() + fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime());
+              registry.fill(HIST("FalseSameCollisionId"), fwdtrack.collisionId() - mfttrack.collisionId());
             } else {
               registry.fill(HIST("FalseDifferentCollisionBcID"), fwdbc.globalBC() - mftbc.globalBC());
               registry.fill(HIST("FalseDifferentCollisionTimestamp"), fwdbc.timestamp() - mftbc.timestamp());
               registry.fill(HIST("FalseDifferentCollisionTime"), fwdbc.timestamp() - mftbc.timestamp() + fwdtrack.collision().collisionTime() - mfttrack.collision().collisionTime());
+              registry.fill(HIST("FalseDifferentCollisionId"), fwdtrack.collisionId() - mfttrack.collisionId());
             }
           }
         }
