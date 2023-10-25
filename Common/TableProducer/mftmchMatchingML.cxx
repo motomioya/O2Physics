@@ -217,12 +217,38 @@ struct mftmchMatchingML {
           o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
           mftpars1.propagateToZlinear(collision.posZ());
 
-          float dcaX = (mftpars1.getX() - collision.posX());
-          float dcaY = (mftpars1.getY() - collision.posY());
           double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
           double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
           double pz = fwdtrack.p() * cos(M_PI/2 - atan(mfttrack.tgl()));
-          fwdtrackml(fwdtrack.collisionId(),0,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)), dcaX, dcaY);
+
+          int mlcollisionId = fwdtrack.collisionId();
+          float mlx = mfttrack.x();
+          float mly = mfttrack.y();
+          float mlz = mfttrack.z();
+          float mlphi = mfttrack.phi();
+          float mltgl = mfttrack.tgl();
+          float mlsigned1Pt = fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2));
+          float mlnclusters = fwdtrack.nClusters();
+          float mlpda = fwdtrack.pDca();
+          float mlratabsorberend = fwdtrack.rAtAbsorberEnd();
+          float mlchi2 = 0;
+          float mlchi2matchmchmid = 0;
+          float mlchi2matchmchmft = 0;
+          int mlmfttrackid = mfttrack.globalIndex();
+          int mlmchtrackid = fwdtrack.globalIndex();
+          int mlmchbitmap = fwdtrack.midBitMap();
+          int mlmidbitmap = fwdtrack.midBitMap();
+          int mlmidboards = fwdtrack.midBoards();
+          float mltracktime = mfttrack.trackTime();
+          float mltracktimeres = mfttrack.trackTimeRes();
+          float mleta = mfttrack.eta();
+          float mlpt = std::sqrt(std::pow(px,2) + std::pow(py,2));
+          float mlp = std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2));
+          float dcaX = (mftpars1.getX() - collision.posX());
+          float dcaY = (mftpars1.getY() - collision.posY());
+
+          fwdtrackml(mlcollisionId,0,mlx,mly,mlz,mlphi,mltgl,mlsigned1Pt,mlnclusters,mlpda,mlratabsorberend,mlchi2,mlchi2matchmchmid,mlchi2matchmchmft,result,mlmfttrackid,mlmchtrackid,mlmchbitmap,mlmidbitmap,mlmidboards,mltracktime,mltracktimeres, mleta,mlpt,mlp, dcaX, dcaY);
+          //fwdtrackml(fwdtrack.collisionId(),0,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)), dcaX, dcaY);
         }
       }
     }
