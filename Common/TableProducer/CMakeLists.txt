@@ -130,6 +130,24 @@ o2physics_add_dpl_workflow(quickcheck
                                           O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
 
+o2physics_add_dpl_workflow(jpsicheck
+                    SOURCES jpsicheck.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
+                                          O2::ReconstructionDataFormats
+                    COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(masscheck
+                    SOURCES masscheck.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
+                                          O2::ReconstructionDataFormats
+                    COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(phicheck
+                    SOURCES phicheck.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
+                                          O2::ReconstructionDataFormats
+                    COMPONENT_NAME Analysis)
+
 o2physics_add_dpl_workflow(checkambiguous
                     SOURCES checkambiguous.cxx
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore

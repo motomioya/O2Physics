@@ -59,10 +59,6 @@ DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
 DECLARE_SOA_COLUMN(MUONtanlMP, muontanlmp, double);
 DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
 DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaeta, muonadjdeltaeta, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaphi, muonadjdeltaphi, double);
-DECLARE_SOA_COLUMN(MUONadjSimilarity, muonadjsimilarity, double);
-DECLARE_SOA_COLUMN(MUONadjDeltasmallID, muonadjdeltasmallid, bool);
 DECLARE_SOA_COLUMN(Deltax, deltax, double);
 DECLARE_SOA_COLUMN(Deltay, deltay, double);
 DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
@@ -88,10 +84,6 @@ DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
 DECLARE_SOA_COLUMN(MUONtanlMP, muontanlmp, double);
 DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
 DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaeta, muonadjdeltaeta, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaphi, muonadjdeltaphi, double);
-DECLARE_SOA_COLUMN(MUONadjSimilarity, muonadjsimilarity, double);
-DECLARE_SOA_COLUMN(MUONadjDeltasmallID, muonadjdeltasmallid, bool);
 DECLARE_SOA_COLUMN(Deltax, deltax, double);
 DECLARE_SOA_COLUMN(Deltay, deltay, double);
 DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
@@ -117,10 +109,6 @@ DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
 DECLARE_SOA_COLUMN(MUONtanlMP, muontanlmp, double);
 DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
 DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaeta, muonadjdeltaeta, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaphi, muonadjdeltaphi, double);
-DECLARE_SOA_COLUMN(MUONadjSimilarity, muonadjsimilarity, double);
-DECLARE_SOA_COLUMN(MUONadjDeltasmallID, muonadjdeltasmallid, bool);
 DECLARE_SOA_COLUMN(Deltax, deltax, double);
 DECLARE_SOA_COLUMN(Deltay, deltay, double);
 DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
@@ -146,10 +134,6 @@ DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
 DECLARE_SOA_COLUMN(MUONtanlMP, muontanlmp, double);
 DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
 DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaeta, muonadjdeltaeta, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaphi, muonadjdeltaphi, double);
-DECLARE_SOA_COLUMN(MUONadjSimilarity, muonadjsimilarity, double);
-DECLARE_SOA_COLUMN(MUONadjDeltasmallID, muonadjdeltasmallid, bool);
 DECLARE_SOA_COLUMN(Deltax, deltax, double);
 DECLARE_SOA_COLUMN(Deltay, deltay, double);
 DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
@@ -176,10 +160,6 @@ DECLARE_SOA_COLUMN(MUONphiMP, muonphimp, double);
 DECLARE_SOA_COLUMN(MUONtanlMP, muontanlmp, double);
 DECLARE_SOA_COLUMN(MUONptMP, muonptmp, double);
 DECLARE_SOA_COLUMN(MUONrMP, muonrmp, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaeta, muonadjdeltaeta, double);
-DECLARE_SOA_COLUMN(MUONadjDeltaphi, muonadjdeltaphi, double);
-DECLARE_SOA_COLUMN(MUONadjSimilarity, muonadjsimilarity, double);
-DECLARE_SOA_COLUMN(MUONadjDeltasmallID, muonadjdeltasmallid, bool);
 DECLARE_SOA_COLUMN(Deltax, deltax, double);
 DECLARE_SOA_COLUMN(Deltay, deltay, double);
 DECLARE_SOA_COLUMN(Deltaeta, deltaeta, double);
@@ -205,10 +185,6 @@ DECLARE_SOA_TABLE(MchmftPair, "AOD", "MCHMFTPAIR",
                   mchmftpair::MUONtanlMP,
                   mchmftpair::MUONptMP,
                   mchmftpair::MUONrMP,
-                  mchmftpair::MUONadjDeltaeta,
-                  mchmftpair::MUONadjDeltaphi,
-                  mchmftpair::MUONadjSimilarity,
-                  mchmftpair::MUONadjDeltasmallID,
                   mchmftpair::Deltax,
                   mchmftpair::Deltay,
                   mchmftpair::Deltaeta,
@@ -233,10 +209,6 @@ DECLARE_SOA_TABLE(MchmftPairTrue, "AOD", "MCHMFTPAIRTRUE",
                   mchmftpairtrue::MUONtanlMP,
                   mchmftpairtrue::MUONptMP,
                   mchmftpairtrue::MUONrMP,
-                  mchmftpairtrue::MUONadjDeltaeta,
-                  mchmftpairtrue::MUONadjDeltaphi,
-                  mchmftpairtrue::MUONadjSimilarity,
-                  mchmftpairtrue::MUONadjDeltasmallID,
                   mchmftpairtrue::Deltax,
                   mchmftpairtrue::Deltay,
                   mchmftpairtrue::Deltaeta,
@@ -261,10 +233,6 @@ DECLARE_SOA_TABLE(MchmftPairWrong, "AOD", "MCHMFTPAIRWRONG",
                   mchmftpairwrong::MUONtanlMP,
                   mchmftpairwrong::MUONptMP,
                   mchmftpairwrong::MUONrMP,
-                  mchmftpairwrong::MUONadjDeltaeta,
-                  mchmftpairwrong::MUONadjDeltaphi,
-                  mchmftpairwrong::MUONadjSimilarity,
-                  mchmftpairwrong::MUONadjDeltasmallID,
                   mchmftpairwrong::Deltax,
                   mchmftpairwrong::Deltay,
                   mchmftpairwrong::Deltaeta,
@@ -289,10 +257,6 @@ DECLARE_SOA_TABLE(MchmftPairBkg, "AOD", "MCHMFTPAIRBKG",
                   mchmftpairbkg::MUONtanlMP,
                   mchmftpairbkg::MUONptMP,
                   mchmftpairbkg::MUONrMP,
-                  mchmftpairbkg::MUONadjDeltaeta,
-                  mchmftpairbkg::MUONadjDeltaphi,
-                  mchmftpairbkg::MUONadjSimilarity,
-                  mchmftpairbkg::MUONadjDeltasmallID,
                   mchmftpairbkg::Deltax,
                   mchmftpairbkg::Deltay,
                   mchmftpairbkg::Deltaeta,
@@ -317,10 +281,6 @@ DECLARE_SOA_TABLE(MchmftPairBkgem, "AOD", "MCHMFTPAIRBKGEM",
                   mchmftpairbkgem::MUONtanlMP,
                   mchmftpairbkgem::MUONptMP,
                   mchmftpairbkgem::MUONrMP,
-                  mchmftpairbkgem::MUONadjDeltaeta,
-                  mchmftpairbkgem::MUONadjDeltaphi,
-                  mchmftpairbkgem::MUONadjSimilarity,
-                  mchmftpairbkgem::MUONadjDeltasmallID,
                   mchmftpairbkgem::Deltax,
                   mchmftpairbkgem::Deltay,
                   mchmftpairbkgem::Deltaeta,
@@ -359,6 +319,7 @@ struct mchmftmatchinginfoem {
 
   Configurable<int> ndepth{"ndepth", 5, "depth for event mixing"};
   ConfigurableAxis ConfVtxBins{"ConfVtxBins", {VARIABLE_WIDTH, -10.0f, -8.f, -6.f, -4.f, -2.f, 0.f, 2.f, 4.f, 6.f, 8.f, 10.f}, "Mixing bins - z-vertex"};
+  Configurable<int> cfgColWindow{"collision-window", 1, "Search window (collision ID) for MFT track"};
   using BinningType = ColumnBinningPolicy<aod::collision::PosZ>;
   BinningType colBinning{{ConfVtxBins}, true};
 
@@ -374,32 +335,12 @@ struct mchmftmatchinginfoem {
     static constexpr Double_t MatchingPlaneZ = -77.5;
 
     for (auto const& fwdtrack : fwdtracks){
-      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-        double adjDeltaeta = 10000000;
-        double adjDeltaphi = 10000000;
-        double adjSimilarity = 10000000;
-        bool adjDeltasmallID = true;
-        for (auto const& secondfwdtrack : fwdtracks) {
-          if (secondfwdtrack.has_collision() && secondfwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-            if (secondfwdtrack.collisionId() == fwdtrack.collisionId()){
-              if (secondfwdtrack.globalIndex() != fwdtrack.globalIndex()){
-                if (adjSimilarity > std::sqrt(std::pow(fwdtrack.eta() - secondfwdtrack.eta(), 2) + std::pow(fwdtrack.phi() - secondfwdtrack.phi(), 2))){
-                  adjDeltaeta = fwdtrack.eta() - secondfwdtrack.eta();
-                  adjDeltaphi = fwdtrack.phi() - secondfwdtrack.phi();
-                  adjSimilarity = std::sqrt(std::pow(adjDeltaeta, 2) + std::pow(adjDeltaphi, 2));
-                  if (secondfwdtrack.globalIndex() < fwdtrack.globalIndex()){
-                    adjDeltasmallID = false;
-                  }
-                }
-              }
-            }
-          }
-        }
+      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
 
         for (auto const& mfttrack : mfttracks){
           if (mfttrack.has_collision()){
             //update the talbe matchedmuonmft
-            if (fwdtrack.collisionId() == mfttrack.collisionId()){
+            if (0 <= fwdtrack.collisionId() - mfttrack.collisionId() && fwdtrack.collisionId() - mfttrack.collisionId() < cfgColWindow) {
               //propagate muontrack to matching position
               double muonchi2 = fwdtrack.chi2();
               SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
@@ -415,9 +356,9 @@ struct mchmftmatchinginfoem {
               o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
               mftpars1.propagateToZlinear(MatchingPlaneZ);
 
-              mchmftpairTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              mchmftpairTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
               if (fwdtrack.sign() != mfttrack.sign()){
-                mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                mchmftpairbkgTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
               }
             }
           }
@@ -437,64 +378,45 @@ struct mchmftmatchinginfoem {
       auto groupedMFTTracks2 = mfttracks.sliceBy(perCollisionMFT, collision2.globalIndex());
 
       for (auto const& fwdtrack : groupedFwdTracks1){
-        if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-          double adjDeltaeta = 10000000;
-          double adjDeltaphi = 10000000;
-          double adjSimilarity = 10000000;
-          bool adjDeltasmallID = true;
-          for (auto const& secondfwdtrack : fwdtracks) {
-            if (secondfwdtrack.has_collision() && secondfwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-              if (secondfwdtrack.collisionId() == fwdtrack.collisionId()){
-                if (secondfwdtrack.globalIndex() != fwdtrack.globalIndex()){
-                  if (adjSimilarity > std::sqrt(std::pow(fwdtrack.eta() - secondfwdtrack.eta(), 2) + std::pow(fwdtrack.phi() - secondfwdtrack.phi(), 2))){
-                    adjDeltaeta = fwdtrack.eta() - secondfwdtrack.eta();
-                    adjDeltaphi = fwdtrack.phi() - secondfwdtrack.phi();
-                    adjSimilarity = std::sqrt(std::pow(adjDeltaeta, 2) + std::pow(adjDeltaphi, 2));
-                    if (secondfwdtrack.globalIndex() < fwdtrack.globalIndex()){
-                      adjDeltasmallID = false;
-                    }
-                  }
-                }
-              }
-            }
-          }
-
+        if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
           for (auto const& mfttrack : groupedMFTTracks2){
-            //propagate muontrack to matching position
-            double muonchi2 = fwdtrack.chi2();
-            SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
-            std::vector<double> muonv1;
-            SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
-            o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
-            muonpars1.propagateToZlinear(MatchingPlaneZ);
+            if (collision2.globalIndex() - collision1.globalIndex() > cfgColWindow || collision1.globalIndex() - collision2.globalIndex() > cfgColWindow) {
+              //propagate muontrack to matching position
+              double muonchi2 = fwdtrack.chi2();
+              SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
+              std::vector<double> muonv1;
+              SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
+              o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
+              muonpars1.propagateToZlinear(MatchingPlaneZ);
 
-            //propagate mfttrack to matching position
-            double mftchi2 = mfttrack.chi2();
-            SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
-            std::vector<double> mftv1;
-            SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
-            o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-            mftpars1.propagateToZlinear(MatchingPlaneZ);
+              //propagate mfttrack to matching position
+              double mftchi2 = mfttrack.chi2();
+              SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+              std::vector<double> mftv1;
+              SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+              o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+              mftpars1.propagateToZlinear(MatchingPlaneZ);
 
-            if (0 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 20 && 0 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 20){
+              if (0 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 20 && 0 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 20){
 
-              mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
-            } else if (20 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 40 && 20 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 40){
-              mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
-            } else if (40 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 60 && 40 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 60){
-              mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
-            } else if (60 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 80 && 60 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 80){
-              mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
-            } else if (80 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 100 && 80 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 100){
-              mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
-            } else if (100 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 120 && 100 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 120){
-              mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
-            } else if (120 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 140 && 120 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 140){
-              mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
-            } else if (140 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 160 && 140 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 160){
-              mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
-            } else if (160 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 180 && 160 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 180){
-              mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+                mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              } else if (20 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 40 && 20 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 40){
+                mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              } else if (40 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 60 && 40 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 60){
+                mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              } else if (60 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 80 && 60 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 80){
+                mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              } else if (80 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 100 && 80 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 100){
+                mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              } else if (100 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 120 && 100 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 120){
+                mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              } else if (120 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 140 && 120 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 140){
+                mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              } else if (140 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 160 && 140 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 160){
+                mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              } else if (160 < groupedMFTTracks1.size() && groupedMFTTracks1.size() <= 180 && 160 < groupedMFTTracks2.size() && groupedMFTTracks2.size() <= 180){
+                mchmftpairbkgemTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              }
             }
           }
         }
@@ -508,27 +430,7 @@ struct mchmftmatchinginfoem {
     static constexpr Double_t MatchingPlaneZ = -77.5;
 
     for (auto const& fwdtrack : fwdtracks){
-      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-        double adjDeltaeta = 10000000;
-        double adjDeltaphi = 10000000;
-        double adjSimilarity = 10000000;
-        bool adjDeltasmallID = true;
-        for (auto const& secondfwdtrack : fwdtracks) {
-          if (secondfwdtrack.has_collision() && secondfwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-            if (secondfwdtrack.collisionId() == fwdtrack.collisionId()){
-              if (secondfwdtrack.globalIndex() != fwdtrack.globalIndex()){
-                if (adjSimilarity > std::sqrt(std::pow(fwdtrack.eta() - secondfwdtrack.eta(), 2) + std::pow(fwdtrack.phi() - secondfwdtrack.phi(), 2))){
-                  adjDeltaeta = fwdtrack.eta() - secondfwdtrack.eta();
-                  adjDeltaphi = fwdtrack.phi() - secondfwdtrack.phi();
-                  adjSimilarity = std::sqrt(std::pow(adjDeltaeta, 2) + std::pow(adjDeltaphi, 2));
-                  if (secondfwdtrack.globalIndex() < fwdtrack.globalIndex()){
-                    adjDeltasmallID = false;
-                  }
-                }
-              }
-            }
-          }
-        }
+      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
 
         for (auto const& mfttrack : mfttracks){
           if (mfttrack.has_collision()){
@@ -552,10 +454,10 @@ struct mchmftmatchinginfoem {
               if (fwdtrack.mcParticleId() == mfttrack.mcParticleId())
               {
                 //Write True MCH-MFT pair Table
-              mchmftpairtrueTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              mchmftpairtrueTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
               } else {
                 //Write Wrong MCH-MFT pair Table
-              mchmftpairwrongTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),adjDeltaeta,adjDeltaphi,adjSimilarity,adjDeltasmallID,muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
+              mchmftpairwrongTable(mftpars1.getX(), mftpars1.getY(), mftpars1.getEta(), mftpars1.getPhi(),mftpars1.getTanl(), mftpars1.getPt(),std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)),mfttrack.chi2(), muonpars1.getX(), muonpars1.getY(), muonpars1.getEta(), muonpars1.getPhi(), muonpars1.getTanl(), muonpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)),muonpars1.getX() - mftpars1.getX(),muonpars1.getY() - mftpars1.getY(),muonpars1.getEta() - mftpars1.getEta(),muonpars1.getPhi() - mftpars1.getPhi(),muonpars1.getTanl() - mftpars1.getTanl(), muonpars1.getPt() - mftpars1.getPt(),std::sqrt(std::pow(muonpars1.getX(), 2) + std::pow(muonpars1.getY(), 2)) - std::sqrt(std::pow(mftpars1.getX(), 2) + std::pow(mftpars1.getY(), 2)));
               }
             }
           }
