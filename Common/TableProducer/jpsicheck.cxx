@@ -60,9 +60,14 @@ struct jpsicheck {
     "registry",
     {
       {"hInvariantMass", "Invariant Mass of mch-mid track;Invariant Mass (GeV/c^{2});Counts", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hInvariantMassGlobalIndependent", "Invariant Mass of mft-mch-mid track;Invariant Mass (GeV/c^{2});Counts", {HistType::kTH1F, {{5000, 0, 50}}}},
       {"hCounter", "hCounter", {HistType::kTH1F, {{2, -0.5, 1.5}}}},
+      {"hPtGlobalIndependent", "hPtGlobalIndependent", {HistType::kTH1F, {{100, 0, 10}}}},
       {"hPtGlobal", "hPtGlobal", {HistType::kTH1F, {{100, 0, 10}}}},
       {"hPtMuon", "hPtMuon", {HistType::kTH1F, {{100, 0, 10}}}},
+      {"hRapidityMuon", "hRapidityMuon", {HistType::kTH1F, {{50, -5, 0}}}},
+      {"hRapidityGlobal", "hRapidityGlobal", {HistType::kTH1F, {{50, -5, 0}}}},
+      {"hRapidityGlobalIndependent", "hRapidityGlobalIndependent", {HistType::kTH1F, {{50, -5, 0}}}},
     }
   };
 
@@ -85,18 +90,37 @@ struct jpsicheck {
             registry.fill(HIST("hCounter"), 0);
             registry.fill(HIST("hPtMuon"), fwdtrack1.pt());
             registry.fill(HIST("hPtMuon"), fwdtrack2.pt());
+            registry.fill(HIST("hRapidityMuon"),fwdtrack1.eta());
+            registry.fill(HIST("hRapidityMuon"),fwdtrack2.eta());
             for (auto& fwdtrackjpsi : fwdtracks) {
               if (fwdtrackjpsi.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack) {
                 if (fwdtrackjpsi.matchMCHTrackId() == fwdtrack1.globalIndex()) {
                   registry.fill(HIST("hCounter"), 1);
                   registry.fill(HIST("hPtGlobal"), fwdtrack1.pt());
+                  registry.fill(HIST("hRapidityGlobal"),fwdtrack1.eta());
                 }
                 if (fwdtrackjpsi.matchMCHTrackId() == fwdtrack2.globalIndex()) {
                   registry.fill(HIST("hCounter"), 1);
                   registry.fill(HIST("hPtGlobal"), fwdtrack2.pt());
+                  registry.fill(HIST("hRapidityGlobal"),fwdtrack2.eta());
                 }
               }
             }
+          }
+        }
+      }
+      if (fwdtrack1.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrack2.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack) {
+        if (fwdtrack1.sign() != fwdtrack2.sign()) {
+          TLorentzVector lv1, lv2, lv;
+          lv1.SetPtEtaPhiM(fwdtrack1.pt(), fwdtrack1.eta(), fwdtrack1.phi(), muonMass);
+          lv2.SetPtEtaPhiM(fwdtrack2.pt(), fwdtrack2.eta(), fwdtrack2.phi(), muonMass);
+          lv = lv1 + lv2;
+          registry.fill(HIST("hInvariantMassGlobalIndependent"), lv.M());
+          if (lv.M() < 3.093 + 0.072*3 && 3.093 - 0.072*3 < lv.M()) {
+            registry.fill(HIST("hPtGlobalIndependent"), fwdtrack1.pt());
+            registry.fill(HIST("hPtGlobalIndependent"), fwdtrack2.pt());
+            registry.fill(HIST("hRapidityGlobalIndependent"), fwdtrack1.eta());
+            registry.fill(HIST("hRapidityGlobalIndependent"), fwdtrack2.eta());
           }
         }
       }

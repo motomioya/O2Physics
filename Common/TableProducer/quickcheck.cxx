@@ -15,6 +15,7 @@
 #include "Framework/runDataProcessing.h"
 #include "Framework/ASoAHelpers.h"
 #include "Common/DataModel/EventSelection.h"
+#include "Common/DataModel/CollisionAssociationTables.h"
 #include "Common/CCDB/EventSelectionParams.h"
 #include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/Core/trackUtilities.h"
@@ -32,6 +33,8 @@
 using namespace o2;
 using namespace o2::framework;
 using namespace o2::framework::expressions;
+using MyMuonsColl = soa::Join<aod::FwdTracks, aod::FwdTrkCompColls>;
+using MyMFTsColl = soa::Join<aod::MFTTracks, aod::MFTTrkCompColls>;
 
 struct quickcheck {
   float etalow = -4;
@@ -130,6 +133,7 @@ struct quickcheck {
     }
   }
   PROCESS_SWITCH(quickcheck, processGen, "Process generator-level info", false);
+  
 };
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)

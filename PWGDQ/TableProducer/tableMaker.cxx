@@ -218,7 +218,7 @@ struct TableMaker {
                              context.mOptions.get<bool>("processMuonOnlyWithCovAndCent") ||
                              context.mOptions.get<bool>("processMuonOnlyWithCov") || context.mOptions.get<bool>("processMuonOnlyWithFilter") ||
                              context.mOptions.get<bool>("processAmbiguousMuonOnlyWithCov") || context.mOptions.get<bool>("processAmbiguousMuonOnly") ||
-                             context.mOptions.get<bool>("processMuonMLOnly") || context.mOptions.get<bool>("processMuonMLOnly"));
+                             context.mOptions.get<bool>("processMuonMLOnly") || context.mOptions.get<bool>("processMuonMLOnly") );
 
     if (enableBarrelHistos) {
       if (fDoDetailedQA) {

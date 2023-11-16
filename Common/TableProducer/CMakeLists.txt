@@ -136,6 +136,12 @@ o2physics_add_dpl_workflow(jpsicheck
                                           O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
 
+o2physics_add_dpl_workflow(mlcheck
+                    SOURCES mlcheck.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
+                                          O2::ReconstructionDataFormats
+                    COMPONENT_NAME Analysis)
+
 o2physics_add_dpl_workflow(masscheck
                     SOURCES masscheck.cxx
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
@@ -218,5 +224,12 @@ o2physics_add_dpl_workflow(mftmchmatchingml
                                           O2Physics::AnalysisCore
                                           ONNXRuntime::ONNXRuntime
                                           O2::CCDB O2Physics::MLCore
+                                          O2::ReconstructionDataFormats
+                    COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(runwithmchwithmft
+                    SOURCES runwithmchwithmft.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework
+                                          O2Physics::AnalysisCore
                                           O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
