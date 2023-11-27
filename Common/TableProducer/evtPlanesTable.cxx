@@ -64,15 +64,6 @@ struct evtPlanesTable {
 
   void process(aod::Qvector const& qVec)
   {
-    // Get the centrality bin, and fill the centrality distribution.
-    int centBin = helperEP.GetCentBin(qVec.cent());
-    if (centBin < 0 || centBin > 8) {
-      return;
-    }
-    // Calculate the event plane for each detector, then save them in the
-    // corresponding distribution. The order is the same as in detNames[].
-    // TODO: Update the calculation of the event plane for the central barrel.
-
     float evtPlane[4];
     float evtPlaneBPos[4];
     float evtPlaneBNeg[4];
@@ -96,7 +87,8 @@ struct evtPlanesTable {
     evPlane(qVec.cent(),
             evtPlane[0], evtPlane[1], evtPlane[2], evtPlane[3],
             evtPlaneBPos[0], evtPlaneBPos[1], evtPlaneBPos[2], evtPlaneBPos[3],
-            evtPlaneBNeg[0], evtPlaneBNeg[1], evtPlaneBNeg[2], evtPlaneBNeg[3]);
+            evtPlaneBNeg[0], evtPlaneBNeg[1], evtPlaneBNeg[2], evtPlaneBNeg[3],
+            qVec.nTrkBPos(), qVec.nTrkBNeg());
   } // void process(aod::Qvector const& qVec)
 };
 
