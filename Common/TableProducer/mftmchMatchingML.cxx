@@ -1,6 +1,7 @@
 // Copyright 2020-2022 CERN and copyright holders of ALICE O2.
-// See https://dweer7up[lptytdysaijolice-o2.web.cern.ch/copyright for details of the copyright holders.
+// See https://alice-o2.web.cern.ch/copyright for details of the copyright holders.
 // All rights not expressly granted are reserved.
+//
 // This software is distributed under the terms of the GNU General Public
 // License v3 (GPL Version 3), copied verbatim in the file "COPYING".
 //
@@ -23,7 +24,6 @@
 #include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/Core/trackUtilities.h"
 #include "Common/Core/TrackSelection.h"
-#include "Common/DataModel/mftmchMatchingML.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
 #include "Math/SMatrix.h"
 #include "DetectorsBase/Propagator.h"
@@ -39,7 +39,6 @@ using namespace o2::framework;
 using namespace o2::framework::expressions;
 using namespace o2::soa;
 using namespace o2::ml;
-using namespace o2::aod::evsel;
 using o2::globaltracking::MatchingFunc_t;
 using o2::track::TrackParCovFwd;
 using o2::track::TrackParFwd;
@@ -60,7 +59,7 @@ struct mftmchMatchingML {
   float chi2up = 1000000;
   float chi2MatchMCHMIDup = 1000000;
 
-  Filter etaFilter = ((etalow < aod::fwdtrack::eta) && (aod::fwdtrack::eta < etaup ));
+  Filter etaFilter = ((etalow < aod::fwdtrack::eta) && (aod::fwdtrack::eta < etaup));
   Filter pDcaFilter = (((pDCAcutrAtBsorberEndlow1 < aod::fwdtrack::rAtAbsorberEnd) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup1) && (aod::fwdtrack::pDca < pDCAcutdcaup1)) || ((pDCAcutrAtBsorberEndlow2 < aod::fwdtrack::rAtAbsorberEnd) && (aod::fwdtrack::rAtAbsorberEnd < pDCAcutrAtBsorberEndup2) && (aod::fwdtrack::pDca < pDCAcutdcaup2)));
   Filter chi2Filter = (aod::fwdtrack::chi2 < chi2up);
   Filter chi2MatchFilter = (aod::fwdtrack::chi2MatchMCHMID < chi2MatchMCHMIDup);
@@ -69,6 +68,8 @@ struct mftmchMatchingML {
   Configurable<std::string> cfgModelDir{"ccdb-path", "Users/m/mooya/models", "base path to the ONNX models"};
   Configurable<std::string> cfgModelName{"ccdb-file", "model_LHC22o.onnx", "name of ONNX model file"};
   Configurable<float> cfgThrScore{"threshold-score", 0.5, "Threshold value for matching score"};
+  Configurable<int> cfgColWindow{"collision-window", 1, "Search window (collision ID) for MFT track"};
+  Configurable<float> cfgXYWindow{"XY-window", 3, "Search window (delta XY) for MFT track"};
 
   Ort::Env env{ORT_LOGGING_LEVEL_WARNING, "model-explorer"};
   Ort::SessionOptions session_options;
@@ -158,10 +159,9 @@ struct mftmchMatchingML {
     input_shape[0] = 1;
 
     std::vector<float> input_tensor_values;
+    input_tensor_values = getVariables(fwdtrack, mfttrack);
 
-    input_tensor_values = getVariables(fwdtrack,mfttrack);
-
-    if (input_tensor_values[8] < 3) {
+    if (input_tensor_values[8] < cfgXYWindow) {
       std::vector<Ort::Value> input_tensors;
       input_tensors.push_back(Ort::Experimental::Value::CreateTensor<float>(input_tensor_values.data(), input_tensor_values.size(), input_shape));
 
@@ -201,52 +201,30 @@ struct mftmchMatchingML {
     }
   }
 
-  void process(aod::Collisions::iterator const& collision, soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks)
+  void process(aod::Collisions const& collisions, soa::Filtered<aod::FwdTracks> const& fwdtracks, aod::MFTTracks const& mfttracks)
   {
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
-        double result = matchONNX(fwdtrack, mfttrack);
-        if (result > cfgThrScore) {
-          double mftchi2 = mfttrack.chi2();
-          SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
-          std::vector<double> mftv1;
-          SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
-          o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-          mftpars1.propagateToZlinear(collision.posZ());
+        if (fwdtrack.has_collision() && mfttrack.has_collision()) {
+          if (0 <= fwdtrack.collisionId() - mfttrack.collisionId() && fwdtrack.collisionId() - mfttrack.collisionId() < cfgColWindow) {
+            double result = matchONNX(fwdtrack, mfttrack);
+            if (result > cfgThrScore) {
+              double mftchi2 = mfttrack.chi2();
+              SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+              std::vector<double> mftv1;
+              SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+              o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+              mftpars1.propagateToZlinear(mfttrack.collision().posZ());
 
-          double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
-          double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
-          double pz = fwdtrack.p() * cos(M_PI/2 - atan(mfttrack.tgl()));
-
-          int mlcollisionId = fwdtrack.collisionId();
-          float mlx = mfttrack.x();
-          float mly = mfttrack.y();
-          float mlz = mfttrack.z();
-          float mlphi = mfttrack.phi();
-          float mltgl = mfttrack.tgl();
-          float mlsigned1Pt = fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2));
-          float mlnclusters = fwdtrack.nClusters();
-          float mlpda = fwdtrack.pDca();
-          float mlratabsorberend = fwdtrack.rAtAbsorberEnd();
-          float mlchi2 = 0;
-          float mlchi2matchmchmid = 0;
-          float mlchi2matchmchmft = 0;
-          int mlmfttrackid = mfttrack.globalIndex();
-          int mlmchtrackid = fwdtrack.globalIndex();
-          int mlmchbitmap = fwdtrack.midBitMap();
-          int mlmidbitmap = fwdtrack.midBitMap();
-          int mlmidboards = fwdtrack.midBoards();
-          float mltracktime = mfttrack.trackTime();
-          float mltracktimeres = mfttrack.trackTimeRes();
-          float mleta = mfttrack.eta();
-          float mlpt = std::sqrt(std::pow(px,2) + std::pow(py,2));
-          float mlp = std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2));
-          float dcaX = (mftpars1.getX() - collision.posX());
-          float dcaY = (mftpars1.getY() - collision.posY());
-
-          fwdtrackml(mlcollisionId,0,mlx,mly,mlz,mlphi,mltgl,mlsigned1Pt,mlnclusters,mlpda,mlratabsorberend,mlchi2,mlchi2matchmchmid,mlchi2matchmchmft,result,mlmfttrackid,mlmchtrackid,mlmchbitmap,mlmidbitmap,mlmidboards,mltracktime,mltracktimeres, mleta,mlpt,mlp, dcaX, dcaY);
-          //fwdtrackml(fwdtrack.collisionId(),0,mfttrack.x(),mfttrack.y(),mfttrack.z(),mfttrack.phi(),mfttrack.tgl(),fwdtrack.sign()/std::sqrt(std::pow(px,2) + std::pow(py,2)),fwdtrack.nClusters(),-1,-1,-1,-1,-1,result,mfttrack.globalIndex(),fwdtrack.globalIndex(),fwdtrack.mchBitMap(),fwdtrack.midBitMap(),fwdtrack.midBoards(),mfttrack.trackTime(),mfttrack.trackTimeRes(), mfttrack.eta(),std::sqrt(std::pow(px,2) + std::pow(py,2)),std::sqrt(std::pow(px,2) + std::pow(py,2)+std::pow(pz,2)), dcaX, dcaY);
+              float dcaX = (mftpars1.getX() - mfttrack.collision().posX());
+              float dcaY = (mftpars1.getY() - mfttrack.collision().posY());
+              double px = fwdtrack.p() * sin(M_PI / 2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
+              double py = fwdtrack.p() * sin(M_PI / 2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
+              double pz = fwdtrack.p() * cos(M_PI / 2 - atan(mfttrack.tgl()));
+              fwdtrackml(fwdtrack.collisionId(), 0, mfttrack.x(), mfttrack.y(), mfttrack.z(), mfttrack.phi(), mfttrack.tgl(), fwdtrack.sign() / std::sqrt(std::pow(px, 2) + std::pow(py, 2)), fwdtrack.nClusters(), fwdtrack.pDca(), fwdtrack.rAtAbsorberEnd(), 0, 0, 0, result, mfttrack.globalIndex(), fwdtrack.globalIndex(), fwdtrack.mchBitMap(), fwdtrack.midBitMap(), fwdtrack.midBoards(), mfttrack.trackTime(), mfttrack.trackTimeRes(), mfttrack.eta(), std::sqrt(std::pow(px, 2) + std::pow(py, 2)), std::sqrt(std::pow(px, 2) + std::pow(py, 2) + std::pow(pz, 2)), dcaX, dcaY);
+            }
+          }
         }
       }
     }
@@ -256,6 +234,5 @@ struct mftmchMatchingML {
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
   return WorkflowSpec{
-    adaptAnalysisTask<mftmchMatchingML>(cfgc)
-  };
+    adaptAnalysisTask<mftmchMatchingML>(cfgc)};
 }

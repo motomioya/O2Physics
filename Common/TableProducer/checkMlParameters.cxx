@@ -156,54 +156,13 @@ struct compareMlMatching {
       {"hXmldeltawrong", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
       {"hYmldeltawrong", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
       {"hZmldeltawrong", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
-      {"hPTmldeltawrong", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
+      {"hPTmldeltawrong", "PT", {HistType::kTH1F, {{10000, -50, 50}}}},
       {"hPhimldeltawrong", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
       {"hTanlmldeltawrong", "Tanl", {HistType::kTH1F, {{600, -30, 30}}}},
-      {"hEtamldeltawrong", "Eta", {HistType::kTH1F, {{500, -5, 0}}}},
-      {"hXmlfwdtrue", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hYmlfwdtrue", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hZmlfwdtrue", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
-      {"hPTmlfwdtrue", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
-      {"hPhimlfwdtrue", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
-      {"hTanlmlfwdtrue", "Tanl", {HistType::kTH1F, {{600, -30, 30}}}},
-      {"hEtamlfwdtrue", "Eta", {HistType::kTH1F, {{500, -5, 0}}}},
-      {"hXmlmfttrue", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hYmlmfttrue", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hZmlmfttrue", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
-      {"hPTmlmfttrue", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
-      {"hPhimlmfttrue", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
-      {"hTanlmlmfttrue", "Tanl", {HistType::kTH1F, {{600, -30, 30}}}},
-      {"hEtamlmfttrue", "Eta", {HistType::kTH1F, {{500, -5, 0}}}},
-      {"hXmldeltatrue", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hYmldeltatrue", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hZmldeltatrue", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
-      {"hPTmldeltatrue", "PT", {HistType::kTH1F, {{10000, -50, 50}}}},
-      {"hPhimldeltatrue", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
-      {"hTanlmldeltatrue", "Tanl", {HistType::kTH1F, {{600, -30, 30}}}},
-      {"hEtamldeltatrue", "Eta", {HistType::kTH1F, {{500, -5, 0}}}},
-      {"hXYmldeltatrue", "ZY", {HistType::kTH1F, {{200, -10, 10}}}},
-      {"hXmlfwdfalse", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hYmlfwdfalse", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hZmlfwdfalse", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
-      {"hPTmlfwdfalse", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
-      {"hPhimlfwdfalse", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
-      {"hTanlmlfwdfalse", "Tanl", {HistType::kTH1F, {{600, -30, 30}}}},
-      {"hEtamlfwdfalse", "Eta", {HistType::kTH1F, {{500, -5, 0}}}},
-      {"hXmlmftfalse", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hYmlmftfalse", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hZmlmftfalse", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
-      {"hPTmlmftfalse", "PT", {HistType::kTH1F, {{5000, 0, 50}}}},
-      {"hPhimlmftfalse", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
-      {"hTanlmlmftfalse", "Tanl", {HistType::kTH1F, {{600, -30, 30}}}},
-      {"hEtamlmftfalse", "Eta", {HistType::kTH1F, {{500, -5, 0}}}},
-      {"hXmldeltafalse", "X", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hYmldeltafalse", "Y", {HistType::kTH1F, {{1000, -50, 50}}}},
-      {"hZmldeltafalse", "Z", {HistType::kTH1F, {{2000, -100, 100}}}},
-      {"hPTmldeltafalse", "PT", {HistType::kTH1F, {{5000, -50, 50}}}},
-      {"hPhimldeltafalse", "Phi", {HistType::kTH1F, {{200, -10, 10}}}},
-      {"hTanlmldeltafalse", "Tanl", {HistType::kTH1F, {{600, -30, 30}}}},
-      {"hEtamldeltafalse", "Eta", {HistType::kTH1F, {{500, -5, 0}}}},
-      {"hXYmldeltafalse", "XY", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"hEtamldeltawrong", "Eta", {HistType::kTH1F, {{1000, -5, 5}}}},
+      {"hCandidates", "hCandidates", {HistType::kTH1F, {{1000, 0, 1000}}}},
+      {"hCandidatesML", "hCandidatesML", {HistType::kTH1F, {{1000, 0, 1000}}}},
+      {"hSelectedMFTs", "hSelectedMFTs", {HistType::kTH1F, {{100, 0, 100}}}},
     }
   };
 
@@ -410,94 +369,92 @@ struct compareMlMatching {
       }
     }
 
-    for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
-
+    for (auto& fwdtrack : fwdtracks) {
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack){
-        if (0 <= fwdtrack.collisionId() - mfttrack.collisionId() && fwdtrack.collisionId() - mfttrack.collisionId() < cfgColWindow) {
-          double result = matchONNX(fwdtrack, mfttrack);
-          registry.fill(HIST("hmlscore"), result);
+        double bestscore = 0;
+        std::vector<aod::MFTTrack> selectedMFTs;
+        double bestMFTx;
+        double bestMFTy;
+        double bestMFTz;
+        double bestMFTphi;
+        double bestMFTtgl;
+        double bestMFTeta;
+        int nCandidateMFT = 0;
+        int nCandidateMFTML = 0;
+        for (auto& mfttrack : mfttracks) {
+          if (0 <= fwdtrack.collisionId() - mfttrack.collisionId() && fwdtrack.collisionId() - mfttrack.collisionId() < cfgColWindow) {
+            nCandidateMFT++;
+            double result = matchONNX(fwdtrack, mfttrack);
+            registry.fill(HIST("hmlscore"), result);
+            static constexpr Double_t MatchingPlaneZ = -77.5;
+            //propagate muontrack to matching position
+            double muonchi2 = fwdtrack.chi2();
+            SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
+            std::vector<double> muonv1;
+            SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
+            o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
+            muonpars1.propagateToZlinear(MatchingPlaneZ);
 
-          static constexpr Double_t MatchingPlaneZ = -77.5;
+            //propagate mfttrack to matching position
+            double mftchi2 = mfttrack.chi2();
+            SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
+            std::vector<double> mftv1;
+            SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
+            o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
+            mftpars1.propagateToZlinear(MatchingPlaneZ);
 
-          //propagate muontrack to matching position
-          double muonchi2 = fwdtrack.chi2();
-          SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
-          std::vector<double> muonv1;
-          SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
-          o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
-          muonpars1.propagateToZlinear(MatchingPlaneZ);
+            double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
+            double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
 
-          //propagate mfttrack to matching position
-          double mftchi2 = mfttrack.chi2();
-          SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
-          std::vector<double> mftv1;
-          SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
-          o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-          mftpars1.propagateToZlinear(MatchingPlaneZ);
-
-          double px = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * cos(mfttrack.phi());
-          double py = fwdtrack.p() * sin(M_PI/2 - atan(mfttrack.tgl())) * sin(mfttrack.phi());
-
-          Float_t Delta_XY     = sqrt((muonpars1.getX() - mftpars1.getX())*(muonpars1.getX() - mftpars1.getX()) + (muonpars1.getY() - mftpars1.getY())*(muonpars1.getY() - mftpars1.getY()));
-          if (result > cfgThrScore){
-            registry.fill(HIST("hXml"), mfttrack.x());
-            registry.fill(HIST("hYml"), mfttrack.y());
-            registry.fill(HIST("hZml"), mfttrack.z());
-            registry.fill(HIST("hPTml"), std::sqrt(std::pow(px,2) + std::pow(py,2)));
-            registry.fill(HIST("hPhiml"), mfttrack.phi());
-            registry.fill(HIST("hTanlml"), mfttrack.tgl());
-            registry.fill(HIST("hEtaml"), mfttrack.eta());
-
-            registry.fill(HIST("hXmlfwdtrue"), muonpars1.getX());
-            registry.fill(HIST("hYmlfwdtrue"), muonpars1.getY());
-            registry.fill(HIST("hZmlfwdtrue"), muonpars1.getY());
-            registry.fill(HIST("hPTmlfwdtrue"), muonpars1.getPt());
-            registry.fill(HIST("hPhimlfwdtrue"), muonpars1.getPhi());
-            registry.fill(HIST("hTanlmlfwdtrue"), muonpars1.getTanl());
-            registry.fill(HIST("hEtamlfwdtrue"), muonpars1.getEta());
-            registry.fill(HIST("hXmlmfttrue"), mftpars1.getX());
-            registry.fill(HIST("hYmlmfttrue"), mftpars1.getY());
-            registry.fill(HIST("hZmlmfttrue"), mftpars1.getZ());
-            registry.fill(HIST("hPTmlmfttrue"), mftpars1.getPt());
-            registry.fill(HIST("hPhimlmfttrue"), mftpars1.getPhi());
-            registry.fill(HIST("hTanlmlmfttrue"), mftpars1.getTanl());
-            registry.fill(HIST("hEtamlmfttrue"), mftpars1.getEta());
-            registry.fill(HIST("hXmldeltatrue"), muonpars1.getX() - mftpars1.getX());
-            registry.fill(HIST("hYmldeltatrue"), muonpars1.getY() - mftpars1.getY());
-            registry.fill(HIST("hZmldeltatrue"), muonpars1.getZ() - mftpars1.getZ());
-            registry.fill(HIST("hPTmldeltatrue"), muonpars1.getPt() - mftpars1.getPt());
-            registry.fill(HIST("hPhimldeltatrue"), muonpars1.getPhi() - mftpars1.getPhi());
-            registry.fill(HIST("hTanlmldeltatrue"), muonpars1.getTanl() - mftpars1.getTanl());
-            registry.fill(HIST("hEtamldeltatrue"), muonpars1.getEta() - mftpars1.getEta());
-            registry.fill(HIST("hXYmldeltatrue"), Delta_XY);
-          } else {
-            if (Delta_XY < 3) {
-              registry.fill(HIST("hXmlfwdfalse"), muonpars1.getX());
-              registry.fill(HIST("hYmlfwdfalse"), muonpars1.getY());
-              registry.fill(HIST("hZmlfwdfalse"), muonpars1.getY());
-              registry.fill(HIST("hPTmlfwdfalse"), muonpars1.getPt());
-              registry.fill(HIST("hPhimlfwdfalse"), muonpars1.getPhi());
-              registry.fill(HIST("hTanlmlfwdfalse"), muonpars1.getTanl());
-              registry.fill(HIST("hEtamlfwdfalse"), muonpars1.getEta());
-              registry.fill(HIST("hXmlmftfalse"), mftpars1.getX());
-              registry.fill(HIST("hYmlmftfalse"), mftpars1.getY());
-              registry.fill(HIST("hZmlmftfalse"), mftpars1.getZ());
-              registry.fill(HIST("hPTmlmftfalse"), mftpars1.getPt());
-              registry.fill(HIST("hPhimlmftfalse"), mftpars1.getPhi());
-              registry.fill(HIST("hTanlmlmftfalse"), mftpars1.getTanl());
-              registry.fill(HIST("hEtamlmftfalse"), mftpars1.getEta());
-              registry.fill(HIST("hXmldeltafalse"), muonpars1.getX() - mftpars1.getX());
-              registry.fill(HIST("hYmldeltafalse"), muonpars1.getY() - mftpars1.getY());
-              registry.fill(HIST("hZmldeltafalse"), muonpars1.getZ() - mftpars1.getZ());
-              registry.fill(HIST("hPTmldeltafalse"), muonpars1.getPt() - mftpars1.getPt());
-              registry.fill(HIST("hPhimldeltafalse"), muonpars1.getPhi() - mftpars1.getPhi());
-              registry.fill(HIST("hTanlmldeltafalse"), muonpars1.getTanl() - mftpars1.getTanl());
-              registry.fill(HIST("hEtamldeltafalse"), muonpars1.getEta() - mftpars1.getEta());
-              registry.fill(HIST("hXYmldeltafalse"), Delta_XY);
+            //Float_t Delta_XY     = sqrt((muonpars1.getX() - mftpars1.getX())*(muonpars1.getX() - mftpars1.getX()) + (muonpars1.getY() - mftpars1.getY())*(muonpars1.getY() - mftpars1.getY()));
+            if (result > cfgThrScore){
+              nCandidateMFTML++;
+              registry.fill(HIST("hXml"), mfttrack.x());
+              registry.fill(HIST("hYml"), mfttrack.y());
+              registry.fill(HIST("hZml"), mfttrack.z());
+              registry.fill(HIST("hPTml"), std::sqrt(std::pow(px,2) + std::pow(py,2)));
+              registry.fill(HIST("hPhiml"), mfttrack.phi());
+              registry.fill(HIST("hTanlml"), mfttrack.tgl());
+              registry.fill(HIST("hEtaml"), mfttrack.eta());
+              selectedMFTs.emplace_back(mfttrack);
+              if (result > bestscore){
+                registry.fill(HIST("hXmlonlyone"), mfttrack.x());
+                registry.fill(HIST("hYmlonlyone"), mfttrack.y());
+                registry.fill(HIST("hZmlonlyone"), mfttrack.z());
+                registry.fill(HIST("hPTmlonlyone"), std::sqrt(std::pow(px,2) + std::pow(py,2)));
+                registry.fill(HIST("hPhimlonlyone"), mfttrack.phi());
+                registry.fill(HIST("hTanlmlonlyone"), mfttrack.tgl());
+                registry.fill(HIST("hEtamlonlyone"), mfttrack.eta());
+                bestscore = result;
+                bestMFTx = mfttrack.x();
+                bestMFTy = mfttrack.y();
+                bestMFTz = mfttrack.z();
+                bestMFTphi = mfttrack.phi();
+                bestMFTtgl = mfttrack.tgl();
+                bestMFTeta = mfttrack.eta();
+              }
             }
           }
         }
-      }
+        registry.fill(HIST("hCandidates"), nCandidateMFT);
+        registry.fill(HIST("hCandidatesML"), nCandidateMFTML);
+        registry.fill(HIST("hSelectedMFTs"), selectedMFTs.size());
+        if (selectedMFTs.size() > 1) {
+          for (const auto& selectedmft : selectedMFTs) {
+            double px = fwdtrack.p() * sin(M_PI/2 - atan(selectedmft.tgl())) * cos(selectedmft.phi());
+            double py = fwdtrack.p() * sin(M_PI/2 - atan(selectedmft.tgl())) * sin(selectedmft.phi());
+            double pxbest = fwdtrack.p() * sin(M_PI/2 - atan(bestMFTtgl)) * cos(bestMFTphi);
+            double pybest = fwdtrack.p() * sin(M_PI/2 - atan(bestMFTtgl)) * sin(bestMFTphi);
+            registry.fill(HIST("hXmldeltawrong"), bestMFTx - selectedmft.x());
+            registry.fill(HIST("hYmldeltawrong"), bestMFTy - selectedmft.y());
+            registry.fill(HIST("hZmldeltawrong"), bestMFTz - selectedmft.z());
+            registry.fill(HIST("hPTmldeltawrong"), std::sqrt(std::pow(pxbest,2) + std::pow(pybest,2)) - std::sqrt(std::pow(px,2) + std::pow(py,2)));
+            registry.fill(HIST("hPhimldeltawrong"), bestMFTphi - selectedmft.phi());
+            registry.fill(HIST("hTanlmldeltawrong"), bestMFTtgl - selectedmft.tgl());
+            registry.fill(HIST("hEtamldeltawrong"), bestMFTeta - selectedmft.eta());
+          }
+        }
+}
     }
   }
 };
