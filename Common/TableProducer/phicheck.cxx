@@ -29,6 +29,7 @@
 #include "MCHTracking/TrackExtrap.h"
 #include "GlobalTracking/MatchGlobalFwd.h"
 #include <TLorentzVector.h>
+#include "TDatabasePDG.h"
 
 using namespace o2;
 using namespace o2::soa;

@@ -15,6 +15,7 @@
 #include "Framework/runDataProcessing.h"
 #include "Common/DataModel/EventSelection.h"
 #include "Common/CCDB/EventSelectionParams.h"
+#include "TDatabasePDG.h"
 
 #include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/Core/trackUtilities.h"
