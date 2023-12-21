@@ -38,7 +38,7 @@ using namespace o2::aod::evsel;
 
 struct globalFwdtrackInfo {
 
-  float etalow = -4;
+  float etalow = -3.6;
   float etaup = -2.5;
   float pDCAcutrAtBsorberEndlow1 = 17.6;
   float pDCAcutrAtBsorberEndup1 = 26.5;

@@ -400,7 +400,7 @@ struct mchmftmatchinginfoemmc {
   Produces<aod::MchmftPairBkgem> mchmftpairbkgemTable;
 
   //List of cut parameters
-  float etalow = -4;
+  float etalow = -3.6;
   float etaup = -2.5;
   float pDCAcutrAtBsorberEndlow1 = 17.6;
   float pDCAcutrAtBsorberEndup1 = 26.5;
@@ -427,6 +427,7 @@ struct mchmftmatchinginfoemmc {
 
   Preslice<aod::FwdTracks> perCollision = aod::fwdtrack::collisionId;
   Preslice<aod::MFTTracks> perCollisionMFT = aod::fwdtrack::collisionId;
+
 
   void init(o2::framework::InitContext&)
   {
@@ -629,6 +630,7 @@ struct mchmftmatchinginfoemmc {
               //propagate muontrack to matching position
               double muonchi2 = fwdtrack.chi2();
               SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
+
               std::vector<double> muonv1;
               SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
               o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};

@@ -51,7 +51,7 @@ using SMatrix5 = ROOT::Math::SVector<double, 5>;
 struct compareMlMatching {
   Produces<aod::FwdTracksML> fwdtrackml;
 
-  float etalow = -4;
+  float etalow = -3.6;
   float etaup = -2.5;
   float pDCAcutrAtBsorberEndlow1 = 17.6;
   float pDCAcutrAtBsorberEndup1 = 26.5;

@@ -250,7 +250,7 @@ struct mftmchmatchinginfo {
   Produces<aod::MchmftPairBkg> mchmftpairbkgTable;
 
   //List of cut parameters
-  float etalow = -4;
+  float etalow = -3.6;
   float etaup = -2.5;
   float pDCAcutrAtBsorberEndlow1 = 17.6;
   float pDCAcutrAtBsorberEndup1 = 26.5;
@@ -276,7 +276,7 @@ struct mftmchmatchinginfo {
   {
     static constexpr Double_t MatchingPlaneZ = -77.5;
     for (auto const& fwdtrack : fwdtracks){
-      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
 
         for (auto const& mfttrack : mfttracks){
           if (mfttrack.has_collision()){
@@ -316,7 +316,7 @@ struct mftmchmatchinginfo {
 
     for (auto& [fwdtrack, mfttrack] : combinations(CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 
-      if (fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+      if (fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
 
         //propagate muontrack to matching position
         double muonchi2 = fwdtrack.chi2();
