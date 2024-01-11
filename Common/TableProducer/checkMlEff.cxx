@@ -118,7 +118,49 @@ struct checkMlEff {
       {"MlOneTruedeltaColId", "MlOnedeltaColId", {HistType::kTH1F, {{40, -20, 20}}}},
       {"MlScore", "MlScore", {HistType::kTH1F, {{1000, 0, 1}}}},
       {"MlScoreTrue", "MlScoreTrue", {HistType::kTH1F, {{1000, 0, 1}}}},
-      {"MlScoreFalse", "MlScoreFalse", {HistType::kTH1F, {{1000, 0, 1}}}}
+      {"MlScoreFalse", "MlScoreFalse", {HistType::kTH1F, {{1000, 0, 1}}}},
+      {"Input_MFT_X", "Input_MFT_X", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MFT_Y", "Input_MFT_Y", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MFT_Phi", "Input_MFT_Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MFT_Tanl", "Input_MFT_Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MCH_X", "Input_MCH_X", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MCH_Y", "Input_MCH_Y", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MCH_Phi", "Input_MCH_Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MCH_Tanl", "Input_MCH_Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MCH_Pt", "Input_MCH_Pt", {HistType::kTH1F, {{200, 0, 20}}}},
+      {"Input_Delta_XY", "Input_Delta_XY", {HistType::kTH1F, {{200, -50, 50}}}},
+      {"Input_Delta_X", "Input_Delta_X", {HistType::kTH1F, {{200, -50, 50}}}},
+      {"Input_Delta_Y", "Input_Delta_Y", {HistType::kTH1F, {{200, -50, 50}}}},
+      {"Input_Delta_Phi", "Input_Delta_Phi", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_Delta_Tanl", "Input_Delta_Tanl", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MFT_X_TRUE", "Input_MFT_X_TRUE", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MFT_Y_TRUE", "Input_MFT_Y_TRUE", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MFT_Phi_TRUE", "Input_MFT_Phi_TRUE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MFT_Tanl_TRUE", "Input_MFT_Tanl_TRUE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MCH_X_TRUE", "Input_MCH_X_TRUE", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MCH_Y_TRUE", "Input_MCH_Y_TRUE", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MCH_Phi_TRUE", "Input_MCH_Phi_TRUE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MCH_Tanl_TRUE", "Input_MCH_Tanl_TRUE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MCH_Pt_TRUE", "Input_MCH_Pt_TRUE", {HistType::kTH1F, {{200, 0, 20}}}},
+      {"Input_Delta_XY_TRUE", "Input_Delta_XY_TRUE", {HistType::kTH1F, {{200, -50, 50}}}},
+      {"Input_Delta_X_TRUE", "Input_Delta_X_TRUE", {HistType::kTH1F, {{200, -50, 50}}}},
+      {"Input_Delta_Y_TRUE", "Input_Delta_Y_TRUE", {HistType::kTH1F, {{200, -50, 50}}}},
+      {"Input_Delta_Phi_TRUE", "Input_Delta_Phi_TRUE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_Delta_Tanl_TRUE", "Input_Delta_Tanl_TRUE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MFT_X_FALSE", "Input_MFT_X_FALSE", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MFT_Y_FALSE", "Input_MFT_Y_FALSE", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MFT_Phi_FALSE", "Input_MFT_Phi_FALSE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MFT_Tanl_FALSE", "Input_MFT_Tanl_FALSE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MCH_X_FALSE", "Input_MCH_X_FALSE", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MCH_Y_FALSE", "Input_MCH_Y_FALSE", {HistType::kTH1F, {{100, -50, 50}}}},
+      {"Input_MCH_Phi_FALSE", "Input_MCH_Phi_FALSE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MCH_Tanl_FALSE", "Input_MCH_Tanl_FALSE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_MCH_Pt_FALSE", "Input_MCH_Pt_FALSE", {HistType::kTH1F, {{200, 0, 20}}}},
+      {"Input_Delta_XY_FALSE", "Input_Delta_XY_FALSE", {HistType::kTH1F, {{200, -50, 50}}}},
+      {"Input_Delta_X_FALSE", "Input_Delta_X_FALSE", {HistType::kTH1F, {{200, -50, 50}}}},
+      {"Input_Delta_Y_FALSE", "Input_Delta_Y_FALSE", {HistType::kTH1F, {{200, -50, 50}}}},
+      {"Input_Delta_Phi_FALSE", "Input_Delta_Phi_FALSE", {HistType::kTH1F, {{200, -10, 10}}}},
+      {"Input_Delta_Tanl_FALSE", "Input_Delta_Tanl_FALSE", {HistType::kTH1F, {{200, -10, 10}}}}
     }
   };
 
@@ -134,7 +176,7 @@ struct checkMlEff {
   OnnxModel model;
 
   template <typename F, typename M>
-  std::vector<float> getVariables(F const& muonpars1, M const& mftpars1)
+  std::vector<float> getVariables(F const& muonpars1, M const& mftpars1, bool isTrue)
   {
 
     Float_t MFT_X = mftpars1.getX();
@@ -146,11 +188,12 @@ struct checkMlEff {
     Float_t MCH_Y = muonpars1.getY();
     Float_t MCH_Phi = muonpars1.getPhi();
     Float_t MCH_Tanl = muonpars1.getTanl();
+    Float_t MCH_Pt = muonpars1.getPt();
 
-    Float_t Ratio_X = MFT_X / MCH_X;
-    Float_t Ratio_Y = MFT_Y / MCH_Y;
-    Float_t Ratio_Phi = MFT_Phi / MCH_Phi;
-    Float_t Ratio_Tanl = MFT_Tanl / MCH_Tanl;
+    //Float_t Ratio_X = MFT_X / MCH_X;
+    //Float_t Ratio_Y = MFT_Y / MCH_Y;
+    //Float_t Ratio_Phi = MFT_Phi / MCH_Phi;
+    //Float_t Ratio_Tanl = MFT_Tanl / MCH_Tanl;
 
     Float_t Delta_X = MFT_X - MCH_X;
     Float_t Delta_Y = MFT_Y - MCH_Y;
@@ -159,6 +202,53 @@ struct checkMlEff {
 
     Float_t Delta_XY = sqrt(Delta_X * Delta_X + Delta_Y * Delta_Y);
 
+    registry.fill(HIST("Input_MFT_X"), MFT_X);
+    registry.fill(HIST("Input_MFT_Y"), MFT_Y);
+    registry.fill(HIST("Input_MFT_Phi"), MFT_Phi);
+    registry.fill(HIST("Input_MFT_Tanl"), MFT_Tanl);
+    registry.fill(HIST("Input_MCH_X"), MCH_X);
+    registry.fill(HIST("Input_MCH_Y"), MCH_Y);
+    registry.fill(HIST("Input_MCH_Phi"), MCH_Phi);
+    registry.fill(HIST("Input_MCH_Tanl"), MCH_Tanl);
+    registry.fill(HIST("Input_MCH_Pt"), MCH_Pt);
+    registry.fill(HIST("Input_Delta_XY"), Delta_XY);
+    registry.fill(HIST("Input_Delta_X"), Delta_X);
+    registry.fill(HIST("Input_Delta_Y"), Delta_Y);
+    registry.fill(HIST("Input_Delta_Phi"), Delta_Phi);
+    registry.fill(HIST("Input_Delta_Tanl"), Delta_Tanl);
+
+    if (isTrue == 1) {
+      registry.fill(HIST("Input_MFT_X_TRUE"), MFT_X);
+      registry.fill(HIST("Input_MFT_Y_TRUE"), MFT_Y);
+      registry.fill(HIST("Input_MFT_Phi_TRUE"), MFT_Phi);
+      registry.fill(HIST("Input_MFT_Tanl_TRUE"), MFT_Tanl);
+      registry.fill(HIST("Input_MCH_X_TRUE"), MCH_X);
+      registry.fill(HIST("Input_MCH_Y_TRUE"), MCH_Y);
+      registry.fill(HIST("Input_MCH_Phi_TRUE"), MCH_Phi);
+      registry.fill(HIST("Input_MCH_Tanl_TRUE"), MCH_Tanl);
+      registry.fill(HIST("Input_MCH_Pt_TRUE"), MCH_Pt);
+      registry.fill(HIST("Input_Delta_XY_TRUE"), Delta_XY);
+      registry.fill(HIST("Input_Delta_X_TRUE"), Delta_X);
+      registry.fill(HIST("Input_Delta_Y_TRUE"), Delta_Y);
+      registry.fill(HIST("Input_Delta_Phi_TRUE"), Delta_Phi);
+      registry.fill(HIST("Input_Delta_Tanl_TRUE"), Delta_Tanl);
+    } else {
+      registry.fill(HIST("Input_MFT_X_FALSE"), MFT_X);
+      registry.fill(HIST("Input_MFT_Y_FALSE"), MFT_Y);
+      registry.fill(HIST("Input_MFT_Phi_FALSE"), MFT_Phi);
+      registry.fill(HIST("Input_MFT_Tanl_FALSE"), MFT_Tanl);
+      registry.fill(HIST("Input_MCH_X_FALSE"), MCH_X);
+      registry.fill(HIST("Input_MCH_Y_FALSE"), MCH_Y);
+      registry.fill(HIST("Input_MCH_Phi_FALSE"), MCH_Phi);
+      registry.fill(HIST("Input_MCH_Tanl_FALSE"), MCH_Tanl);
+      registry.fill(HIST("Input_MCH_Pt_FALSE"), MCH_Pt);
+      registry.fill(HIST("Input_Delta_XY_FALSE"), Delta_XY);
+      registry.fill(HIST("Input_Delta_X_FALSE"), Delta_X);
+      registry.fill(HIST("Input_Delta_Y_FALSE"), Delta_Y);
+      registry.fill(HIST("Input_Delta_Phi_FALSE"), Delta_Phi);
+      registry.fill(HIST("Input_Delta_Tanl_FALSE"), Delta_Tanl);
+    }
+    
     std::vector<float> input_tensor_values{
       MFT_X,
       MFT_Y,
@@ -168,21 +258,22 @@ struct checkMlEff {
       MCH_Y,
       MCH_Phi,
       MCH_Tanl,
+      MCH_Pt,
       Delta_XY,
       Delta_X,
       Delta_Y,
       Delta_Phi,
       Delta_Tanl,
-      Ratio_X,
-      Ratio_Y,
-      Ratio_Phi,
-      Ratio_Tanl,
+      //Ratio_X,
+      //Ratio_Y,
+      //Ratio_Phi,
+      //Ratio_Tanl,
     };
     return input_tensor_values;
   }
 
   template <typename F, typename M>
-  double matchONNX(F const& muonpars1, M const& mftpars1)
+  double matchONNX(F const& muonpars1, M const& mftpars1, bool isTrue)
   {
     std::vector<std::string> input_names;
     std::vector<std::vector<int64_t>> input_shapes;
@@ -198,7 +289,7 @@ struct checkMlEff {
     input_shape[0] = 1;
 
     std::vector<float> input_tensor_values;
-    input_tensor_values = getVariables(muonpars1, mftpars1);
+    input_tensor_values = getVariables(muonpars1, mftpars1, isTrue);
 
     std::vector<Ort::Value> input_tensors;
     input_tensors.push_back(Ort::Experimental::Value::CreateTensor<float>(input_tensor_values.data(), input_tensor_values.size(), input_shape));
@@ -246,7 +337,7 @@ struct checkMlEff {
                 registry.fill(HIST("MuonHasGlobalEta"), fwdtrack.eta());
                 registry.fill(HIST("MuonHasGlobalPt"), fwdtrack.pt());
                 for (auto& mfttrack : mfttracks) {
-                  if (mfttrack.has_mcParticle()){
+                  if (mfttrack.has_mcParticle() && mfttrack.has_collision()){
                     auto mftparticle = mfttrack.mcParticle();
                     if (fwdtrackglobal.matchMFTTrackId() == mfttrack.globalIndex() ){
                       registry.fill(HIST("Chi2X"), fwdtrack.x(), fwdtrackglobal.chi2MatchMCHMFT());
@@ -288,10 +379,15 @@ struct checkMlEff {
                 mftpars1.propagateToZlinear(MatchingPlaneZ);
 
                 Float_t Delta_XY = sqrt(((muonpars1.getX() - mftpars1.getX()) * (muonpars1.getX() - mftpars1.getX())) + ((muonpars1.getY() - mftpars1.getY()) * (muonpars1.getY() - mftpars1.getY())));
-                Float_t Delta_PhiTanl = sqrt(((muonpars1.getPhi() - mftpars1.getPhi()) * (muonpars1.getPhi() - mftpars1.getPhi())) + ((muonpars1.getTanl() - mftpars1.getTanl()) * (muonpars1.getY() - mftpars1.getTanl())));
+                Float_t Delta_PhiTanl = sqrt(((muonpars1.getPhi() - mftpars1.getPhi()) * (muonpars1.getPhi() - mftpars1.getPhi())) + ((muonpars1.getTanl() - mftpars1.getTanl()) * (muonpars1.getTanl() - mftpars1.getTanl())));
 
                 if (Delta_XY <= cfgXYWindow && Delta_PhiTanl <= cfgPhiTanlWindow) {
-                  double result = matchONNX(muonpars1, mftpars1);
+                  double result = 0;
+                  if (fwdparticle.globalIndex() == mftparticle.globalIndex()){
+                    result = matchONNX(muonpars1, mftpars1, 1);
+                  } else {
+                    result = matchONNX(muonpars1, mftpars1, 0);
+                  }
 
                   registry.fill(HIST("MlScore"), result);
                   if (result > cfgThrScore) {

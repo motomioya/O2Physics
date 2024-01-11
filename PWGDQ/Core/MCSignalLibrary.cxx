@@ -469,6 +469,12 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     signal = new MCSignal(name, "Electrons from open charmed hadron decays with b hadron in decay history", {prong}, {-1});
     return signal;
   }
+  if (!nameStr.compare("muFromHbtoHc")) {
+    MCProng prong(2, {13, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {false});
+    prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "Muons from open charmed hadron decays with b hadron in decay history", {prong}, {-1});
+    return signal;
+  }
 
   // muon signals with mother X: mu from mother X
   if (!nameStr.compare("muFromJpsi")) {
@@ -485,6 +491,13 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
   // Decay signal: Mother to electron: X -> e
   if (!nameStr.compare("AnythingToE")) {
     MCProng prong(2, {MCProng::kPDGCodeNotAssigned, 11}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    // prong.SetSourceBit(0, MCProng::kPhysicalPrimary, false);  // set source to be ALICE primary particles
+    prong.SetSignalInTime(true);                                            // set direction to check for daughters (true, in time) or for mothers (false, back in time)
+    signal = new MCSignal(name, "Decay of anything into e", {prong}, {-1}); // pi0,eta,eta',rho,omega,phi,jpsi,psi2s mesons
+    return signal;
+  }
+  if (!nameStr.compare("AnythingToMu")) {
+    MCProng prong(2, {MCProng::kPDGCodeNotAssigned, 13}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
     // prong.SetSourceBit(0, MCProng::kPhysicalPrimary, false);  // set source to be ALICE primary particles
     prong.SetSignalInTime(true);                                            // set direction to check for daughters (true, in time) or for mothers (false, back in time)
     signal = new MCSignal(name, "Decay of anything into e", {prong}, {-1}); // pi0,eta,eta',rho,omega,phi,jpsi,psi2s mesons
@@ -570,6 +583,12 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
   // LMEE pair signals for LF, same mother
   if (!nameStr.compare("eeFromAnything")) {
     MCProng prong(2, {11, MCProng::kPDGCodeNotAssigned}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "ee pairs from any decay", {prong, prong}, {1, 1}); // signal at pair level
+    return signal;
+  }
+  if (!nameStr.compare("mumuFromAnything")) {
+    MCProng prong(2, {13, MCProng::kPDGCodeNotAssigned}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
     signal = new MCSignal(name, "ee pairs from any decay", {prong, prong}, {1, 1}); // signal at pair level
     return signal;
@@ -719,6 +738,16 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
   }
 
   // Any b->e and Any b->c->e
+  if (!nameStr.compare("mumuFromBandBtoC")) {
+    MCProng prongB(2, {13, 502}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); // check if mother pdg code is in history
+    prongB.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    MCProng prongBtoC(2, {13, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {false}); // check if mother pdg code is in history
+    prongBtoC.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from b->e and b->c->e", {prongB, prongBtoC}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+
+  // Any b->e and Any b->c->e
   if (!nameStr.compare("eeFromBandBtoCBis")) {
     MCProng prongB(2, {11, 502}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); // check if mother pdg code is in history
     prongB.SetSourceBit(0, MCProng::kPhysicalPrimary);
@@ -743,6 +772,14 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     MCProng prong(2, {11, 502}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
     signal = new MCSignal(name, "ee pairs from b->e and b->e", {prong, prong}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+
+  // b->e and b->e
+  if (!nameStr.compare("mumuFromBB")) {
+    MCProng prong(2, {13, 502}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from b->mu and b->mu", {prong, prong}, {-1, -1}); // signal at pair level
     return signal;
   }
 

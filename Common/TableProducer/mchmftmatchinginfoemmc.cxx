@@ -438,7 +438,7 @@ struct mchmftmatchinginfoemmc {
     static constexpr Double_t MatchingPlaneZ = -77.5;
 
     for (auto const& fwdtrack : fwdtracks){
-      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
 
         for (auto const& mfttrack : mfttracks){
           if (mfttrack.has_collision()){
@@ -526,7 +526,7 @@ struct mchmftmatchinginfoemmc {
         auto groupedMFTTracks2 = mfttracks.sliceBy(perCollisionMFT, collision2.globalIndex());
 
         for (auto const& fwdtrack : groupedFwdTracks1){
-          if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+          if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
 
             for (auto const& mfttrack : groupedMFTTracks2){
               //propagate muontrack to matching position
@@ -622,7 +622,7 @@ struct mchmftmatchinginfoemmc {
     static constexpr Double_t MatchingPlaneZ = -77.5;
 
     for (auto const& fwdtrack : fwdtracks){
-      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
+      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
 
         for (auto const& mfttrack : mfttracks){
           if (mfttrack.has_collision()){

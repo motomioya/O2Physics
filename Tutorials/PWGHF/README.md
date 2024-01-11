@@ -31,7 +31,7 @@ It will use the configuration from [`dpl-config_skim.json`](dpl-config_skim.json
 
 ## Mini task
 
-The mini task workflow `o2-analysistutorial-hf-task-mini` (implemented in [`taskMini.cxx`](taskMini.cxx)) is a simplified version of the D<sup>0</sup> analysis chain part which includes:
+The mini task workflow `o2-analysistutorial-hf-task-mini` (implemented in [`taskMpropagateToPCAini.cxx`](taskMini.cxx)) is a simplified version of the D<sup>0</sup> analysis chain part which includes:
 
 - the 2-prong candidate creator,
 - the D<sup>0</sup> candidate selector,
