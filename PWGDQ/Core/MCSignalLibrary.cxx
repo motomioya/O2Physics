@@ -611,6 +611,7 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     signal = new MCSignal(name, "ee pairs from eta decays", {prong, prong}, {1, 1}); // signal at pair level
     return signal;
   }
+
   if (!nameStr.compare("eeFromEtaprime")) {
     MCProng prong(2, {11, 331}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
@@ -681,6 +682,14 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     signal = new MCSignal(name, "ee pairs from light flavor meson decays", {prong, prong}, {1, 1}); // signal at pair level
     return signal;
   }
+
+  if (!nameStr.compare("mumuFromLMAnymumuLFS")) {
+    MCProng prong(1, {13}, {true}, {false}, {0}, {0}, {false}, false, {10000}, {false});
+    prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from light flavor or strange meson decays", {prong, prong}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+
   if (!nameStr.compare("eeFromLMeeNoHFLFQ")) {
     MCProng prong(2, {11, 900}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502, 402}, {true, true});
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
@@ -710,12 +719,32 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     signal = new MCSignal(name, "ee pairs from b,c->e and b,c->e without check", {prong, prong}, {-1, -1}); // signal at pair level
     return signal;
   }
+  if (!nameStr.compare("mumuFromHF")) {
+    MCProng prong(2, {13, 902}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from b,c->e and b,c->e without check", {prong, prong}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+  if (!nameStr.compare("mumuFromAnyHF")) {
+    MCProng prong(2, {13}, {true}, {false}, {0}, {0}, {false}, false, {902}, {true}); // check if mother pdg code is in history
+    prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from b,c->e and b,c->e without check", {prong, prong}, {-1, -1}); // signal at pair level
+    return signal;
+  }
 
   // Any c in history but no b -> c -> e
   if (!nameStr.compare("eeFromPromptCandPromptC")) {
     MCProng prong(2, {11, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true}); // check if mother pdg code is in history
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
     signal = new MCSignal(name, "ee pairs with any charm but no beauty in decay chain", {prong, prong}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+
+  // Any c in history but no b -> c -> mu
+  if (!nameStr.compare("mumuFromPromptCandPromptC")) {
+    MCProng prong(2, {13, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true}); // check if mother pdg code is in history
+    prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs with any charm but no beauty in decay chain", {prong, prong}, {-1, -1}); // signal at pair level
     return signal;
   }
 
@@ -746,6 +775,78 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     signal = new MCSignal(name, "mumu pairs from b->e and b->c->e", {prongB, prongBtoC}, {-1, -1}); // signal at pair level
     return signal;
   }
+  //
+  if (!nameStr.compare("mumuFromCandCtoS")) {
+    MCProng prongC(2, {13, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongC.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    MCProng prongCtoS(1, {13, 300}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {402}, {false}); // check if mother pdg code is in history
+    prongCtoS.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from c->mu and c->s->mu", {prongC, prongCtoS}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+  //
+  if (!nameStr.compare("mumuFromCandCtoSBis")) {
+    MCProng prongC(2, {13, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongC.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    MCProng prongCtoS(1, {13, 300}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {402}, {false}); // check if mother pdg code is in history
+    prongCtoS.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from c->mu and c->s->mu", {prongCtoS, prongC}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+  if (!nameStr.compare("mumuFromCtoSandCtoS")) {
+    MCProng prongCtoS(1, {13, 300}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {402}, {false}); // check if mother pdg code is in history
+    prongCtoS.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from c->s->mu and c->s->mu", {prongCtoS, prongCtoS}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+  if (!nameStr.compare("mumuFromSingleDandDtoS")) {
+    MCProng prongB(2, {13, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongB.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    MCProng prongBtoC(3, {13, 300, 402}, {true, true, true}, {false, false, false}, {0, 0, 0}, {0, 0, 0}, {false, false, false});
+    prongBtoC.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from c->e and c->s->e (single b)", {prongB, prongBtoC}, {1, 2}); // signal at pair level
+    return signal;
+  }
+  if (!nameStr.compare("mumuFromSingleDandDtoSBis")) {
+    MCProng prongB(2, {13, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongB.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    MCProng prongBtoC(3, {13, 300, 402}, {true, true, true}, {false, false, false}, {0, 0, 0}, {0, 0, 0}, {false, false, false});
+    prongBtoC.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from c->e and c->s->e (single b)", {prongB, prongBtoC}, {1, 2}); // signal at pair level
+    return signal;
+  }
+  //
+  if (!nameStr.compare("mumuFromCtoAnythingandCtoAnything")) {
+    MCProng prongCtoAnything(1, {13}, {true}, {false}, {0}, {0}, {false}, false, {402}, {false}); // check if mother pdg code is in history
+    prongCtoAnything.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from c->anything->mu and c->anything->mu", {prongCtoAnything, prongCtoAnything}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+  //
+  if (!nameStr.compare("mumuFromBandBtoAnything")) {
+    MCProng prongB(2, {13, 502}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongB.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    MCProng prongBtoAnything(1, {13}, {true}, {false}, {0}, {0}, {false}, false, {502}, {false}); // check if mother pdg code is in history
+    prongBtoAnything.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from b->mu and b->anything->mu", {prongB, prongBtoAnything}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+  //
+  if (!nameStr.compare("mumuFromBandBtoAnythingBis")) {
+    MCProng prongB(2, {13, 502}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongB.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    MCProng prongBtoAnything(1, {13}, {true}, {false}, {0}, {0}, {false}, false, {502}, {false}); // check if mother pdg code is in history
+    prongBtoAnything.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from c->mu and c->anything->mu", {prongBtoAnything, prongB}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+  //
+  if (!nameStr.compare("mumuFromBtoAnythingandBtoAnything")) {
+    MCProng prongBtoAnything(1, {13}, {true}, {false}, {0}, {0}, {false}, false, {502}, {false}); // check if mother pdg code is in history
+    prongBtoAnything.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from c->anything->mu and c->anything->mu", {prongBtoAnything, prongBtoAnything}, {-1, -1}); // signal at pair level
+    return signal;
+  }
 
   // Any b->e and Any b->c->e
   if (!nameStr.compare("eeFromBandBtoCBis")) {
@@ -764,6 +865,13 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     MCProng prongBtoC(2, {13, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {false}); // check if mother pdg code is in history
     prongBtoC.SetSourceBit(0, MCProng::kPhysicalPrimary);
     signal = new MCSignal(name, "mumu pairs from b->c->e and b->e", {prongBtoC, prongB}, {-1, -1}); // signal at pair level
+    return signal;
+  }
+  // Any b->e and Any b->c->e
+  if (!nameStr.compare("mumuFromBtoCandBtoC")) {
+    MCProng prongBtoC(2, {13, 402}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {false}); // check if mother pdg code is in history
+    prongBtoC.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from b->c->e and b-c->e", {prongBtoC, prongBtoC}, {-1, -1}); // signal at pair level
     return signal;
   }
 
@@ -820,6 +928,15 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     MCProng prongBtoC(3, {13, 402, 502}, {true, true, true}, {false, false, false}, {0, 0, 0}, {0, 0, 0}, {false, false, false});
     prongBtoC.SetSourceBit(0, MCProng::kPhysicalPrimary);
     signal = new MCSignal(name, "mumu pairs from b->e and b->c->e (single b)", {prongB, prongBtoC}, {1, 2}); // signal at pair level
+    return signal;
+  }
+  // b->mu and b->c->mu (single b)
+  if (!nameStr.compare("mumuFromSingleBandBtoCBis")) {
+    MCProng prongB(2, {13, 502}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongB.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    MCProng prongBtoC(3, {13, 402, 502}, {true, true, true}, {false, false, false}, {0, 0, 0}, {0, 0, 0}, {false, false, false});
+    prongBtoC.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "mumu pairs from b->e and b->c->e (single b)", {prongBtoC, prongB}, {1, 2}); // signal at pair level
     return signal;
   }
 

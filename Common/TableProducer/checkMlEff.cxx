@@ -33,6 +33,10 @@
 #include "GlobalTracking/MatchGlobalFwd.h"
 #include "CCDB/CcdbApi.h"
 #include "Tools/ML/model.h"
+#include "TGeoGlobalMagField.h"
+#include "Field/MagneticField.h"
+#include "DataFormatsParameters/GRPMagField.h"
+#include <CCDB/BasicCCDBManager.h>
 
 using namespace o2;
 using namespace o2::framework;
@@ -44,6 +48,7 @@ using o2::track::TrackParCovFwd;
 using o2::track::TrackParFwd;
 using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
 using SMatrix5 = ROOT::Math::SVector<double, 5>;
+using ExtBCs = soa::Join<aod::BCs, aod::Timestamps>;
 
 struct checkMlEff {
   Produces<aod::FwdTracksML> fwdtrackml;
@@ -169,11 +174,20 @@ struct checkMlEff {
   Configurable<int> cfgColWindow{"collision-window", 5, "Search window (collision ID) for MFT track"};
   Configurable<float> cfgXYWindow{"XY-window", 2.21, "Search window (delta XY) for MFT track"};
   Configurable<float> cfgPhiTanlWindow{"PhiTanl-window", 2.24, "Search window (delta PhiTanl) for MFT track"};
+  o2::parameters::GRPMagField* grpmag = nullptr;
+
+  Configurable<std::string> ccdburl{"ccdb-url", "http://alice-ccdb.cern.ch", "url of the ccdb repository"};
+  Configurable<std::string> geoPath{"geoPath", "GLO/Config/GeometryAligned", "Path of the geometry file"};
+  Configurable<std::string> grpmagPath{"grpmagPath", "GLO/Config/GRPMagField", "CCDB path of the GRPMagField object"};
+  Configurable<std::string> mVtxPath{"mVtxPath", "GLO/Calib/MeanVertex", "Path of the mean vertex file"};
 
   Ort::Env env{ORT_LOGGING_LEVEL_WARNING, "model-explorer"};
   Ort::SessionOptions session_options;
   std::shared_ptr<Ort::Experimental::Session> onnx_session = nullptr;
   OnnxModel model;
+  Service<o2::ccdb::BasicCCDBManager> ccdb;
+  float Bz = 0;                                         // Magnetic field for MFT
+  static constexpr double centerMFT[3] = {0, 0, -61.4}; // Field at center of MFT
 
   template <typename F, typename M>
   std::vector<float> getVariables(F const& muonpars1, M const& mftpars1, bool isTrue)
@@ -302,14 +316,29 @@ struct checkMlEff {
     return score;
   }
 
+  void initCCDB(ExtBCs::iterator const& bc)
+  {
+    grpmag = ccdb->getForTimeStamp<o2::parameters::GRPMagField>(grpmagPath, bc.timestamp());
+    o2::base::Propagator::initFieldFromGRP(grpmag);
+
+    o2::field::MagneticField* field = static_cast<o2::field::MagneticField*>(TGeoGlobalMagField::Instance()->GetField());
+    Bz = field->getBz(centerMFT);
+    LOG(info) << "The field at the center of the MFT is Bz = " << Bz;
+  }
+
   void init(o2::framework::InitContext&)
   {
+    ccdb->setURL(ccdburl);
+    ccdb->setCaching(true);
+    ccdb->setLocalObjectValidityChecking();
     model.initModel(cfgModelFile, false, 1);
     onnx_session = model.getSession();
   }
 
-  void process(aod::Collisions const& collisions, soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks,soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels> const& fwdtracksnonfiltered, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&)
+  void process(aod::Collisions const& collisions, soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks,soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels> const& fwdtracksnonfiltered, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&, ExtBCs const&)
   {
+    auto bc = collisions.begin().bc_as<ExtBCs>();
+    initCCDB(bc);
     static constexpr Double_t MatchingPlaneZ = -77.5;
 
     for (auto& fwdtrack : fwdtracks) {
@@ -368,7 +397,8 @@ struct checkMlEff {
                 std::vector<double> muonv1;
                 SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
                 o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
-                muonpars1.propagateToZlinear(MatchingPlaneZ);
+                //muonpars1.propagateToZlinear(MatchingPlaneZ);
+                muonpars1.propagateToZ(MatchingPlaneZ, Bz);
 
                 // propagate mfttrack to matching position
                 double mftchi2 = mfttrack.chi2();
@@ -376,7 +406,8 @@ struct checkMlEff {
                 std::vector<double> mftv1;
                 SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
                 o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-                mftpars1.propagateToZlinear(MatchingPlaneZ);
+                //mftpars1.propagateToZlinear(MatchingPlaneZ);
+                mftpars1.propagateToZ(MatchingPlaneZ, Bz);
 
                 Float_t Delta_XY = sqrt(((muonpars1.getX() - mftpars1.getX()) * (muonpars1.getX() - mftpars1.getX())) + ((muonpars1.getY() - mftpars1.getY()) * (muonpars1.getY() - mftpars1.getY())));
                 Float_t Delta_PhiTanl = sqrt(((muonpars1.getPhi() - mftpars1.getPhi()) * (muonpars1.getPhi() - mftpars1.getPhi())) + ((muonpars1.getTanl() - mftpars1.getTanl()) * (muonpars1.getTanl() - mftpars1.getTanl())));

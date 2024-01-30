@@ -1537,7 +1537,7 @@ void VarManager::FillPair(T1 const& t1, T2 const& t2, float* values)
     values[kPhiCS] = (t1.sign() > 0 ? TMath::ATan2(yaxis_CS.Dot(v1_CM), xaxis_CS.Dot(v1_CM)) : TMath::ATan2(yaxis_CS.Dot(v2_CM), xaxis_CS.Dot(v2_CM)));
   }
 
-  if constexpr ((pairType == kDecayToEE) && ((fillMap & TrackCov) > 0 || (fillMap & ReducedTrackBarrelCov) > 0)) {
+  if constexpr (((pairType == kDecayToEE)) && ((fillMap & TrackCov) > 0 || (fillMap & ReducedTrackBarrelCov) > 0)) {
 
     if (fgUsedVars[kQuadDCAabsXY] || fgUsedVars[kQuadDCAsigXY] || fgUsedVars[kQuadDCAabsZ] || fgUsedVars[kQuadDCAsigZ] || fgUsedVars[kQuadDCAsigXYZ]) {
       // Quantities based on the barrel tables
@@ -1568,6 +1568,19 @@ void VarManager::FillPair(T1 const& t1, T2 const& t2, float* values)
 
         values[kQuadDCAsigXYZ] = std::sqrt((dca1sigXYZ * dca1sigXYZ + dca2sigXYZ * dca2sigXYZ) / 2);
       }
+    }
+  }
+  if constexpr (((pairType == kDecayToMuMu)) && (fillMap & ReducedMuonCov) > 0) {
+
+    if (fgUsedVars[kQuadDCAabsXY] || fgUsedVars[kQuadDCAsigXY]) {
+      // Quantities based on the barrel tables
+      double dca1XY = std::sqrt(t1.fwdDcaX() * t1.fwdDcaX() + t1.fwdDcaY() * t1.fwdDcaY());
+      double dca2XY = std::sqrt(t2.fwdDcaX() * t2.fwdDcaX() + t2.fwdDcaY() * t2.fwdDcaY());
+      double dca1sigXY = dca1XY / std::sqrt(t1.cYY());
+      double dca2sigXY = dca2XY / std::sqrt(t2.cYY());
+
+      values[kQuadDCAabsXY] = std::sqrt((dca1XY * dca1XY + dca2XY * dca2XY) / 2);
+      values[kQuadDCAsigXY] = std::sqrt((dca1sigXY * dca1sigXY + dca2sigXY * dca2sigXY) / 2);
     }
   }
   if (fgUsedVars[kPairPhiv]) {

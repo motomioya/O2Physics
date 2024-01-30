@@ -138,7 +138,7 @@ struct TableMaker {
   Produces<ReducedMuonsExtra> muonExtra;
   Produces<ReducedMuonsCov> muonCov;
   Produces<ReducedMuonsInfo> muonInfo;
-  Produces<ReducedMFTTracks> trackMFT;
+  //Produces<ReducedMFTTracks> trackMFT;
 
   OutputObj<THashList> fOutputList{"output"}; //! the histogram manager output list
   OutputObj<TList> fStatsList{"Statistics"};  //! skimming statistics
@@ -549,6 +549,7 @@ struct TableMaker {
     std::map<int, int> newMFTTableSize; // key : oldMFTIndex, value: size of the table-1 at step key
     std::map<uint64_t, int> mftOffsets; // key: mftoldglobalindex, value: mft.offsets
 
+    /*
     if constexpr (static_cast<bool>(TMFTFillMap)) {
       trackMFT.reserve(mftTracks.size());
       // TODO add cuts on the MFT tracks
@@ -567,6 +568,7 @@ struct TableMaker {
       } // end of mft : mftTracks
 
     } // end if constexpr (TMFTFillMap)
+    */
 
     if constexpr (static_cast<bool>(TMuonFillMap)) {
       // build the muon tables
@@ -689,9 +691,16 @@ struct TableMaker {
         }
 
         muonBasic(event.lastIndex(), trackFilteringTag, VarManager::fgValues[VarManager::kPt], VarManager::fgValues[VarManager::kEta], VarManager::fgValues[VarManager::kPhi], muon.sign(), isAmbiguous);
+        /*
         muonExtra(muon.nClusters(), muon.pDca(), muon.rAtAbsorberEnd(),
                   muon.chi2(), muon.chi2MatchMCHMID(), muon.chi2MatchMCHMFT(),
                   muon.matchScoreMCHMFT(), newMatchIndex.find(muon.index())->second, newMFTMatchIndex.find(muon.index())->second, muon.mchBitMap(), muon.midBitMap(),
+                  muon.midBoards(), muon.trackType(), muon.fwdDcaX(), muon.fwdDcaY(),
+                  muon.trackTime(), muon.trackTimeRes());
+                  */
+        muonExtra(muon.nClusters(), muon.pDca(), muon.rAtAbsorberEnd(),
+                  muon.chi2(), muon.chi2MatchMCHMID(), muon.chi2MatchMCHMFT(),
+                  muon.matchScoreMCHMFT(), newMatchIndex.find(muon.index())->second, muon.mchBitMap(), muon.midBitMap(),
                   muon.midBoards(), muon.trackType(), muon.fwdDcaX(), muon.fwdDcaY(),
                   muon.trackTime(), muon.trackTimeRes());
         muonInfo(muon.collisionId(), collision.posX(), collision.posY(), collision.posZ());
@@ -999,9 +1008,16 @@ struct TableMaker {
         }
 
         muonBasic(event.lastIndex(), trackFilteringTag, VarManager::fgValues[VarManager::kPt], VarManager::fgValues[VarManager::kEta], VarManager::fgValues[VarManager::kPhi], muon.sign(), isAmbiguous);
+        /*
         muonExtra(muon.nClusters(), muon.pDca(), muon.rAtAbsorberEnd(),
                   muon.chi2(), muon.chi2MatchMCHMID(), muon.chi2MatchMCHMFT(),
                   muon.matchScoreMCHMFT(), newMatchIndex.find(muon.index())->second, -1, muon.mchBitMap(), muon.midBitMap(),
+                  muon.midBoards(), muon.trackType(), muon.fwdDcaX(), muon.fwdDcaY(),
+                  muon.trackTime(), muon.trackTimeRes());
+                  */
+        muonExtra(muon.nClusters(), muon.pDca(), muon.rAtAbsorberEnd(),
+                  muon.chi2(), muon.chi2MatchMCHMID(), muon.chi2MatchMCHMFT(),
+                  muon.matchScoreMCHMFT(), newMatchIndex.find(muon.index())->second, muon.mchBitMap(), muon.midBitMap(),
                   muon.midBoards(), muon.trackType(), muon.fwdDcaX(), muon.fwdDcaY(),
                   muon.trackTime(), muon.trackTimeRes());
         muonInfo(muon.collisionId(), collision.posX(), collision.posY(), collision.posZ());

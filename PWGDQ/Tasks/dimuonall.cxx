@@ -42,25 +42,56 @@ using namespace std;
 struct dimuonall {
 
   HistogramRegistry registry{
-    /*
     "registry", 
     {
-      {"massPM1", "massPM1", {HistType::kTH1F, {{2000, 0, 20}}}},
-      {"massMMPP1", "massMMPP1", {HistType::kTH1F, {{2000, 0, 20}}}},
-      {"massPM24", "massPM24", {HistType::kTH1F, {{2000, 0, 20}}}},
-      {"massMMPP24", "massMMPP24", {HistType::kTH1F, {{2000, 0, 20}}}}
-    },
-    */
-    "registry", 
-    {
-      {"massPM0", "massPM0", {HistType::kTH1F, {{2000, 0, 20}}}},
-      {"massMMPP0", "massMMPP0", {HistType::kTH1F, {{2000, 0, 20}}}},
-      {"massPM1", "massPM1", {HistType::kTH1F, {{2000, 0, 20}}}},
-      {"oaPM1", "oaPM1", {HistType::kTH1F, {{2000, -10, 10}}}},
-      {"oaMMPP1", "oaMMPP1", {HistType::kTH1F, {{2000, -10, 10}}}},
-      {"massMMPP1", "massMMPP1", {HistType::kTH1F, {{2000, 0, 20}}}},
-      {"massPM3", "massPM3", {HistType::kTH1F, {{2000, 0, 20}}}},
-      {"massMMPP3", "massMMPP3", {HistType::kTH1F, {{2000, 0, 20}}}}
+      {"mass_DCAmumuPM0", "mass_DCAmumuPM0", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM0", "mass_DCAmumuMM0", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP0", "mass_DCAmumuPP0", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM1", "mass_DCAmumuPM1", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM1", "mass_DCAmumuMM1", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP1", "mass_DCAmumuPP1", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM2", "mass_DCAmumuPM2", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM2", "mass_DCAmumuMM2", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP2", "mass_DCAmumuPP2", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM4", "mass_DCAmumuPM4", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM4", "mass_DCAmumuMM4", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP4", "mass_DCAmumuPP4", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM8", "mass_DCAmumuPM8", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM8", "mass_DCAmumuMM8", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP8", "mass_DCAmumuPP8", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM10", "mass_DCAmumuPM10", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM10", "mass_DCAmumuMM10", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP10", "mass_DCAmumuPP10", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM12", "mass_DCAmumuPM12", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM12", "mass_DCAmumuMM12", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP12", "mass_DCAmumuPP12", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM15", "mass_DCAmumuPM15", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM15", "mass_DCAmumuMM15", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP15", "mass_DCAmumuPP15", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM18", "mass_DCAmumuPM18", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM18", "mass_DCAmumuMM18", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP18", "mass_DCAmumuPP18", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM32", "mass_DCAmumuPM32", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM32", "mass_DCAmumuMM32", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP32", "mass_DCAmumuPP32", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM36", "mass_DCAmumuPM36", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM36", "mass_DCAmumuMM36", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP36", "mass_DCAmumuPP36", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM40", "mass_DCAmumuPM40", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM40", "mass_DCAmumuMM40", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP40", "mass_DCAmumuPP40", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM42", "mass_DCAmumuPM42", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM42", "mass_DCAmumuMM42", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP42", "mass_DCAmumuPP42", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM48", "mass_DCAmumuPM48", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM48", "mass_DCAmumuMM48", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP48", "mass_DCAmumuPP48", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM52", "mass_DCAmumuPM52", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM52", "mass_DCAmumuMM52", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP52", "mass_DCAmumuPP52", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPM57", "mass_DCAmumuPM57", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuMM57", "mass_DCAmumuMM57", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
+      {"mass_DCAmumuPP57", "mass_DCAmumuPP57", {HistType::kTH2F, {{1000, 0, 20}, {1000, 0, 10}}}},
     },
   };
 
@@ -68,48 +99,113 @@ struct dimuonall {
   {
   }
 
-  //void process(soa::Filtered<aod::McParticles> const& mcTracks)
-  /*
-  void process(aod::DimuonsAll const& dimuonsall)
+  void process(aod::DimuonsAll const& dimuons)
   {
-    for (auto& dimuon : dimuonsall) {
+    for (auto& dimuon : dimuons) {
+      float DCA1 = std::sqrt(dimuon.fwdDcaX1() * dimuon.fwdDcaX1() + dimuon.fwdDcaY1() * dimuon.fwdDcaY1());
+      float DCA2 = std::sqrt(dimuon.fwdDcaX2() * dimuon.fwdDcaX2() + dimuon.fwdDcaY2() * dimuon.fwdDcaY2());
+      float DCAmumu = std::sqrt((DCA1 * DCA1 + DCA2 * DCA2)/2);
       if (dimuon.sign() == 0) {
-        if (dimuon.mcDecision() == 1) {
-          registry.fill(HIST("massPM1"), dimuon.mass());
-        } else if (dimuon.mcDecision() == 2 || dimuon.mcDecision() == 4 ) {
-          registry.fill(HIST("massPM24"), dimuon.mass());
+        if (dimuon.mcDecision() == 0) {
+          registry.fill(HIST("mass_DCAmumuPM0"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 1) {
+          registry.fill(HIST("mass_DCAmumuPM1"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 2) {
+          registry.fill(HIST("mass_DCAmumuPM2"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 4) {
+          registry.fill(HIST("mass_DCAmumuPM4"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 8) {
+          registry.fill(HIST("mass_DCAmumuPM8"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 10) {
+          registry.fill(HIST("mass_DCAmumuPM10"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 12) {
+          registry.fill(HIST("mass_DCAmumuPM12"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 15) {
+          registry.fill(HIST("mass_DCAmumuPM15"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 18) {
+          registry.fill(HIST("mass_DCAmumuPM18"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 32) {
+          registry.fill(HIST("mass_DCAmumuPM32"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 36) {
+          registry.fill(HIST("mass_DCAmumuPM36"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 40) {
+          registry.fill(HIST("mass_DCAmumuPM40"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 42) {
+          registry.fill(HIST("mass_DCAmumuPM42"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 48) {
+          registry.fill(HIST("mass_DCAmumuPM48"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 52) {
+          registry.fill(HIST("mass_DCAmumuPM52"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 57) {
+          registry.fill(HIST("mass_DCAmumuPM57"), dimuon.mass(), DCAmumu);
         }
-      } else {
-        if (dimuon.mcDecision() == 1) {
-          registry.fill(HIST("massMMPP1"), dimuon.mass());
-        } else if (dimuon.mcDecision() == 2 || dimuon.mcDecision() == 4 ) {
-          registry.fill(HIST("massMMPP24"), dimuon.mass());
+      } else if (dimuon.sign() == -2) {
+        if (dimuon.mcDecision() == 0) {
+          registry.fill(HIST("mass_DCAmumuMM0"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 1) {
+          registry.fill(HIST("mass_DCAmumuMM1"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 2) {
+          registry.fill(HIST("mass_DCAmumuMM2"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 4) {
+          registry.fill(HIST("mass_DCAmumuMM4"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 8) {
+          registry.fill(HIST("mass_DCAmumuMM8"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 10) {
+          registry.fill(HIST("mass_DCAmumuMM10"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 12) {
+          registry.fill(HIST("mass_DCAmumuMM12"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 15) {
+          registry.fill(HIST("mass_DCAmumuMM15"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 18) {
+          registry.fill(HIST("mass_DCAmumuMM18"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 32) {
+          registry.fill(HIST("mass_DCAmumuMM32"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 36) {
+          registry.fill(HIST("mass_DCAmumuMM36"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 40) {
+          registry.fill(HIST("mass_DCAmumuMM40"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 42) {
+          registry.fill(HIST("mass_DCAmumuMM42"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 48) {
+          registry.fill(HIST("mass_DCAmumuMM48"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 52) {
+          registry.fill(HIST("mass_DCAmumuMM52"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 57) {
+          registry.fill(HIST("mass_DCAmumuMM57"), dimuon.mass(), DCAmumu);
         }
-      }
-    }
-  }
-  */
-
-  void process(aod::DimuonsAll const& dimuonsall)
-  {
-    for (auto& dimuon : dimuonsall) {
-      if (dimuon.sign() == 0) {
-        if (dimuon.mcDecision() == 1) {
-          registry.fill(HIST("massPM1"), dimuon.mass());
-          registry.fill(HIST("oaPM1"), dimuon.phi1() - dimuon.phi2());
-        } else if (dimuon.mcDecision() == 3) {
-          registry.fill(HIST("massPM3"), dimuon.mass());
-        } else if (dimuon.mcDecision() == 0) {
-          registry.fill(HIST("massPM0"), dimuon.mass());
-        }
-      } else {
-        if (dimuon.mcDecision() == 1) {
-          registry.fill(HIST("massMMPP1"), dimuon.mass());
-          registry.fill(HIST("oaMMPP1"), dimuon.phi1() - dimuon.phi2());
-        } else if (dimuon.mcDecision() == 3) {
-          registry.fill(HIST("massMMPP3"), dimuon.mass());
-        } else if (dimuon.mcDecision() == 0) {
-          registry.fill(HIST("massMMPP0"), dimuon.mass());
+      } else if (dimuon.sign() == 2) {
+        if (dimuon.mcDecision() == 0) {
+          registry.fill(HIST("mass_DCAmumuPP0"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 1) {
+          registry.fill(HIST("mass_DCAmumuPP1"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 2) {
+          registry.fill(HIST("mass_DCAmumuPP2"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 4) {
+          registry.fill(HIST("mass_DCAmumuPP4"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 8) {
+          registry.fill(HIST("mass_DCAmumuPP8"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 10) {
+          registry.fill(HIST("mass_DCAmumuPP10"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 12) {
+          registry.fill(HIST("mass_DCAmumuPP12"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 15) {
+          registry.fill(HIST("mass_DCAmumuPP15"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 18) {
+          registry.fill(HIST("mass_DCAmumuPP18"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 32) {
+          registry.fill(HIST("mass_DCAmumuPP32"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 36) {
+          registry.fill(HIST("mass_DCAmumuPP36"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 40) {
+          registry.fill(HIST("mass_DCAmumuPP40"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 42) {
+          registry.fill(HIST("mass_DCAmumuPP42"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 48) {
+          registry.fill(HIST("mass_DCAmumuPP48"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 52) {
+          registry.fill(HIST("mass_DCAmumuPP52"), dimuon.mass(), DCAmumu);
+        } else if (dimuon.mcDecision() == 57) {
+          registry.fill(HIST("mass_DCAmumuPP57"), dimuon.mass(), DCAmumu);
         }
       }
     }

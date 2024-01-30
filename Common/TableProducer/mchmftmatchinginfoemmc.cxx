@@ -15,6 +15,7 @@
 #include "Framework/runDataProcessing.h"
 #include "Common/DataModel/EventSelection.h"
 #include "Common/CCDB/EventSelectionParams.h"
+#include <CCDB/BasicCCDBManager.h>
 
 #include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/Core/trackUtilities.h"
@@ -29,6 +30,9 @@
 #include <TLorentzVector.h>
 #include "MCHTracking/TrackParam.h"
 #include "MCHTracking/TrackExtrap.h"
+#include "TGeoGlobalMagField.h"
+#include "Field/MagneticField.h"
+#include "DataFormatsParameters/GRPMagField.h"
 
 using namespace o2;
 using namespace o2::framework;
@@ -39,6 +43,7 @@ using o2::track::TrackParCovFwd;
 using o2::track::TrackParFwd;
 using SMatrix55 = ROOT::Math::SMatrix<double, 5, 5, ROOT::Math::MatRepSym<double, 5>>;
 using SMatrix5 = ROOT::Math::SVector<double, 5>;
+using ExtBCs = soa::Join<aod::BCs, aod::Timestamps>;
 
 namespace o2::aod
 {
@@ -422,19 +427,45 @@ struct mchmftmatchinginfoemmc {
   Configurable<float> cfgXYWindow{"XY-window", 3, "Search window (delta XY) for MFT track"};
 
   ConfigurableAxis ConfVtxBins{"ConfVtxBins", {VARIABLE_WIDTH, -10.0f, -8.f, -6.f, -4.f, -2.f, 0.f, 2.f, 4.f, 6.f, 8.f, 10.f}, "Mixing bins - z-vertex"};
+  o2::parameters::GRPMagField* grpmag = nullptr;
+
+  Configurable<std::string> ccdburl{"ccdb-url", "http://alice-ccdb.cern.ch", "url of the ccdb repository"};
+  Configurable<std::string> geoPath{"geoPath", "GLO/Config/GeometryAligned", "Path of the geometry file"};
+  Configurable<std::string> grpmagPath{"grpmagPath", "GLO/Config/GRPMagField", "CCDB path of the GRPMagField object"};
+  Configurable<std::string> mVtxPath{"mVtxPath", "GLO/Calib/MeanVertex", "Path of the mean vertex file"};
+
   using BinningType = ColumnBinningPolicy<aod::collision::PosZ>;
   BinningType colBinning{{ConfVtxBins}, true};
 
   Preslice<aod::FwdTracks> perCollision = aod::fwdtrack::collisionId;
   Preslice<aod::MFTTracks> perCollisionMFT = aod::fwdtrack::collisionId;
 
+  Service<o2::ccdb::BasicCCDBManager> ccdb;
+  float Bz = 0;                                         // Magnetic field for MFT
+  static constexpr double centerMFT[3] = {0, 0, -61.4}; // Field at center of MFT
 
   void init(o2::framework::InitContext&)
   {
+    ccdb->setURL(ccdburl);
+    ccdb->setCaching(true);
+    ccdb->setLocalObjectValidityChecking();
   }
 
-  void process(soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const& mcparticles, aod::Collisions const& collisions)
+  void initCCDB(ExtBCs::iterator const& bc)
   {
+    grpmag = ccdb->getForTimeStamp<o2::parameters::GRPMagField>(grpmagPath, bc.timestamp());
+    o2::base::Propagator::initFieldFromGRP(grpmag);
+
+    o2::field::MagneticField* field = static_cast<o2::field::MagneticField*>(TGeoGlobalMagField::Instance()->GetField());
+    Bz = field->getBz(centerMFT);
+    LOG(info) << "The field at the center of the MFT is Bz = " << Bz;
+  }
+
+  void process(soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const& mcparticles, aod::Collisions const& collisions, ExtBCs const&)
+  {
+    auto bc = collisions.begin().bc_as<ExtBCs>();
+    initCCDB(bc);
+
     static constexpr Double_t MatchingPlaneZ = -77.5;
 
     for (auto const& fwdtrack : fwdtracks){
@@ -450,14 +481,16 @@ struct mchmftmatchinginfoemmc {
               std::vector<double> muonv1;
               SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
               o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
-              muonpars1.propagateToZlinear(MatchingPlaneZ);
+              //muonpars1.propagateToZlinear(MatchingPlaneZ);
+              muonpars1.propagateToZ(MatchingPlaneZ, Bz);
               //propagate mfttrack to matching position
               double mftchi2 = mfttrack.chi2();
               SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
               std::vector<double> mftv1;
               SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
               o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-              mftpars1.propagateToZlinear(MatchingPlaneZ);
+              //mftpars1.propagateToZlinear(MatchingPlaneZ);
+              mftpars1.propagateToZ(MatchingPlaneZ, Bz);
 
               int mcfwdfirstmotherid = -1;
               int mcfwdlastmotherid = -1;
@@ -617,8 +650,10 @@ struct mchmftmatchinginfoemmc {
   }
   PROCESS_SWITCH(mchmftmatchinginfoemmc, processME, "Show displacement of mft and mch tracks", false);
  
-  void processGen(soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const& mcparticles, aod::Collisions const& collisions)
+  void processGen(soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const& mcparticles, aod::Collisions const& collisions, ExtBCs const&)
   {
+    auto bc = collisions.begin().bc_as<ExtBCs>();
+    initCCDB(bc);
     static constexpr Double_t MatchingPlaneZ = -77.5;
 
     for (auto const& fwdtrack : fwdtracks){
@@ -634,7 +669,8 @@ struct mchmftmatchinginfoemmc {
               std::vector<double> muonv1;
               SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
               o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
-              muonpars1.propagateToZlinear(MatchingPlaneZ);
+              //muonpars1.propagateToZlinear(MatchingPlaneZ);
+              muonpars1.propagateToZ(MatchingPlaneZ, Bz);
 
               //propagate mfttrack to matching position
               double mftchi2 = mfttrack.chi2();
@@ -642,7 +678,8 @@ struct mchmftmatchinginfoemmc {
               std::vector<double> mftv1;
               SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
               o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-              mftpars1.propagateToZlinear(MatchingPlaneZ);
+              //mftpars1.propagateToZlinear(MatchingPlaneZ);
+              mftpars1.propagateToZ(MatchingPlaneZ, Bz);
 
               int mcfwdfirstmotherid = -1;
               int mcfwdlastmotherid = -1;
