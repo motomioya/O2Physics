@@ -44,6 +44,9 @@ struct dimuonall_data {
   HistogramRegistry registry{
     "registry", 
     {
+      {"pt1PM", "pt1PM", {HistType::kTH1F, {{120, 0.0, 30.0}}}},
+      {"pt2PM", "pt2PM", {HistType::kTH1F, {{120, 0.0, 30.0}}}},
+      {"massPM", "massPM", {HistType::kTH1F, {{120, 0.0, 30.0}}}},
       {"mass_ptPM", "mass_ptPM", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30.0}}}},
       {"mass_ptMM", "mass_ptMM", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30.0}}}},
       {"mass_ptPP", "mass_ptPP", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30.0}}}},
@@ -100,6 +103,9 @@ struct dimuonall_data {
       float DCA2 = std::sqrt(dimuon.fwdDcaX2() * dimuon.fwdDcaX2() + dimuon.fwdDcaY2() * dimuon.fwdDcaY2());
       float DCAmumu = std::sqrt((DCA1 * DCA1 + DCA2 * DCA2)/2);
       if (dimuon.sign() == 0) {
+        registry.fill(HIST("pt1PM"), dimuon.pt1());
+        registry.fill(HIST("pt2PM"), dimuon.pt2());
+        registry.fill(HIST("massPM"), dimuon.mass());
         registry.fill(HIST("dcaxyPM"), DCAmumu);
         registry.fill(HIST("mass_ptPM"), dimuon.mass(), dimuon.pt());
         if (DCAmumu < 0.2) {
