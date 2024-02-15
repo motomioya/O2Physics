@@ -43,7 +43,7 @@ using MyMuonsColl = soa::Join<aod::FwdTracks, aod::FwdTrkCompColls>;
 using MyMFTsColl = soa::Join<aod::MFTTracks, aod::MFTTrkCompColls>;
 
 struct quickcheck {
-  float etalow = -3.6;
+  float etalow = -4;
   float etaup = -2.5;
   float pDCAcutrAtBsorberEndlow1 = 17.6;
   float pDCAcutrAtBsorberEndup1 = 26.5;
@@ -62,12 +62,9 @@ struct quickcheck {
   HistogramRegistry registry{
     "registry",
     {
-      {"TrueDeltaCollId", "TrueDeltaCollId", {HistType::kTH1F, {{4001, -2000.5, 2000.5}}}},
-      {"FalseDeltaCollId", "FalseDeltaCollId", {HistType::kTH1F, {{4001, -2000.5, 2000.5}}}},
-      {"TrueDeltaXY", "TrueDeltaXY", {HistType::kTH1F, {{6000, 0, 60}}}},
-      {"FalseDeltaXY", "FalseDeltaXY", {HistType::kTH1F, {{6000, 0, 60}}}},
-      {"TrueDeltaPhiTanl", "TrueDeltaPhiTanl", {HistType::kTH1F, {{4000, 0, 40}}}},
-      {"FalseDeltaPhiTanl", "FalseDeltaPhiTanl", {HistType::kTH1F, {{4000, 0, 40}}}},
+      {"AllTrueDeltaCollId", "AllTrueDeltaCollId", {HistType::kTH1F, {{4001, -2000.5, 2000.5}}}},
+      {"AfterAssociationTrueDeltaCollId", "AfterAssociationTrueDeltaCollId", {HistType::kTH1F, {{4001, -2000.5, 2000.5}}}},
+      {"OnlyAssociatedTrueDeltaCollId", "OnlyAssociatedTrueDeltaCollId", {HistType::kTH1F, {{4001, -2000.5, 2000.5}}}},
     }
   };
 
@@ -75,64 +72,41 @@ struct quickcheck {
   {
   }
 
-  void process(aod::Collisions const& collisions, soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&)
+  void process(aod::Collisions const& collisions, soa::Filtered<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>> const& fwdtracks, soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels> const& mfttracks, aod::McParticles const&, aod::FwdTrackAssoc const& fwdtrackIndices, aod::MFTTrackAssoc const& mfttrackIndices)
   {
     for (auto& [fwdtrack, mfttrack] : combinations(o2::soa::CombinationsFullIndexPolicy(fwdtracks, mfttracks))) {
 
       if (fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
-        if (fwdtrack.has_collision() && mfttrack.has_collision() && fwdtrack.has_mcParticle() && mfttrack.has_mcParticle()){
+        if (fwdtrack.has_mcParticle() && mfttrack.has_mcParticle()){
           auto fwdparticle = fwdtrack.mcParticle();
           auto mftparticle = mfttrack.mcParticle();
-          static constexpr Double_t MatchingPlaneZ = -77.5;
 
-          // propagate muontrack to matching position
-          double muonchi2 = fwdtrack.chi2();
-          SMatrix5 muonpars(fwdtrack.x(), fwdtrack.y(), fwdtrack.phi(), fwdtrack.tgl(), fwdtrack.signed1Pt());
-          std::vector<double> muonv1;
-          SMatrix55 muoncovs(muonv1.begin(), muonv1.end());
-          o2::track::TrackParCovFwd muonpars1{fwdtrack.z(), muonpars, muoncovs, muonchi2};
-          muonpars1.propagateToZlinear(MatchingPlaneZ);
-
-          // propagate mfttrack to matching position
-          double mftchi2 = mfttrack.chi2();
-          SMatrix5 mftpars(mfttrack.x(), mfttrack.y(), mfttrack.phi(), mfttrack.tgl(), mfttrack.signed1Pt());
-          std::vector<double> mftv1;
-          SMatrix55 mftcovs(mftv1.begin(), mftv1.end());
-          o2::track::TrackParCovFwd mftpars1{mfttrack.z(), mftpars, mftcovs, mftchi2};
-          mftpars1.propagateToZlinear(MatchingPlaneZ);
-
-          Float_t MFT_X = mftpars1.getX();
-          Float_t MFT_Y = mftpars1.getY();
-          Float_t MFT_Phi = mftpars1.getPhi();
-          Float_t MFT_Tanl = mftpars1.getTanl();
-
-          Float_t MCH_X = muonpars1.getX();
-          Float_t MCH_Y = muonpars1.getY();
-          Float_t MCH_Phi = muonpars1.getPhi();
-          Float_t MCH_Tanl = muonpars1.getTanl();
-
-
-          Float_t Delta_X = MFT_X - MCH_X;
-          Float_t Delta_Y = MFT_Y - MCH_Y;
-          Float_t Delta_Phi = MFT_Phi - MCH_Phi;
-          Float_t Delta_Tanl = MFT_Tanl - MCH_Tanl;
-
-          Float_t Delta_XY = sqrt(Delta_X * Delta_X + Delta_Y * Delta_Y);
-          Float_t Delta_PhiTanl = sqrt(Delta_Phi * Delta_Phi + Delta_Tanl * Delta_Tanl);
           if (fwdparticle.globalIndex() == mftparticle.globalIndex()){
-            registry.fill(HIST("TrueDeltaCollId"), fwdtrack.collisionId() - mfttrack.collisionId());
-            registry.fill(HIST("TrueDeltaXY"), Delta_XY);
-            registry.fill(HIST("TrueDeltaPhiTanl"), Delta_PhiTanl);
-          } else {
-            registry.fill(HIST("FalseDeltaCollId"), fwdtrack.collisionId() - mfttrack.collisionId());
-            registry.fill(HIST("FalseDeltaXY"), Delta_XY);
-            registry.fill(HIST("FalseDeltaPhiTanl"), Delta_PhiTanl);
+            registry.fill(HIST("AllTrueDeltaCollId"), fwdtrack.collisionId() - mfttrack.collisionId());
+          }
+        }
+      }
+    }
+
+    for (auto& [fwdtrackId, mfttrackId] : combinations(o2::soa::CombinationsFullIndexPolicy(fwdtrackIndices, mfttrackIndices))) {
+      auto fwdtrack = fwdtrackId.fwdtrack_as<soa::Join<o2::aod::FwdTracks, aod::McFwdTrackLabels>>();
+      auto mfttrack = mfttrackId.mfttrack_as<soa::Join<o2::aod::MFTTracks, aod::McMFTTrackLabels>>();
+      if (-4.0 < fwdtrack.eta() && fwdtrack.eta() < -2.5) {
+        if ((17.6 < fwdtrack.rAtAbsorberEnd() && fwdtrack.rAtAbsorberEnd() < 26.5 && fwdtrack.pDca() < 594) || (26.5 < fwdtrack.rAtAbsorberEnd() && fwdtrack.rAtAbsorberEnd() < 89.5 && fwdtrack.pDca() < 324)) {
+          if (fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack) {
+            if (fwdtrack.has_mcParticle() && mfttrack.has_mcParticle()){
+              auto fwdparticle = fwdtrack.mcParticle();
+              auto mftparticle = mfttrack.mcParticle();
+
+              if (fwdparticle.globalIndex() == mftparticle.globalIndex()){
+                registry.fill(HIST("AfterAssociationTrueDeltaCollId"), fwdtrackId.collisionId() - mfttrackId.collisionId());
+              }
+            } 
           }
         }
       }
     }
   }
-  
 };
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
