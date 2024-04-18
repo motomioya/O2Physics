@@ -233,13 +233,13 @@ bool MCProng::ComparePDG(int pdg, int prongPDG, bool checkBothCharges, bool excl
       break;
     case 402: // open charm mesons and baryons together
       if (checkBothCharges) {
-        decision = (absPDG >= 400 && absPDG <= 439) || (absPDG >= 4000 && absPDG <= 4399);
+        decision = (absPDG >= 400 && absPDG <= 439) || (absPDG >= 4000 && absPDG <= 4399) || (absPDG >= 10400 && absPDG <= 10439) || (absPDG >= 20400 && absPDG <= 20439);
       } else {
         if (prongPDG > 0) {
-          decision = (pdg >= 400 && pdg <= 439) || (pdg >= 4000 && pdg <= 4399);
+          decision = (pdg >= 400 && pdg <= 439) || (pdg >= 4000 && pdg <= 4399) || (pdg >= 10400 && pdg <= 10439) || (pdg >= 20400 && pdg <= 20439);
         }
         if (prongPDG < 0) {
-          decision = (pdg >= -439 && pdg <= -400) || (pdg >= -4399 && pdg <= -4000);
+          decision = (pdg >= -439 && pdg <= -400) || (pdg >= -4399 && pdg <= -4000) || (pdg >= -10439 && pdg <= -10400) || (pdg >= -20439 && pdg <= -20400);
         }
       }
       break;
@@ -306,13 +306,13 @@ bool MCProng::ComparePDG(int pdg, int prongPDG, bool checkBothCharges, bool excl
       break;
     case 502: // open beauty mesons and baryons
       if (checkBothCharges) {
-        decision = (absPDG >= 500 && absPDG <= 549) || (absPDG >= 5000 && absPDG <= 5499);
+        decision = (absPDG >= 500 && absPDG <= 549) || (absPDG >= 5000 && absPDG <= 5499) || (absPDG >= 10500 && absPDG <= 10549) || (absPDG >= 20500 && absPDG <= 20549);
       } else {
         if (prongPDG > 0) {
-          decision = (pdg >= 500 && pdg <= 549) || (pdg >= 5000 && pdg <= 5499);
+          decision = (pdg >= 500 && pdg <= 549) || (pdg >= 5000 && pdg <= 5499) || (pdg >= 10500 && pdg <= 10549) || (pdg >= 20500 && pdg <= 20549);;
         }
         if (prongPDG < 0) {
-          decision = (pdg >= -549 && pdg <= -500) || (pdg >= -5499 && pdg <= -5000);
+          decision = (pdg >= -549 && pdg <= -500) || (pdg >= -5499 && pdg <= -5000) || (pdg >= -10549 && pdg <= -10500) || (pdg >= -20549 && pdg <= -20500);
         }
       }
       break;

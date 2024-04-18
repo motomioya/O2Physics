@@ -791,12 +791,6 @@ struct TableMakerMC {
                     muon.matchScoreMCHMFT(), muon.mchBitMap(), muon.midBitMap(),
                     muon.midBoards(), muon.trackType(), muon.fwdDcaX(), muon.fwdDcaY(),
                     muon.trackTime(), muon.trackTimeRes());
-                    */
-          muonExtra(muon.nClusters(), muon.pDca(), muon.rAtAbsorberEnd(),
-                    muon.chi2(), muon.chi2MatchMCHMID(), muon.chi2MatchMCHMFT(),
-                    muon.matchScoreMCHMFT(), newMatchIndex.find(muon.index())->second,  muon.mchBitMap(), muon.midBitMap(),
-                    muon.midBoards(), muon.trackType(), muon.fwdDcaX(), muon.fwdDcaY(),
-                    muon.trackTime(), muon.trackTimeRes());
           if constexpr (static_cast<bool>(TMuonFillMap & VarManager::ObjTypes::MuonCov)) {
             muonCov(muon.x(), muon.y(), muon.z(), muon.phi(), muon.tgl(), muon.signed1Pt(),
                     muon.cXX(), muon.cXY(), muon.cYY(), muon.cPhiX(), muon.cPhiY(), muon.cPhiPhi(),

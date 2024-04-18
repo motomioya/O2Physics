@@ -211,11 +211,7 @@ struct mftmchMatchingML {
           if (fwdtrack.has_collision() && mfttrack.has_collision()) {
             if (0 <= fwdtrack.collisionId() - mfttrack.collisionId() && fwdtrack.collisionId() - mfttrack.collisionId() < cfgColWindow) {
               double result = matchONNX(fwdtrack, mfttrack);
-<<<<<<< HEAD
               if (result > cfgThrScore && result > bestscore) {
-=======
-              if (result > cfgThrScore) {
->>>>>>> master
                 bestscore = result;
                 bestmfttrackid = mfttrack.globalIndex();
               }

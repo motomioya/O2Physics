@@ -290,14 +290,6 @@ DECLARE_SOA_COLUMN(MftNClusters, mftNClusters, int);                            
 } // namespace reducedmft
 
 // MFT track kinematics
-<<<<<<< HEAD
-//DECLARE_SOA_TABLE(ReducedMFTTracks, "AOD", "RMFTTR", //!
-                  //o2::soa::Index<>, reducedmft::ReducedEventId, reducedmft::FilteringFlags,
-                  //reducedmft::Pt, reducedmft::Eta, reducedmft::Phi);
-
-// iterator
-//using ReducedMFTTrack = ReducedMFTTracks::iterator;
-=======
 DECLARE_SOA_TABLE_FULL(ReducedMFTs, "ReducedMFTs", "AOD", "REDUCEDMFT", //!
                        o2::soa::Index<>, reducedmft::ReducedEventId, reducedmft::FilteringFlags,
                        reducedmft::Pt, reducedmft::Eta, reducedmft::Phi);
@@ -309,7 +301,6 @@ DECLARE_SOA_TABLE(ReducedMFTsExtra, "AOD", "RMFTEXTRA", //!
 
 // iterator
 using ReducedMFT = ReducedMFTs::iterator;
->>>>>>> master
 
 // muon quantities
 namespace reducedmuon
@@ -342,13 +333,8 @@ DECLARE_SOA_DYNAMIC_COLUMN(MIDBoardCh3, midBoardCh3, //!
                            [](uint32_t midBoards) -> int { return static_cast<int>((midBoards >> 16) & 0xFF); });
 DECLARE_SOA_DYNAMIC_COLUMN(MIDBoardCh4, midBoardCh4, //!
                            [](uint32_t midBoards) -> int { return static_cast<int>((midBoards >> 24) & 0xFF); });
-<<<<<<< HEAD
-DECLARE_SOA_SELF_INDEX_COLUMN_FULL(MCHTrack, matchMCHTrack, int, "RTMuons_MatchMCHTrack");
-//DECLARE_SOA_SELF_INDEX_COLUMN_FULL(ReducedMFTTrack, matchMFTTrack, int, "RTMuons_MatchMFTTrack"); //!  matching index pointing to the ReducedMFTTrack table if filled
-=======
 DECLARE_SOA_SELF_INDEX_COLUMN_FULL(MatchMCHTrack, matchMCHTrack, int, "ReducedMuons_MatchMCHTrack");
 DECLARE_SOA_INDEX_COLUMN(ReducedMFT, matchMFTTrack); //!  matching index pointing to the ReducedMFTTrack table if filled
->>>>>>> master
 } // namespace reducedmuon
 
 // Muon track kinematics
@@ -366,11 +352,7 @@ DECLARE_SOA_TABLE_FULL(ReducedMuons, "ReducedMuons", "AOD", "REDUCEDMUON", //!
 DECLARE_SOA_TABLE(ReducedMuonsExtra, "AOD", "RTMUONEXTRA", //!
                   fwdtrack::NClusters, fwdtrack::PDca, fwdtrack::RAtAbsorberEnd,
                   fwdtrack::Chi2, fwdtrack::Chi2MatchMCHMID, fwdtrack::Chi2MatchMCHMFT,
-<<<<<<< HEAD
-                  fwdtrack::MatchScoreMCHMFT, reducedmuon::MCHTrackId,
-=======
                   fwdtrack::MatchScoreMCHMFT,
->>>>>>> master
                   fwdtrack::MCHBitMap, fwdtrack::MIDBitMap, fwdtrack::MIDBoards, fwdtrack::TrackType,
                   reducedmuon::FwdDcaX, reducedmuon::FwdDcaY,
                   fwdtrack::TrackTime, fwdtrack::TrackTimeRes);
@@ -617,39 +599,13 @@ DECLARE_SOA_TABLE(DimuonsAll, "AOD", "RTDIMUONALL", //!
                   reducedpair::VertexPz,
                   reducedpair::SVertex);
 
-<<<<<<< HEAD
-DECLARE_SOA_TABLE(DimuonsAllME, "AOD", "RTDIMUONALLME", //!
-                  reducedpair::Mass,
-                  reducedpair::McDecision,
-                  reducedpair::Pt, reducedpair::Eta, reducedpair::Phi, reducedpair::Sign, reducedpair::Chi2pca,
-                  reducedpair::Tauz, reducedpair::TauzErr,
-                  reducedpair::Tauxy, reducedpair::TauxyErr,
-                  reducedpair::CosPointingAngle,
-                  dilepton_track_index::Pt1, dilepton_track_index::Eta1, dilepton_track_index::Phi1, dilepton_track_index::Sign1,
-                  dilepton_track_index::Pt2, dilepton_track_index::Eta2, dilepton_track_index::Phi2, dilepton_track_index::Sign2,
-                  dilepton_track_index::FwdDcaX1, dilepton_track_index::FwdDcaY1, dilepton_track_index::FwdDcaX2, dilepton_track_index::FwdDcaY2,
-                  dilepton_track_index::McMask1, dilepton_track_index::McMask2,
-                  dilepton_track_index::Chi2MatchMCHMID1, dilepton_track_index::Chi2MatchMCHMID2,
-                  dilepton_track_index::Chi2MatchMCHMFT1, dilepton_track_index::Chi2MatchMCHMFT2,
-                  dilepton_track_index::Chi21, dilepton_track_index::Chi22,
-                  dilepton_track_index::PtMC1, dilepton_track_index::EtaMC1, dilepton_track_index::PhiMC1, dilepton_track_index::EMC1,
-                  dilepton_track_index::PtMC2, dilepton_track_index::EtaMC2, dilepton_track_index::PhiMC2, dilepton_track_index::EMC2,
-                  dilepton_track_index::Vx1, dilepton_track_index::Vy1, dilepton_track_index::Vz1, dilepton_track_index::Vt1,
-                  dilepton_track_index::Vx2, dilepton_track_index::Vy2, dilepton_track_index::Vz2, dilepton_track_index::Vt2,
-                  dilepton_track_index::IsAmbig1, dilepton_track_index::IsAmbig2);
-
-using Dilepton = Dileptons::iterator;
-using DileptonExtra = DileptonsExtra::iterator;
-=======
 using Dielectron = Dielectrons::iterator;
 using Dimuon = Dimuons::iterator;
 using DielectronExtra = DielectronsExtra::iterator;
 using DimuonExtra = DimuonsExtra::iterator;
->>>>>>> master
 using DileptonFlow = DileptonsFlow::iterator;
 using DileptonInfo = DileptonsInfo::iterator;
 using DimuonAll = DimuonsAll::iterator;
-using DimuonAllME = DimuonsAllME::iterator;
 
 // mft PID reduced data model
 namespace fwdpid
