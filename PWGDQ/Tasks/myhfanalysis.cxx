@@ -92,82 +92,6 @@ struct myhfanalysis {
   HistogramRegistry registry{
     "registry", 
     {
-      {"hMassvsPtPM", "Invariant;Invariant Mass (GeV/c^{2});Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtMM", "Invariant;Invariant Mass (GeV/c^{2});Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtPP", "Invariant;Invariant Mass (GeV/c^{2});Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbMM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPP", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPP1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbMM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPP2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbMM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPP3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbMM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPP4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbMM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPP5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbMM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPP6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbMM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPP7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbMM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPP8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbPM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtbbMM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccMM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-      {"hMassvsPtccPP14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Pt", {HistType::kTH2F, {{750, 0.0, 15.0}, {40, 0, 10}}}},
-
       {"hMassvsDCAPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
       {"hMassvsDCAMM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
       {"hMassvsDCAPP", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
@@ -547,6 +471,7 @@ struct myhfanalysis {
       {"hMassvsChi2ccPM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
       {"hMassvsChi2ccMM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
       {"hMassvsChi2ccPP14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
+
     },
   };
 
@@ -837,841 +762,844 @@ struct myhfanalysis {
                   const auto mcmothersidlist1 = fwdparticle1.mothersIds();
                   const auto mcmothersidlist2 = fwdparticle2.mothersIds();
                   if (fwdparticle1.globalIndex() != fwdparticle2.globalIndex()) {
-                    if (fwdtrack1.signed1Pt()*fwdtrack2.signed1Pt() < 0) {
-                      //fill mass vs DCA
-                      registry.fill(HIST("hMassvsPtPM"), lv.M(), lv.Pt());
-                      registry.fill(HIST("hMassvsDCAPM"), lv.M(), DCAmumu);
-                      registry.fill(HIST("hMassvsChi2PM"), lv.M(), chi2PCA);
-                      if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                        registry.fill(HIST("hMassvsDCAPt0PM"), lv.M(), DCAmumu);
-                      } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                        registry.fill(HIST("hMassvsDCAPt1PM"), lv.M(), DCAmumu);
-                      } else if (lv.Pt() >= 2) {
-                        registry.fill(HIST("hMassvsDCAPt2PM"), lv.M(), DCAmumu);
-                      }
-                      //select muons from HF semileptonic decays
-                      if(signalbb->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPM"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPM"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPM"), lv.M(), chi2PCA);
+                    //svcut
+                    if(VertexingSV > -20 || VertexingSV == -999) {
+                      if (fwdtrack1.signed1Pt()*fwdtrack2.signed1Pt() < 0) {
+                        //fill mass vs DCA
+                        //registry.fill(HIST("hMassvsPtPM"), lv.M(), lv.Pt());
+                        registry.fill(HIST("hMassvsDCAPM"), lv.M(), DCAmumu);
+                        registry.fill(HIST("hMassvsChi2PM"), lv.M(), chi2PCA);
                         if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPM"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsDCAPt0PM"), lv.M(), DCAmumu);
                         } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPM"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsDCAPt1PM"), lv.M(), DCAmumu);
                         } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPM"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsDCAPt2PM"), lv.M(), DCAmumu);
                         }
-                      } else if (signalbb1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPM1"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPM1"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPM1"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPM1"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPM1"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPM1"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPM2"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPM2"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPM2"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPM2"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPM2"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPM2"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPM3"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPM3"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPM3"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPM3"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPM3"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPM3"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPM4"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPM4"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPM4"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPM4"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPM4"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPM4"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPM5"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPM5"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPM5"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPM5"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPM5"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPM5"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPM6"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPM6"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPM6"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPM6"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPM6"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPM6"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPM7"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPM7"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPM7"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPM7"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPM7"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPM7"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPM8"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPM8"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPM8"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPM8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPM8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPM8"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPM"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPM"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPM"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPM"), lv.M(), DCAmumu);
-                        }
-                        if (signalcc1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPM1"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPM1"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPM1"), lv.M(), chi2PCA);
+                        //select muons from HF semileptonic decays
+                        if(signalbb->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPM"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPM"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPM"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPM"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPM"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPM"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPM2"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPM2"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPM2"), lv.M(), chi2PCA);
+                        } else if (signalbb1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPM1"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPM1"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPM1"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPM1"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPM1"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPM1"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPM3"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPM3"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPM3"), lv.M(), chi2PCA);
+                        } else if (signalbb2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPM2"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPM2"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPM2"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPM2"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPM2"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPM2"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPM4"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPM4"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPM4"), lv.M(), chi2PCA);
+                        } else if (signalbb3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPM3"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPM3"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPM3"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPM3"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPM3"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPM3"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPM5"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPM5"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPM5"), lv.M(), chi2PCA);
+                        } else if (signalbb4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPM4"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPM4"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPM4"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM5"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPM4"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM5"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPM4"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM5"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPM4"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPM6"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPM6"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPM6"), lv.M(), chi2PCA);
+                        } else if (signalbb5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPM5"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPM5"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPM5"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPM5"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPM5"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPM5"), lv.M(), DCAmumu);
                           }
-                        }
-                      } else if (signalcc7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPM7"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPM7"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPM7"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPM7"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPM7"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPM7"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPM8"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPM8"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPM8"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPM8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPM8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPM8"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc9->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPM9"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPM9"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPM9"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPM9"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPM9"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPM9"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc10->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPM10"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPM10"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPM10"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPM10"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPM10"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPM10"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc11->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPM11"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPM11"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPM11"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPM11"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPM11"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPM11"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc12->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPM12"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPM12"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPM12"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPM12"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPM12"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPM12"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc13->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPM13"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPM13"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPM13"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPM13"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPM13"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPM13"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc14->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPM14"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPM14"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPM14"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPM14"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPM14"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPM14"), lv.M(), DCAmumu);
-                        }
-                      }
-                    } else if (fwdtrack1.signed1Pt() >= 0 && fwdtrack2.signed1Pt() >= 0) {
-                      //fill mass vs DCA
-                      registry.fill(HIST("hMassvsPtPP"), lv.M(), lv.Pt());
-                      registry.fill(HIST("hMassvsDCAPP"), lv.M(), DCAmumu);
-                      registry.fill(HIST("hMassvsChi2PP"), lv.M(), chi2PCA);
-                      if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                        registry.fill(HIST("hMassvsDCAPt0PP"), lv.M(), DCAmumu);
-                      } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                        registry.fill(HIST("hMassvsDCAPt1PP"), lv.M(), DCAmumu);
-                      } else if (lv.Pt() >= 2) {
-                        registry.fill(HIST("hMassvsDCAPt2PP"), lv.M(), DCAmumu);
-                      }
-                      //select muons from HF semileptonic decays
-                      if(signalbb->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPP"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPP"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPP"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPP"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPP"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPP"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPP1"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPP1"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPP1"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPP1"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPP1"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPP1"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPP2"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPP2"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPP2"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPP2"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPP2"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPP2"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPP3"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPP3"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPP3"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPP3"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPP3"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPP3"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPP4"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPP4"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPP4"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPP4"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPP4"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPP4"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPP5"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPP5"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPP5"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPP5"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPP5"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPP5"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPP6"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPP6"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPP6"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPP6"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPP6"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPP6"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPP7"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPP7"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPP7"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPP7"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPP7"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPP7"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbPP8"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbPP8"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbPP8"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbPP8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbPP8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbPP8"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPP"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPP"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPP"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPP"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPP"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPP"), lv.M(), DCAmumu);
-                        }
-                        if (signalcc1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPP1"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPP1"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPP1"), lv.M(), chi2PCA);
+                        } else if (signalbb6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPM6"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPM6"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPM6"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPM6"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPM6"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPM6"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPP2"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPP2"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPP2"), lv.M(), chi2PCA);
+                        } else if (signalbb7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPM7"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPM7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPM7"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPM7"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPM7"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPM7"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPP3"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPP3"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPP3"), lv.M(), chi2PCA);
+                        } else if (signalbb8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPM8"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPM8"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPM8"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPM8"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPM8"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPM8"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPP4"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPP4"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPP4"), lv.M(), chi2PCA);
+                        } else if (signalcc->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPM"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPM"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPM"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0ccPM"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1ccPM"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2ccPM"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPP5"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPP5"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPP5"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP5"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP5"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP5"), lv.M(), DCAmumu);
+                          if (signalcc1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPM1"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPM1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPM1"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPM1"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPM1"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPM1"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPM2"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPM2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPM2"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPM2"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPM2"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPM2"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPM3"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPM3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPM3"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPM3"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPM3"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPM3"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPM4"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPM4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPM4"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPM4"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPM4"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPM4"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPM5"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPM5"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPM5"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPM5"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPM5"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPM5"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPM6"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPM6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPM6"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPM6"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPM6"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPM6"), lv.M(), DCAmumu);
+                            }
                           }
-                        } else if (signalcc6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccPP6"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccPP6"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccPP6"), lv.M(), chi2PCA);
+                        } else if (signalcc7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPM7"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPM7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPM7"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0ccPM7"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1ccPM7"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2ccPM7"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPM8"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPM8"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPM8"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPM8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPM8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPM8"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc9->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPM9"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPM9"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPM9"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPM9"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPM9"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPM9"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc10->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPM10"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPM10"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPM10"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPM10"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPM10"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPM10"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc11->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPM11"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPM11"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPM11"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPM11"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPM11"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPM11"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc12->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPM12"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPM12"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPM12"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPM12"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPM12"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPM12"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc13->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPM13"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPM13"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPM13"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPM13"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPM13"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPM13"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc14->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPM14"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPM14"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPM14"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPM14"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPM14"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPM14"), lv.M(), DCAmumu);
                           }
                         }
-                      } else if (signalcc7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPP7"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPP7"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPP7"), lv.M(), chi2PCA);
+                      } else if (fwdtrack1.signed1Pt() >= 0 && fwdtrack2.signed1Pt() >= 0) {
+                        //fill mass vs DCA
+                        //registry.fill(HIST("hMassvsPtPP"), lv.M(), lv.Pt());
+                        registry.fill(HIST("hMassvsDCAPP"), lv.M(), DCAmumu);
+                        registry.fill(HIST("hMassvsChi2PP"), lv.M(), chi2PCA);
                         if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPP7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsDCAPt0PP"), lv.M(), DCAmumu);
                         } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPP7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsDCAPt1PP"), lv.M(), DCAmumu);
                         } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPP7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsDCAPt2PP"), lv.M(), DCAmumu);
                         }
-                      } else if (signalcc8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPP8"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPP8"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPP8"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPP8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPP8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPP8"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc9->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPP9"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPP9"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPP9"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPP9"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPP9"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPP9"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc10->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPP10"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPP10"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPP10"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPP10"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPP10"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPP10"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc11->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPP11"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPP11"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPP11"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPP11"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPP11"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPP11"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc12->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPP12"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPP12"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPP12"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPP12"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPP12"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPP12"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc13->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPP13"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPP13"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPP13"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPP13"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPP13"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPP13"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc14->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccPP14"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccPP14"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccPP14"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccPP14"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccPP14"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccPP14"), lv.M(), DCAmumu);
-                        }
-                      }
-                    } else if (fwdtrack1.signed1Pt() < 0 && fwdtrack2.signed1Pt() < 0) {
-                      //fill mass vs DCA
-                      registry.fill(HIST("hMassvsPtMM"), lv.M(), lv.Pt());
-                      registry.fill(HIST("hMassvsDCAMM"), lv.M(), DCAmumu);
-                      registry.fill(HIST("hMassvsChi2MM"), lv.M(), chi2PCA);
-                      if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                        registry.fill(HIST("hMassvsDCAPt0MM"), lv.M(), DCAmumu);
-                      } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                        registry.fill(HIST("hMassvsDCAPt1MM"), lv.M(), DCAmumu);
-                      } else if (lv.Pt() >= 2) {
-                        registry.fill(HIST("hMassvsDCAPt2MM"), lv.M(), DCAmumu);
-                      }
-                      //select muons from HF semileptonic decays
-                      if(signalbb->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbMM"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbMM"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbMM"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbMM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbMM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbMM"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbMM1"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbMM1"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbMM1"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbMM1"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbMM1"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbMM1"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbMM2"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbMM2"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbMM2"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbMM2"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbMM2"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbMM2"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbMM3"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbMM3"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbMM3"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbMM3"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbMM3"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbMM3"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbMM4"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbMM4"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbMM4"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbMM4"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbMM4"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbMM4"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbMM5"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbMM5"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbMM5"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbMM5"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbMM5"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbMM5"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbMM6"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbMM6"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbMM6"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbMM6"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbMM6"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbMM6"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbMM7"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbMM7"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbMM7"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbMM7"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbMM7"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbMM7"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalbb8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtbbMM8"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAbbMM8"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2bbMM8"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0bbMM8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1bbMM8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2bbMM8"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccMM"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccMM"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccMM"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccMM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccMM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccMM"), lv.M(), DCAmumu);
-                        }
-                        if (signalcc1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccMM1"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccMM1"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccMM1"), lv.M(), chi2PCA);
+                        //select muons from HF semileptonic decays
+                        if(signalbb->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPP"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPP"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPP"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPP"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPP"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPP"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccMM2"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccMM2"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccMM2"), lv.M(), chi2PCA);
+                        } else if (signalbb1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPP1"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPP1"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPP1"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPP1"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPP1"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPP1"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccMM3"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccMM3"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccMM3"), lv.M(), chi2PCA);
+                        } else if (signalbb2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPP2"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPP2"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPP2"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPP2"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPP2"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPP2"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccMM4"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccMM4"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccMM4"), lv.M(), chi2PCA);
+                        } else if (signalbb3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPP3"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPP3"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPP3"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPP3"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPP3"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPP3"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccMM5"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccMM5"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccMM5"), lv.M(), chi2PCA);
+                        } else if (signalbb4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPP4"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPP4"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPP4"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM5"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPP4"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM5"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPP4"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM5"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPP4"), lv.M(), DCAmumu);
                           }
-                        } else if (signalcc6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hMassvsPtccMM6"), lv.M(), lv.Pt());
-                          registry.fill(HIST("hMassvsDCAccMM6"), lv.M(), DCAmumu);
-                          registry.fill(HIST("hMassvsChi2ccMM6"), lv.M(), chi2PCA);
+                        } else if (signalbb5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPP5"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPP5"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPP5"), lv.M(), chi2PCA);
                           if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt0bbPP5"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt1bbPP5"), lv.M(), DCAmumu);
                           } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsDCAPt2bbPP5"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPP6"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPP6"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPP6"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbPP6"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbPP6"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbPP6"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPP7"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPP7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPP7"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbPP7"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbPP7"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbPP7"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbPP8"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbPP8"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbPP8"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbPP8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbPP8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbPP8"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPP"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPP"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPP"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPP"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPP"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPP"), lv.M(), DCAmumu);
+                          }
+                          if (signalcc1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPP1"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPP1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPP1"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPP1"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPP1"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPP1"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPP2"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPP2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPP2"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPP2"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPP2"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPP2"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPP3"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPP3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPP3"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPP3"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPP3"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPP3"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPP4"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPP4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPP4"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPP4"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPP4"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPP4"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPP5"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPP5"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPP5"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPP5"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPP5"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPP5"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccPP6"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccPP6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccPP6"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccPP6"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccPP6"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccPP6"), lv.M(), DCAmumu);
+                            }
+                          }
+                        } else if (signalcc7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPP7"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPP7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPP7"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPP7"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPP7"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPP7"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPP8"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPP8"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPP8"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPP8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPP8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPP8"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc9->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPP9"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPP9"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPP9"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPP9"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPP9"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPP9"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc10->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPP10"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPP10"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPP10"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPP10"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPP10"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPP10"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc11->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPP11"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPP11"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPP11"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPP11"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPP11"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPP11"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc12->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPP12"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPP12"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPP12"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPP12"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPP12"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPP12"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc13->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPP13"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPP13"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPP13"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPP13"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPP13"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPP13"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc14->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccPP14"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccPP14"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccPP14"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccPP14"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccPP14"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccPP14"), lv.M(), DCAmumu);
                           }
                         }
-                      } else if (signalcc7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccMM7"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccMM7"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccMM7"), lv.M(), chi2PCA);
+                      } else if (fwdtrack1.signed1Pt() < 0 && fwdtrack2.signed1Pt() < 0) {
+                        //fill mass vs DCA
+                        //registry.fill(HIST("hMassvsPtMM"), lv.M(), lv.Pt());
+                        registry.fill(HIST("hMassvsDCAMM"), lv.M(), DCAmumu);
+                        registry.fill(HIST("hMassvsChi2MM"), lv.M(), chi2PCA);
                         if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccMM7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsDCAPt0MM"), lv.M(), DCAmumu);
                         } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccMM7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsDCAPt1MM"), lv.M(), DCAmumu);
                         } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccMM7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsDCAPt2MM"), lv.M(), DCAmumu);
                         }
-                      } else if (signalcc8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccMM8"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccMM8"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccMM8"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccMM8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccMM8"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccMM8"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc9->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccMM9"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccMM9"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccMM9"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccMM9"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccMM9"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccMM9"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc10->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccMM10"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccMM10"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccMM10"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccMM10"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccMM10"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccMM10"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc11->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccMM11"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccMM11"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccMM11"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccMM11"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccMM11"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccMM11"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc12->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccMM12"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccMM12"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccMM12"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccMM12"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccMM12"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccMM12"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc13->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccMM13"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccMM13"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccMM13"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccMM13"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccMM13"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccMM13"), lv.M(), DCAmumu);
-                        }
-                      } else if (signalcc14->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                        registry.fill(HIST("hMassvsPtccMM14"), lv.M(), lv.Pt());
-                        registry.fill(HIST("hMassvsDCAccMM14"), lv.M(), DCAmumu);
-                        registry.fill(HIST("hMassvsChi2ccMM14"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0ccMM14"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1ccMM14"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2ccMM14"), lv.M(), DCAmumu);
+                        //select muons from HF semileptonic decays
+                        if(signalbb->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbMM"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbMM"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbMM"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbMM"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbMM"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbMM"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbMM1"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbMM1"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbMM1"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbMM1"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbMM1"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbMM1"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbMM2"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbMM2"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbMM2"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbMM2"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbMM2"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbMM2"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbMM3"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbMM3"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbMM3"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbMM3"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbMM3"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbMM3"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbMM4"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbMM4"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbMM4"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbMM4"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbMM4"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbMM4"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbMM5"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbMM5"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbMM5"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbMM5"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbMM5"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbMM5"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbMM6"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbMM6"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbMM6"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbMM6"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbMM6"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbMM6"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbMM7"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbMM7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbMM7"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbMM7"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbMM7"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbMM7"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalbb8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtbbMM8"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAbbMM8"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2bbMM8"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0bbMM8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1bbMM8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2bbMM8"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccMM"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccMM"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccMM"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccMM"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccMM"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccMM"), lv.M(), DCAmumu);
+                          }
+                          if (signalcc1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccMM1"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccMM1"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccMM1"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccMM1"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccMM1"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccMM1"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccMM2"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccMM2"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccMM2"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccMM2"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccMM2"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccMM2"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccMM3"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccMM3"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccMM3"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccMM3"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccMM3"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccMM3"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccMM4"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccMM4"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccMM4"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccMM4"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccMM4"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccMM4"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccMM5"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccMM5"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccMM5"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccMM5"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccMM5"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccMM5"), lv.M(), DCAmumu);
+                            }
+                          } else if (signalcc6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                            //registry.fill(HIST("hMassvsPtccMM6"), lv.M(), lv.Pt());
+                            registry.fill(HIST("hMassvsDCAccMM6"), lv.M(), DCAmumu);
+                            registry.fill(HIST("hMassvsChi2ccMM6"), lv.M(), chi2PCA);
+                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                              registry.fill(HIST("hMassvsDCAPt0ccMM6"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                              registry.fill(HIST("hMassvsDCAPt1ccMM6"), lv.M(), DCAmumu);
+                            } else if (lv.Pt() >= 2) {
+                              registry.fill(HIST("hMassvsDCAPt2ccMM6"), lv.M(), DCAmumu);
+                            }
+                          }
+                        } else if (signalcc7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccMM7"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccMM7"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccMM7"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccMM7"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccMM7"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccMM7"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccMM8"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccMM8"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccMM8"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccMM8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccMM8"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccMM8"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc9->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccMM9"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccMM9"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccMM9"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccMM9"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccMM9"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccMM9"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc10->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccMM10"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccMM10"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccMM10"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccMM10"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccMM10"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccMM10"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc11->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccMM11"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccMM11"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccMM11"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccMM11"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccMM11"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccMM11"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc12->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccMM12"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccMM12"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccMM12"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccMM12"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccMM12"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccMM12"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc13->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccMM13"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccMM13"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccMM13"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccMM13"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccMM13"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccMM13"), lv.M(), DCAmumu);
+                          }
+                        } else if (signalcc14->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          //registry.fill(HIST("hMassvsPtccMM14"), lv.M(), lv.Pt());
+                          registry.fill(HIST("hMassvsDCAccMM14"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2ccMM14"), lv.M(), chi2PCA);
+                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
+                            registry.fill(HIST("hMassvsDCAPt0ccMM14"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
+                            registry.fill(HIST("hMassvsDCAPt1ccMM14"), lv.M(), DCAmumu);
+                          } else if (lv.Pt() >= 2) {
+                            registry.fill(HIST("hMassvsDCAPt2ccMM14"), lv.M(), DCAmumu);
+                          }
                         }
                       }
                     }

@@ -12,143 +12,96 @@
 #include "Framework/AnalysisDataModel.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/runDataProcessing.h"
-#include "Common/CCDB/EventSelectionParams.h"
 #include "Common/DataModel/EventSelection.h"
 #include "Common/CCDB/EventSelectionParams.h"
-
+#include "TDatabasePDG.h"
+#include "PWGDQ/DataModel/ReducedInfoTables.h"
+#include "Common/DataModel/CollisionAssociationTables.h"
 #include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/Core/trackUtilities.h"
 #include "Common/Core/TrackSelection.h"
 #include "Common/DataModel/TrackSelectionTables.h"
+#include "ReconstructionDataFormats/TrackFwd.h"
+#include "Math/SMatrix.h"
+#include "DetectorsBase/Propagator.h"
+#include "MFTTracking/Tracker.h"
+#include "PWGDQ/Core/MCSignal.h"
+#include "PWGDQ/Core/MCSignalLibrary.h"
+#include <math.h>
+#include <TLorentzVector.h>
+#include <string>
+#include <regex>
+#include <iostream>
+#include "CCDB/BasicCCDBManager.h"
+#include "DataFormatsParameters/GRPMagField.h"
+#include "DetectorsBase/GeometryManager.h"
+
+#include "DCAFitter/FwdDCAFitterN.h"
+#include "GlobalTracking/MatchGlobalFwd.h"
+#include "Math/Vector3D.h"
+#include "CommonConstants/PhysicsConstants.h"
 
 using namespace o2;
 using namespace o2::framework;
 using namespace o2::framework::expressions;
-
-namespace o2::aod
-{
-namespace similarmch
-{
-DECLARE_SOA_COLUMN(SIMILARid, similarid, int);
-DECLARE_SOA_COLUMN(FIRSTMUONx, firstmuonx, double);
-DECLARE_SOA_COLUMN(FIRSTMUONy, firstmuony, double);
-DECLARE_SOA_COLUMN(FIRSTMUONeta, firstmuoneta, double);
-DECLARE_SOA_COLUMN(FIRSTMUONphi, firstmuonphi, double);
-DECLARE_SOA_COLUMN(FIRSTMUONpt, firstmuonpt, double);
-DECLARE_SOA_COLUMN(SECONDMUONx, secondmuonx, double);
-DECLARE_SOA_COLUMN(SECONDMUONy, secondmuony, double);
-DECLARE_SOA_COLUMN(SECONDMUONeta, secondmuoneta, double);
-DECLARE_SOA_COLUMN(SECONDMUONphi, secondmuonphi, double);
-DECLARE_SOA_COLUMN(SECONDMUONpt, secondmuonpt, double);
-}
-DECLARE_SOA_TABLE(SimilarMch, "AOD", "SIMILARMCH",
-                  similarmch::SIMILARid,
-                  similarmch::FIRSTMUONx,
-                  similarmch::FIRSTMUONy,
-                  similarmch::FIRSTMUONeta,
-                  similarmch::FIRSTMUONphi,
-                  similarmch::FIRSTMUONpt,
-                  similarmch::SECONDMUONx,
-                  similarmch::SECONDMUONy,
-                  similarmch::SECONDMUONeta,
-                  similarmch::SECONDMUONphi,
-                  similarmch::SECONDMUONpt);
-}
-
-//using BCsRun3 = soa::Join<aod::BCs, aod::Timestamps, aod::BcSels, aod::Run3MatchedToBCSparse>;
-//using ColEvSels = soa::Join<aod::Collisions, aod::EvSels>;
+using namespace o2::soa;
+using namespace o2::aod::evsel;
+using namespace std;
+using MyMuons = soa::Join<aod::FwdTracks, aod::FwdTracksCov, aod::FwdTrkCompColls>;
 
 struct simliarmchtrackinfo {
+  Preslice<aod::FwdTrackAssoc> fwdtrackIndicesPerCollision = aod::track_association::collisionId;
+  Service<o2::ccdb::BasicCCDBManager> ccdb;
+  float mMagField = -5.0;
+  float collisionZcut = 10.0f;
+  Filter collisionFilter = nabs(aod::collision::posZ) < collisionZcut;
 
-  Produces<aod::SimilarMch> similarmchTable;
-
-  Configurable<float> slimilarThr{"similarThr", 0.1, "Threshold of similar event"};
-
-  HistogramRegistry registry{
-    "registry",
-    {
-      {"SimilarMCHTracks","Number of similar MCH tracks", {HistType::kTH1F, {{4,0.5,4.5}}}}
-    }
-  };
   void init(o2::framework::InitContext&)
   {
-    auto simmch = registry.get<TH1>(HIST("SimilarMCHTracks"));
-    auto* x = simmch->GetXaxis();
-    x->SetBinLabel(1,"All");
-    x->SetBinLabel(2,"Ambiguous");
-    x->SetBinLabel(3,"Similar");
-    x->SetBinLabel(4,"Similar Ambiguous");
-
+    ccdb->setURL("http://alice-ccdb.cern.ch");
+    ccdb->setCaching(true);
+    ccdb->setLocalObjectValidityChecking();
   }
 
 
   //using BCsWithBcSels = o2::soa::Join<o2::aod::BCs, o2::aod::BcSels>;
   //Preslice<ColEvSels> perFoundBC = aod::evsel::foundBCId;
-  void process(aod::FwdTracks const& fwdtracks, aod::AmbiguousFwdTracks const & atracks)
+  void process(soa::Filtered<aod::Collisions> const& collisions, MyMuons const& fwdtracks, aod::FwdTrackAssoc const& fwdtrackIndices, o2::aod::MFTTracks const& mfttracks)
   {
-    //int similarid = 0;
-
-    for (auto const& fwdtrack : fwdtracks) {
-      if (fwdtrack.has_collision() && fwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-        registry.fill(HIST("SimilarMCHTracks"),1.);
-
-        //pileup check
-        /*
-        auto col = fwdtrack.collision();
-        auto colbc = col.bc();
-        auto collisionsGrouped = collisions.sliceBy(perFoundBC, colbc.globalIndex());
-        LOGF(info,"collisionsGrouped.size() = %d", collisionsGrouped.size());
-        */
-
-        for (auto& atrack : atracks)
-        {
-          if (fwdtrack.globalIndex() == atrack.fwdtrackId())
-          {
-            registry.fill(HIST("SimilarMCHTracks"),2.);
+    for (auto& collision : collisions) {
+      auto muonIdsThisCollision = fwdtrackIndices.sliceBy(fwdtrackIndicesPerCollision, collision.globalIndex());
+      int numberofmuon = 0;
+      for (auto& fwdtrackId : muonIdsThisCollision) {
+        for (auto& fwdtrack : fwdtracks) {
+          if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId.fwdtrackId() == fwdtrack.globalIndex() && fwdtrack.chi2MatchMCHMFT() < 50 && fwdtrack.compatibleCollIds().size() == 1) {
+            if (fwdtrack.eta() > -4 && fwdtrack.eta() < -2.5 && (((17.6 < fwdtrack.rAtAbsorberEnd()) && (fwdtrack.rAtAbsorberEnd() < 26.5) && (fwdtrack.pDca() < 594)) || ((26.5 < fwdtrack.rAtAbsorberEnd()) && (fwdtrack.rAtAbsorberEnd() < 89.5) && (fwdtrack.pDca() < 324)))){
+              numberofmuon++;
+            }
           }
         }
-
-        for (auto const& secondfwdtrack : fwdtracks) {
-          if (secondfwdtrack.has_collision() && secondfwdtrack.trackType() == o2::aod::fwdtrack::ForwardTrackTypeEnum::MCHStandaloneTrack) {
-
-            if (secondfwdtrack.collisionId() != fwdtrack.collisionId()){
-              if (fwdtrack.eta() - secondfwdtrack.eta() < slimilarThr && fwdtrack.eta() - secondfwdtrack.eta() > -slimilarThr){
-                if (fwdtrack.phi() - secondfwdtrack.phi() < slimilarThr && fwdtrack.phi() - secondfwdtrack.phi() > -slimilarThr){
-                  if (fwdtrack.pt() - secondfwdtrack.pt() < slimilarThr && fwdtrack.pt() - secondfwdtrack.pt() > -slimilarThr){
-
-                    registry.fill(HIST("SimilarMCHTracks"),3.);
-                    /*
-                    similarmchTable(similarid, fwdtrack.x(),fwdtrack.y(),fwdtrack.eta(),fwdtrack.phi(),fwdtrack.pt(),secondfwdtrack.x(),secondfwdtrack.y(),secondfwdtrack.eta(),secondfwdtrack.phi(),secondfwdtrack.pt());
-                    similarid++;
-
-                    */
-                    for (auto& atrack : atracks)
-                    {
-                      if (fwdtrack.globalIndex() == atrack.fwdtrackId())
-                      {
-                        registry.fill(HIST("SimilarMCHTracks"),4.);
-                      }
-                    }
-                    /*
-
-                    if (col.selection()[evsel::kNoPileupFromSPD] == 0)
-                    {
-                      registry.fill(HIST("SimilarMCHTracks"),4.);
-                    }
-                    */
-
-                  }
-                }
+      }
+      if (numberofmuon > 1) {
+        LOGF(info,"-----------collision-----------");
+        for (auto& fwdtrackId : muonIdsThisCollision) {
+          for (auto& fwdtrack : fwdtracks) {
+            if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId.fwdtrackId() == fwdtrack.globalIndex() && fwdtrack.chi2MatchMCHMFT() < 50 && fwdtrack.compatibleCollIds().size() == 1) {
+              if (fwdtrack.eta() > -4 && fwdtrack.eta() < -2.5 && (((17.6 < fwdtrack.rAtAbsorberEnd()) && (fwdtrack.rAtAbsorberEnd() < 26.5) && (fwdtrack.pDca() < 594)) || ((26.5 < fwdtrack.rAtAbsorberEnd()) && (fwdtrack.rAtAbsorberEnd() < 89.5) && (fwdtrack.pDca() < 324)))){
+                LOGF(info,"---fwdtrack---");
+                LOGF(info,"ID = %d",fwdtrack.globalIndex());
+                LOGF(info,"Eta = %f",fwdtrack.eta());
+                LOGF(info,"Phi = %f",fwdtrack.phi());
+                LOGF(info,"Pt = %f",fwdtrack.pt());
+                LOGF(info,"x = %f",fwdtrack.x());
+                LOGF(info,"y = %f",fwdtrack.y());
+                LOGF(info,"z = %f",fwdtrack.z());
               }
             }
-
           }
         }
-
+        LOGF(info,"numberofmuon = %d",numberofmuon);
       }
     }
   }
-
 };
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)

@@ -88,7 +88,33 @@ o2physics_add_dpl_workflow(myhfanalysis
                   SOURCES myhfanalysis.cxx
                   PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
                   COMPONENT_NAME Analysis)
+
 o2physics_add_dpl_workflow(myhfanalysis-eff
                   SOURCES myhfanalysis_eff.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                  COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(checklikesign
+                  SOURCES checklikesign.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                  COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(dimuonlikesign
+                  SOURCES dimuonlikesign.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                  COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(checkpairdca
+                  SOURCES checkpairdca.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                  COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(checkmftdca
+                  SOURCES checkmftdca.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                  COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(checkpioninabs
+                  SOURCES checkpioninabs.cxx
                   PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
                   COMPONENT_NAME Analysis)

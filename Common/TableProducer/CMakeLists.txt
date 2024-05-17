@@ -275,3 +275,4 @@ o2physics_add_dpl_workflow(runwithmchwithmft
                                           O2Physics::AnalysisCore
                                           O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
+
