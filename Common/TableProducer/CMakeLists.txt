@@ -283,3 +283,9 @@ o2physics_add_dpl_workflow(runwithmchwithmft
                                           O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
 
+o2physics_add_dpl_workflow(checkeventmixing
+                    SOURCES checkeventmixing.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
+                                          O2::ReconstructionDataFormats
+                    COMPONENT_NAME Analysis)
+
