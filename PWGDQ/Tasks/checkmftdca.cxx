@@ -85,12 +85,18 @@ struct checkmftdca{
       {"hDCAGloballinearFromDtoPion", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
       {"hDCAGloballinearFromD", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
       {"hDCAGloballinearFromB", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
+      {"hDCAGloballinearFromnJpsi", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
+      {"hDCAGloballinearFrompJpsi", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
+      {"hDCAGloballinearFromLF", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
       {"hDCAGlobalhelix", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
       {"hDCAGlobalhelixFromPion", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
       {"hDCAGlobalhelixFromKaon", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
       {"hDCAGlobalhelixFromDtoPion", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
       {"hDCAGlobalhelixFromD", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
       {"hDCAGlobalhelixFromB", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
+      {"hDCAGlobalhelixFromnJpsi", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
+      {"hDCAGlobalhelixFrompJpsi", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
+      {"hDCAGlobalhelixFromLF", "DCA;DCA (cm)", {HistType::kTH1F, {{2000, 0, 1}}}},
     },
   };
 
@@ -137,6 +143,27 @@ struct checkmftdca{
     MCSignal* signalmufromB;
     MCProng mufromBprong(2, {13, 503}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
     signalmufromB = new MCSignal("signalmufromB", "Primary Muons", {mufromBprong}, {-1});
+    //muon from omega, eta, phi
+    MCSignal* signalmufromphi;
+    MCProng mufromphiprong(2, {13, 333}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufromphi = new MCSignal("signalmufromphi", "Primary Muons", {mufromphiprong}, {-1});
+    MCSignal* signalmufromomega;
+    MCProng mufromomegaprong(2, {13, 223}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufromomega = new MCSignal("signalmufromomega", "Primary Muons", {mufromomegaprong}, {-1});
+    MCSignal* signalmufrometa;
+    MCProng mufrometaprong(2, {13, 221}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufrometa = new MCSignal("signalmufrometa", "Primary Muons", {mufrometaprong}, {-1});
+    MCSignal* signalmufromrho;
+    MCProng mufromrhoprong(2, {13, 113}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufromrho = new MCSignal("signalmufromrho", "Primary Muons", {mufromrhoprong}, {-1});
+    //muon from J/psi
+    MCSignal* signalmufromjpsi;
+    MCProng mufromjpsiprong(2, {13, 443}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufromjpsi = new MCSignal("signalmufromjpsi", "Primary Muons", {mufromjpsiprong}, {-1});
+    //muon from nonprompt J/psi
+    MCSignal* signalmufromnjpsi;
+    MCProng mufromnjpsiprong(3, {13, 443, 503}, {true, true, true}, {false, false, false}, {0, 0, 0}, {0, 0, 0}, {false, false, false}); 
+    signalmufromnjpsi = new MCSignal("signalmufromnjpsi", "Primary Muons", {mufromnjpsiprong}, {-1});
 
     for (auto& mfttrack : mfttracks) {
       if (mfttrack.eta() > -3.6 && mfttrack.eta() < -2.5) {
@@ -237,6 +264,17 @@ struct checkmftdca{
                 if (signalmufromB->CheckSignal(true, fwdparticle)) {
                   registry.fill(HIST("hDCAGloballinearFromB"), DCA1);
                   registry.fill(HIST("hDCAGlobalhelixFromB"), DCA2);
+                }
+                if (signalmufromphi->CheckSignal(true, fwdparticle) || signalmufromomega->CheckSignal(true, fwdparticle) || signalmufrometa->CheckSignal(true, fwdparticle) || signalmufromrho->CheckSignal(true, fwdparticle)) {
+                  registry.fill(HIST("hDCAGloballinearFromLF"), DCA1);
+                  registry.fill(HIST("hDCAGlobalhelixFromLF"), DCA2);
+                }
+                if (signalmufromnjpsi->CheckSignal(true, fwdparticle)) {
+                  registry.fill(HIST("hDCAGloballinearFromnJpsi"), DCA1);
+                  registry.fill(HIST("hDCAGlobalhelixFromnJpsi"), DCA2);
+                } else if (signalmufromjpsi->CheckSignal(true, fwdparticle)) {
+                  registry.fill(HIST("hDCAGloballinearFrompJpsi"), DCA1);
+                  registry.fill(HIST("hDCAGlobalhelixFrompJpsi"), DCA2);
                 }
               }
             }
