@@ -667,6 +667,7 @@ struct myhfanalysis {
                   const auto mcmothersidlist2 = fwdparticle2.mothersIds();
                   if (fwdparticle1.globalIndex() != fwdparticle2.globalIndex()) {
                     //svcut
+                    LOGF(info, "VertexingSV = %f", VertexingSV);
                     if(VertexingSV > -20 || VertexingSV == -999) {
                       if (fwdtrack1.signed1Pt()*fwdtrack2.signed1Pt() < 0) {
                         //fill mass vs DCA

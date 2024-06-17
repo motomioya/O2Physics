@@ -218,24 +218,24 @@ struct checklikesign{
                       bool correctmatch1 = 0;
                       bool correctmatch2 = 0;
 
-                      int fwd1ID = 0;
-                      int fwd2ID = 0;
-                      int fwd1pdgcode = 0;
-                      int fwd2pdgcode = 0;
-                      double fwd1vz = 0;
-                      double fwd2vz = 0;
-                      int fwd1process = 0;
-                      int fwd2process = 0;
+                      //int fwd1ID = 0;
+                      //int fwd2ID = 0;
+                      //int fwd1pdgcode = 0;
+                      //int fwd2pdgcode = 0;
+                      //double fwd1vz = 0;
+                      //double fwd2vz = 0;
+                      //int fwd1process = 0;
+                      //int fwd2process = 0;
                       int mft1recID = 0;
                       int mft1ID = 0;
                       int mft2recID = 0;
                       int mft2ID = 0;
-                      int mft1pdgcode = 0;
-                      int mft2pdgcode = 0;
-                      double mft1vz = 0;
-                      double mft2vz = 0;
-                      int mft1process = 0;
-                      int mft2process = 0;
+                      //int mft1pdgcode = 0;
+                      //int mft2pdgcode = 0;
+                      //double mft1vz = 0;
+                      //double mft2vz = 0;
+                      //int mft1process = 0;
+                      //int mft2process = 0;
 
                       const auto mcmothersidlist1 = fwdparticle1.mothersIds();
                       for (auto& matchMCH : fwdtracks) {
@@ -245,15 +245,15 @@ struct checklikesign{
                               if (fwdtrack1.matchMFTTrackId() == mfttrack.globalIndex()) {
                                 if (mfttrack.has_mcParticle() == 1) {
                                   auto mftparticle = mfttrack.mcParticle();
-                                  fwd1ID = fwdparticle1.globalIndex();
-                                  fwd1pdgcode = fwdparticle1.pdgCode();
-                                  fwd1vz = fwdparticle1.vz();
-                                  fwd1process = fwdparticle1.getProcess();
+                                  //fwd1ID = fwdparticle1.globalIndex();
+                                  //fwd1pdgcode = fwdparticle1.pdgCode();
+                                  //fwd1vz = fwdparticle1.vz();
+                                  //fwd1process = fwdparticle1.getProcess();
                                   mft1ID = mftparticle.globalIndex();
                                   mft1recID = mfttrack.globalIndex();
-                                  mft1pdgcode = mftparticle.pdgCode();
-                                  mft1vz = mftparticle.vz();
-                                  mft1process = mftparticle.getProcess();
+                                  //mft1pdgcode = mftparticle.pdgCode();
+                                  //mft1vz = mftparticle.vz();
+                                  //mft1process = mftparticle.getProcess();
                                   if (mftparticle.globalIndex() == fwdparticle1.globalIndex()) correctmatch1 = 1;
                                 }
                               }
@@ -264,15 +264,15 @@ struct checklikesign{
                               if (fwdtrack2.matchMFTTrackId() == mfttrack.globalIndex()) {
                                 if (mfttrack.has_mcParticle() == 1) {
                                   auto mftparticle = mfttrack.mcParticle();
-                                  fwd2ID = fwdparticle2.globalIndex();
-                                  fwd2pdgcode = fwdparticle2.pdgCode();
-                                  fwd2vz = fwdparticle2.vz();
-                                  fwd2process = fwdparticle2.getProcess();
+                                  //fwd2ID = fwdparticle2.globalIndex();
+                                  //fwd2pdgcode = fwdparticle2.pdgCode();
+                                  //fwd2vz = fwdparticle2.vz();
+                                  //fwd2process = fwdparticle2.getProcess();
                                   mft2ID = mftparticle.globalIndex();
                                   mft2recID = mfttrack.globalIndex();
-                                  mft2pdgcode = mftparticle.pdgCode();
-                                  mft2vz = mftparticle.vz();
-                                  mft2process = mftparticle.getProcess();
+                                  //mft2pdgcode = mftparticle.pdgCode();
+                                  //mft2vz = mftparticle.vz();
+                                  //mft2process = mftparticle.getProcess();
                                   if (mftparticle.globalIndex() == fwdparticle2.globalIndex()) correctmatch2 = 1;
                                 }
                               }

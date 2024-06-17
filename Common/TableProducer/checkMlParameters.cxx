@@ -373,12 +373,12 @@ struct compareMlMatching {
       if (fwdtrack.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::MuonStandaloneTrack){
         double bestscore = 0;
         std::vector<aod::MFTTrack> selectedMFTs;
-        double bestMFTx;
-        double bestMFTy;
-        double bestMFTz;
-        double bestMFTphi;
-        double bestMFTtgl;
-        double bestMFTeta;
+        double bestMFTx = 0;
+        double bestMFTy = 0;
+        double bestMFTz = 0;
+        double bestMFTphi = 0;
+        double bestMFTtgl = 0;
+        double bestMFTeta = 0;
         int nCandidateMFT = 0;
         int nCandidateMFTML = 0;
         for (auto& mfttrack : mfttracks) {

@@ -442,6 +442,7 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     MCProng prong(1, {13}, {true}, {false}, {0}, {0}, {false}, false, {402}, {false});
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary, false);
     signal = new MCSignal(name, "Muons from any open charm hadron decays", {prong}, {-1});
+  }
   if (!nameStr.compare("eFromD0")) {
     MCProng prong(2, {11, Pdg::kD0}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
@@ -1041,6 +1042,7 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     MCProng prong(2, {13, 502}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
     signal = new MCSignal(name, "mumu pairs from b->mu and b->mu", {prong, prong}, {-1, -1}); // signal at pair level
+  }
   // b->e and b->e (commonAncestors)
   if (!nameStr.compare("eeFromSameB")) {
     MCProng prong(2, {11, 502}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});

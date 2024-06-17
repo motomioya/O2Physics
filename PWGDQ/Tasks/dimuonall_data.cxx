@@ -83,92 +83,89 @@ struct dimuonall_data {
 
   void init(o2::framework::InitContext&)
   {
-    LOGF(info, "----init----");
   }
 
   void process(aod::DimuonsAll const& dimuons)
   {
-    LOGF(info, "----process----");
     for (auto& dimuon : dimuons) {
-      LOGF(info, "----dimuon loop----");
       float DCA1 = std::sqrt(dimuon.fwdDcaX1() * dimuon.fwdDcaX1() + dimuon.fwdDcaY1() * dimuon.fwdDcaY1());
       float DCA2 = std::sqrt(dimuon.fwdDcaX2() * dimuon.fwdDcaX2() + dimuon.fwdDcaY2() * dimuon.fwdDcaY2());
       float DCAmumu = std::sqrt((DCA1 * DCA1 + DCA2 * DCA2)/2);
-      LOGF(info, "before svertex if statement");
+      double dcacut = 0.06;
+      double pcacut = 2.;
       if (dimuon.sVertex() >= -20 || dimuon.sVertex() == -999) {
-        LOGF(info, "before siAmbigu if statement");
         if (dimuon.isAmbig1() == 0 && dimuon.isAmbig2() == 0) {
-          LOGF(info, "before chi2 if statement");
           if (dimuon.chi2MatchMCHMFT1() < 50 && dimuon.chi2MatchMCHMFT2() < 50) {
-            LOGF(info, "before sign if statement");
             if (dimuon.sign() == 0) {
-              LOGF(info, "inside if sign() == 0");
               registry.fill(HIST("mass_ptPM"), dimuon.mass(), dimuon.pt());
               registry.fill(HIST("mass_dcaxyPM"), dimuon.mass(), DCAmumu);
               registry.fill(HIST("mass_pcachiPM"), dimuon.mass(), dimuon.chi2pca());
-              if (DCAmumu <= 0.02) {
+              if (DCAmumu <= dcacut) {
                 registry.fill(HIST("mass_ptPM_dcaxylow"), dimuon.mass(), dimuon.pt());
               } else {
                 registry.fill(HIST("mass_ptPM_dcaxyhigh"), dimuon.mass(), dimuon.pt());
               }
               if (dimuon.chi2pca() == -999) {
                 registry.fill(HIST("mass_ptPM_pcachifail"), dimuon.mass(), dimuon.pt());
-              } else if (dimuon.chi2pca() <= 2){
+              } else if (dimuon.chi2pca() <= pcacut){
                 registry.fill(HIST("mass_ptPM_pcachilow"), dimuon.mass(), dimuon.pt());
               } else {
                 registry.fill(HIST("mass_ptPM_pcachihigh"), dimuon.mass(), dimuon.pt());
               }
-              if (DCA1 <= 0.02 && DCA2 <= 0.02) {
+              if (DCA1 <= dcacut && DCA2 <= dcacut) {
                 registry.fill(HIST("mass_ptPM_singledcalow"), dimuon.mass(), dimuon.pt());
-              } else if (DCA1 > 0.02 && DCA2 > 0.02) {
+              } else if (DCA1 > dcacut && DCA2 > dcacut) {
                 registry.fill(HIST("mass_ptPM_singledcahigh"), dimuon.mass(), dimuon.pt());
-              } else {
+              }
+              if (DCA1 > dcacut || DCA2 > dcacut) {
                 registry.fill(HIST("mass_ptPM_singledcalowhigh"), dimuon.mass(), dimuon.pt());
               }
             } else if (dimuon.sign() == -2) {
               registry.fill(HIST("mass_ptMM"), dimuon.mass(), dimuon.pt());
               registry.fill(HIST("mass_dcaxyMM"), dimuon.mass(), DCAmumu);
               registry.fill(HIST("mass_pcachiMM"), dimuon.mass(), dimuon.chi2pca());
-              if (DCAmumu <= 0.02) {
+              if (DCAmumu <= dcacut) {
                 registry.fill(HIST("mass_ptMM_dcaxylow"), dimuon.mass(), dimuon.pt());
               } else {
                 registry.fill(HIST("mass_ptMM_dcaxyhigh"), dimuon.mass(), dimuon.pt());
               }
               if (dimuon.chi2pca() == -999) {
                 registry.fill(HIST("mass_ptMM_pcachifail"), dimuon.mass(), dimuon.pt());
-              } else if (dimuon.chi2pca() <= 2){
+              } else if (dimuon.chi2pca() <= pcacut){
                 registry.fill(HIST("mass_ptMM_pcachilow"), dimuon.mass(), dimuon.pt());
               } else {
                 registry.fill(HIST("mass_ptMM_pcachihigh"), dimuon.mass(), dimuon.pt());
               }
-              if (DCA1 <= 0.02 && DCA2 <= 0.02) {
+              if (DCA1 <= dcacut && DCA2 <= dcacut) {
                 registry.fill(HIST("mass_ptMM_singledcalow"), dimuon.mass(), dimuon.pt());
-              } else if (DCA1 > 0.02 && DCA2 > 0.02) {
+              } else if (DCA1 > dcacut && DCA2 > dcacut) {
                 registry.fill(HIST("mass_ptMM_singledcahigh"), dimuon.mass(), dimuon.pt());
-              } else {
+              }
+              if (DCA1 > dcacut || DCA2 > dcacut) {
                 registry.fill(HIST("mass_ptMM_singledcalowhigh"), dimuon.mass(), dimuon.pt());
               }
             } else if (dimuon.sign() == 2) {
               registry.fill(HIST("mass_ptPP"), dimuon.mass(), dimuon.pt());
               registry.fill(HIST("mass_dcaxyPP"), dimuon.mass(), DCAmumu);
               registry.fill(HIST("mass_pcachiPP"), dimuon.mass(), dimuon.chi2pca());
-              if (DCAmumu <= 0.02) {
+              if (DCAmumu <= dcacut) {
                 registry.fill(HIST("mass_ptPP_dcaxylow"), dimuon.mass(), dimuon.pt());
               } else {
                 registry.fill(HIST("mass_ptPP_dcaxyhigh"), dimuon.mass(), dimuon.pt());
               }
               if (dimuon.chi2pca() == -999) {
                 registry.fill(HIST("mass_ptPP_pcachifail"), dimuon.mass(), dimuon.pt());
-              } else if (dimuon.chi2pca() <= 2){
+              } else if (dimuon.chi2pca() <= pcacut){
                 registry.fill(HIST("mass_ptPP_pcachilow"), dimuon.mass(), dimuon.pt());
               } else {
                 registry.fill(HIST("mass_ptPP_pcachihigh"), dimuon.mass(), dimuon.pt());
               }
-              if (DCA1 <= 0.02 && DCA2 <= 0.02) {
+              if (DCA1 <= dcacut && DCA2 <= dcacut) {
                 registry.fill(HIST("mass_ptPP_singledcalow"), dimuon.mass(), dimuon.pt());
-              } else if (DCA1 > 0.02 && DCA2 > 0.02) {
+              } else if (DCA1 > dcacut && DCA2 > dcacut) {
                 registry.fill(HIST("mass_ptPP_singledcahigh"), dimuon.mass(), dimuon.pt());
-              } else {
+              }
+              if (DCA1 > dcacut || DCA2 > dcacut) {
                 registry.fill(HIST("mass_ptPP_singledcalowhigh"), dimuon.mass(), dimuon.pt());
               }
             }

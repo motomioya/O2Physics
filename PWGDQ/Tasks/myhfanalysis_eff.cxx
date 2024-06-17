@@ -314,20 +314,20 @@ struct myhfanalysis {
 
                 //Get secondary vertex using DCAFitterN
                 int procCode = fgFitterTwoProngFwd.process(pars1, pars2);
-                double chi2PCA = -999;
-                double VertexingSV = -999;
-                double VertexingLxyz = -999;
+                //double chi2PCA = -999;
+                //double VertexingSV = -999;
+                //double VertexingLxyz = -999;
                 if (procCode != 0 ) {
-                  Vec3D secondaryVertex = fgFitterTwoProngFwd.getPCACandidate();
+                  //Vec3D secondaryVertex = fgFitterTwoProngFwd.getPCACandidate();
                   fgFitterTwoProngFwd.calcPCACovMatrixFlat();
-                  chi2PCA = fgFitterTwoProngFwd.getChi2AtPCACandidate();
-                  auto VertexingLxy = (collision.posX() - secondaryVertex[0]) * (collision.posX() - secondaryVertex[0]) + (collision.posY() - secondaryVertex[1]) * (collision.posY() - secondaryVertex[1]);
-                  auto VertexingLz = (collision.posZ() - secondaryVertex[2]) * (collision.posZ() - secondaryVertex[2]);
-                  VertexingLxyz = VertexingLxy + VertexingLz;
-                  VertexingLxy = std::sqrt(VertexingLxy);
-                  VertexingLz = std::sqrt(VertexingLz);
-                  VertexingLxyz = std::sqrt(VertexingLxyz);
-                  VertexingSV = secondaryVertex[2];
+                  //chi2PCA = fgFitterTwoProngFwd.getChi2AtPCACandidate();
+                  //auto VertexingLxy = (collision.posX() - secondaryVertex[0]) * (collision.posX() - secondaryVertex[0]) + (collision.posY() - secondaryVertex[1]) * (collision.posY() - secondaryVertex[1]);
+                  //auto VertexingLz = (collision.posZ() - secondaryVertex[2]) * (collision.posZ() - secondaryVertex[2]);
+                  //VertexingLxyz = VertexingLxy + VertexingLz;
+                  //VertexingLxy = std::sqrt(VertexingLxy);
+                  //VertexingLz = std::sqrt(VertexingLz);
+                  //VertexingLxyz = std::sqrt(VertexingLxyz);
+                  //VertexingSV = secondaryVertex[2];
                 } 
 
                 //Get secondary vertex using KFparticles
@@ -435,7 +435,7 @@ struct myhfanalysis {
         }
       }
 
-      auto mccolision = collision.mcCollision();
+      //auto mccolision = collision.mcCollision();
       auto particlessThisCollision = particles.sliceBy(particlesIndicesPerCollision, collision.globalIndex());
       for (auto& [fwdparticle1, fwdparticle2] : combinations(o2::soa::CombinationsStrictlyUpperIndexPolicy(particlessThisCollision, particlessThisCollision))) {
         if (fwdparticle1.pdgCode() == 13 || fwdparticle1.pdgCode() == -13 ) {
