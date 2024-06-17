@@ -410,12 +410,11 @@ bool MCProng::ComparePDG(int pdg, int prongPDG, bool checkBothCharges, bool excl
                  absPDG == 333    // phi
         ;
       break;
-    case 10000:                     // muon from LF and Strange hadrons
-      if (checkBothCharges) {
-        decision = ((absPDG >= 100 && absPDG <= 199) || (absPDG >= 200 && absPDG <= 299) || (absPDG >= 300 && absPDG <= 399));
-      } else {
-        decision = (prongPDG > 0 ? ((absPDG >= 100 && absPDG <= 199) || (absPDG >= 200 && absPDG <= 299) || (absPDG >= 300 && absPDG <= 399)) : ((absPDG >= -199 && absPDG <= -100) || (absPDG >= -299 && absPDG <= 200) || (absPDG >= -399 && absPDG <= -300)));
-      }
+    case 904:
+      decision = absPDG == 20443 || // chic1
+                 absPDG == 445 ||   // chic2
+                 absPDG == 10441    // chic0
+        ;
       break;
     default: // all explicit PDG code cases
       if (checkBothCharges) {
