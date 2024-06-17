@@ -118,3 +118,8 @@ o2physics_add_dpl_workflow(checkpioninabs
                   SOURCES checkpioninabs.cxx
                   PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
                   COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(checkresolution
+                  SOURCES checkresolution.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                  COMPONENT_NAME Analysis)

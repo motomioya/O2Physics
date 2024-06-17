@@ -28,6 +28,7 @@
 #include "MFTTracking/Tracker.h"
 #include "PWGDQ/Core/MCSignal.h"
 #include "PWGDQ/Core/MCSignalLibrary.h"
+#include "PWGDQ/Core/VarManager.h"
 #include <math.h>
 #include <TLorentzVector.h>
 #include <string>
@@ -167,310 +168,167 @@ struct myhfanalysis {
       {"hMassvsDCAccPM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
       {"hMassvsDCAccMM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
       {"hMassvsDCAccPP14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
+      {"hMassvsDCAvecPM", "Invariant;Invariant Mass (GeV/c^{2}) from vec;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
+      {"hMassvsDCAvecMM", "Invariant;Invariant Mass (GeV/c^{2}) from vec;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
+      {"hMassvsDCAvecPP", "Invariant;Invariant Mass (GeV/c^{2}) from vec;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
 
-      {"hMassvsDCAPt0PM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0MM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0PP", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbMM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPP", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPP1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbMM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPP2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbMM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPP3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbMM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPP4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbMM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPP5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbMM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPP6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbMM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPP7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbMM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPP8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbPM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0bbMM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccMM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt0ccPP14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
+      {"hMassvsSVPM", "Invariant;Invariant Mass (GeV/c^{2});Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVMM", "Invariant;Invariant Mass (GeV/c^{2});Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVPP", "Invariant;Invariant Mass (GeV/c^{2});Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbMM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPP", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPP1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbMM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPP2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbMM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPP3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbMM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPP4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbMM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPP5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbMM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPP6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbMM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPP7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbMM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPP8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbPM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVbbMM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccMM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVccPP14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVvecPM", "Invariant;Invariant Mass (GeV/c^{2}) from vec;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVvecMM", "Invariant;Invariant Mass (GeV/c^{2}) from vec;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
+      {"hMassvsSVvecPP", "Invariant;Invariant Mass (GeV/c^{2}) from vec;Pair SV", {HistType::kTH2F, {{750, 0.0, 15.0}, {2200, -1000, 100}}}},
 
-      {"hMassvsDCAPt1PM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1MM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1PP", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbMM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPP", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPP1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbMM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPP2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbMM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPP3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbMM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPP4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbMM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPP5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbMM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPP6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbMM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPP7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbMM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPP8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbPM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1bbMM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccMM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt1ccPP14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-
-      {"hMassvsDCAPt2PM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2MM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2PP", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbMM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPP", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPP1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbMM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPP2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbMM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPP3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbMM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPP4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbMM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPP5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbMM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPP6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbMM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPP7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbMM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPP8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbPM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2bbMM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccMM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-      {"hMassvsDCAPt2ccPP14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair DCA", {HistType::kTH2F, {{750, 0.0, 15.0}, {600, 0, 3}}}},
-
-      {"hMassvsChi2PM", "Invariant;Invariant Mass (GeV/c^{2});Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2MM", "Invariant;Invariant Mass (GeV/c^{2});Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2PP", "Invariant;Invariant Mass (GeV/c^{2});Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbMM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPP", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPP1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbMM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPP2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbMM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPP3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbMM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPP4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbMM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPP5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbMM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPP6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbMM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPP7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbMM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPP8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbPM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2bbMM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccMM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
-      {"hMassvsChi2ccPP14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 100}}}},
+      {"hMassvsChi2PM", "Invariant;Invariant Mass (GeV/c^{2});Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2MM", "Invariant;Invariant Mass (GeV/c^{2});Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2PP", "Invariant;Invariant Mass (GeV/c^{2});Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbMM", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPP", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPP1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbMM1", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPP2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbMM2", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPP3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbMM3", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPP4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbMM4", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPP5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbMM5", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPP6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbMM6", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPP7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbMM7", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPP8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbPM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2bbMM8", "Invariant;Invariant Mass (GeV/c^{2}) from bb;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP1", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP2", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP3", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP4", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP5", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP6", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP7", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP8", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP9", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP10", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP11", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP12", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP13", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccMM14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2ccPP14", "Invariant;Invariant Mass (GeV/c^{2}) from cc;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2vecPM", "Invariant;Invariant Mass (GeV/c^{2}) from vec;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2vecMM", "Invariant;Invariant Mass (GeV/c^{2}) from vec;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
+      {"hMassvsChi2vecPP", "Invariant;Invariant Mass (GeV/c^{2}) from vec;Pair Chi2", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0, 200}}}},
 
     },
   };
@@ -480,6 +338,9 @@ struct myhfanalysis {
     ccdb->setURL("http://alice-ccdb.cern.ch");
     ccdb->setCaching(true);
     ccdb->setLocalObjectValidityChecking();
+    if (!o2::base::GeometryManager::isGeometryLoaded()) {
+      ccdb->get<TGeoManager>("GLO/Config/GeometryAligned");
+    }
   }
 
   void process(soa::Filtered<soa::Join<aod::Collisions, aod::McCollisionLabels>> const& collisions, soa::Filtered<MyMuons> const& fwdtracks, aod::FwdTrackAssoc const& fwdtrackIndices, aod::McCollisions const&, aod::McParticles const& particles)
@@ -659,6 +520,25 @@ struct myhfanalysis {
     prongcmu14.SetSourceBit(0, MCProng::kPhysicalPrimary);
     signalcc14 = new MCSignal("otherccTomumu", "mumu pairs from bb", {prongcmu14, prongcmu14}, {-1, -1}); // signal at pair level
 
+    MCSignal* signalmufromphi;
+    MCProng mufromphiprong(2, {13, 333}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufromphi = new MCSignal("signalmufromphi", "Primary Muons", {mufromphiprong, mufromphiprong}, {-1, -1});
+
+    MCSignal* signalmufromomega;
+    MCProng mufromomegaprong(2, {13, 223}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufromomega = new MCSignal("signalmufromomega", "Primary Muons", {mufromomegaprong, mufromomegaprong}, {-1, -1});
+
+    MCSignal* signalmufrometa;
+    MCProng mufrometaprong(2, {13, 221}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufrometa = new MCSignal("signalmufrometa", "Primary Muons", {mufrometaprong, mufrometaprong}, {-1, -1});
+
+    MCSignal* signalmufromrho;
+    MCProng mufromrhoprong(2, {13, 113}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufromrho = new MCSignal("signalmufromrho", "Primary Muons", {mufromrhoprong, mufromrhoprong}, {-1, -1});
+
+    MCSignal* signalmufromjpsi;
+    MCProng mufromjpsiprong(2, {13, 443}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}); 
+    signalmufromjpsi = new MCSignal("signalmufromjpsi", "Primary Muons", {mufromjpsiprong, mufromjpsiprong}, {-1, -1});
 
     for (auto& collision : collisions) {
       //auto bc = collision.bc_as<aod::BCsWithTimestamps>();
@@ -743,14 +623,38 @@ struct myhfanalysis {
                 */
 
                 //fwdtrack propagation to collision
-                pars1.propagateToZlinear(collision.posZ());
-                pars2.propagateToZlinear(collision.posZ());
+                //pars1.propagateToZlinear(collision.posZ());
+                //pars2.propagateToZlinear(collision.posZ());
+                //double centerMFT[3] = {0, 0, -61.4};
+                //o2::field::MagneticField* field = static_cast<o2::field::MagneticField*>(TGeoGlobalMagField::Instance()->GetField());
+                //auto Bz = field->getBz(centerMFT); // Get field at centre of MFT
+                auto Bz = -5.;
+
+                o2::dataformats::GlobalFwdTrack propmuon1;
+                auto geoMan1 = o2::base::GeometryManager::meanMaterialBudget(fwdtrack1.x(), fwdtrack1.y(), fwdtrack1.z(), collision.posX(), collision.posY(), collision.posZ());
+                auto x2x01 = static_cast<float>(geoMan1.meanX2X0);
+                pars1.propagateToVtxhelixWithMCS(collision.posZ(), {collision.posX(), collision.posY()}, {collision.covXX(), collision.covYY()}, Bz, x2x01);
+                propmuon1.setParameters(pars1.getParameters());
+                propmuon1.setZ(pars1.getZ());
+                propmuon1.setCovariances(pars1.getCovariances());
+
+                o2::dataformats::GlobalFwdTrack propmuon2;
+                auto geoMan2 = o2::base::GeometryManager::meanMaterialBudget(fwdtrack2.x(), fwdtrack2.y(), fwdtrack2.z(), collision.posX(), collision.posY(), collision.posZ());
+                auto x2x02 = static_cast<float>(geoMan2.meanX2X0);
+                pars2.propagateToVtxhelixWithMCS(collision.posZ(), {collision.posX(), collision.posY()}, {collision.covXX(), collision.covYY()}, Bz, x2x02);
+                propmuon2.setParameters(pars2.getParameters());
+                propmuon2.setZ(pars2.getZ());
+                propmuon2.setCovariances(pars2.getCovariances());
 
                 //calculate pair DCA
-                float fwd1dcaX = (pars1.getX() - collision.posX());
-                float fwd1dcaY = (pars1.getY() - collision.posY());
-                float fwd2dcaX = (pars2.getX() - collision.posX());
-                float fwd2dcaY = (pars2.getY() - collision.posY());
+                //float fwd1dcaX = (pars1.getX() - collision.posX());
+                //float fwd1dcaY = (pars1.getY() - collision.posY());
+                //float fwd2dcaX = (pars2.getX() - collision.posX());
+                //float fwd2dcaY = (pars2.getY() - collision.posY());
+                float fwd1dcaX = (propmuon1.getX() - collision.posX());
+                float fwd1dcaY = (propmuon1.getY() - collision.posY());
+                float fwd2dcaX = (propmuon2.getX() - collision.posX());
+                float fwd2dcaY = (propmuon2.getY() - collision.posY());
                 float DCA1 = std::sqrt(fwd1dcaX * fwd1dcaX + fwd1dcaY * fwd1dcaY);
                 float DCA2 = std::sqrt(fwd2dcaX * fwd2dcaX + fwd2dcaY * fwd2dcaY);
                 float DCAmumu = std::sqrt((DCA1 * DCA1 + DCA2 * DCA2)/2);
@@ -769,837 +673,402 @@ struct myhfanalysis {
                         //registry.fill(HIST("hMassvsPtPM"), lv.M(), lv.Pt());
                         registry.fill(HIST("hMassvsDCAPM"), lv.M(), DCAmumu);
                         registry.fill(HIST("hMassvsChi2PM"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0PM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1PM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2PM"), lv.M(), DCAmumu);
-                        }
+                        registry.fill(HIST("hMassvsSVPM"), lv.M(), VertexingSV);
                         //select muons from HF semileptonic decays
                         if(signalbb->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPM"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPM"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPM"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPM"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPM"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPM"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPM"), lv.M(), VertexingSV);
                         } else if (signalbb1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPM1"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPM1"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPM1"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPM1"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPM1"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPM1"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPM1"), lv.M(), VertexingSV);
                         } else if (signalbb2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPM2"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPM2"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPM2"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPM2"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPM2"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPM2"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPM2"), lv.M(), VertexingSV);
                         } else if (signalbb3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPM3"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPM3"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPM3"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPM3"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPM3"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPM3"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPM3"), lv.M(), VertexingSV);
                         } else if (signalbb4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPM4"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPM4"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPM4"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPM4"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPM4"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPM4"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPM4"), lv.M(), VertexingSV);
                         } else if (signalbb5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPM5"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPM5"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPM5"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPM5"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPM5"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPM5"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPM5"), lv.M(), VertexingSV);
                         } else if (signalbb6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPM6"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPM6"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPM6"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPM6"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPM6"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPM6"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPM6"), lv.M(), VertexingSV);
                         } else if (signalbb7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPM7"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPM7"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPM7"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPM7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPM7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPM7"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPM7"), lv.M(), VertexingSV);
                         } else if (signalbb8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPM8"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPM8"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPM8"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPM8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPM8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPM8"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPM8"), lv.M(), VertexingSV);
                         } else if (signalcc->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPM"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPM"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPM"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPM"), lv.M(), VertexingSV);
                           if (signalcc1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPM1"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPM1"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPM1"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPM1"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPM1"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPM1"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPM1"), lv.M(), VertexingSV);
                           } else if (signalcc2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPM2"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPM2"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPM2"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPM2"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPM2"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPM2"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPM2"), lv.M(), VertexingSV);
                           } else if (signalcc3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPM3"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPM3"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPM3"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPM3"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPM3"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPM3"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPM3"), lv.M(), VertexingSV);
                           } else if (signalcc4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPM4"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPM4"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPM4"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPM4"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPM4"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPM4"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPM4"), lv.M(), VertexingSV);
                           } else if (signalcc5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPM5"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPM5"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPM5"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPM5"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPM5"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPM5"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPM5"), lv.M(), VertexingSV);
                           } else if (signalcc6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPM6"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPM6"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPM6"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPM6"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPM6"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPM6"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPM6"), lv.M(), VertexingSV);
                           }
                         } else if (signalcc7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPM7"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPM7"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPM7"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM7"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPM7"), lv.M(), VertexingSV);
                         } else if (signalcc8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPM8"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPM8"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPM8"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM8"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPM8"), lv.M(), VertexingSV);
                         } else if (signalcc9->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPM9"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPM9"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPM9"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM9"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM9"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM9"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPM9"), lv.M(), VertexingSV);
                         } else if (signalcc10->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPM10"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPM10"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPM10"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM10"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM10"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM10"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPM10"), lv.M(), VertexingSV);
                         } else if (signalcc11->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPM11"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPM11"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPM11"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM11"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM11"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM11"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPM11"), lv.M(), VertexingSV);
                         } else if (signalcc12->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPM12"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPM12"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPM12"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM12"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM12"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM12"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPM12"), lv.M(), VertexingSV);
                         } else if (signalcc13->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPM13"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPM13"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPM13"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM13"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM13"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM13"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPM13"), lv.M(), VertexingSV);
                         } else if (signalcc14->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPM14"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPM14"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPM14"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPM14"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPM14"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPM14"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPM14"), lv.M(), VertexingSV);
+                        }
+                        if (signalmufromphi->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufromomega->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufrometa->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufromrho->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufromjpsi->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          registry.fill(HIST("hMassvsDCAvecPM"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2vecPM"), lv.M(), chi2PCA);
+                          registry.fill(HIST("hMassvsSVvecPM"), lv.M(), VertexingSV);
                         }
                       } else if (fwdtrack1.signed1Pt() >= 0 && fwdtrack2.signed1Pt() >= 0) {
                         //fill mass vs DCA
                         //registry.fill(HIST("hMassvsPtPP"), lv.M(), lv.Pt());
                         registry.fill(HIST("hMassvsDCAPP"), lv.M(), DCAmumu);
                         registry.fill(HIST("hMassvsChi2PP"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0PP"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1PP"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2PP"), lv.M(), DCAmumu);
-                        }
+                        registry.fill(HIST("hMassvsSVPP"), lv.M(), VertexingSV);
                         //select muons from HF semileptonic decays
                         if(signalbb->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPP"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPP"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPP"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPP"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPP"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPP"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPP"), lv.M(), VertexingSV);
                         } else if (signalbb1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPP1"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPP1"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPP1"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPP1"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPP1"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPP1"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPP1"), lv.M(), VertexingSV);
                         } else if (signalbb2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPP2"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPP2"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPP2"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPP2"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPP2"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPP2"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPP2"), lv.M(), VertexingSV);
                         } else if (signalbb3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPP3"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPP3"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPP3"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPP3"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPP3"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPP3"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPP3"), lv.M(), VertexingSV);
                         } else if (signalbb4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPP4"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPP4"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPP4"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPP4"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPP4"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPP4"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPP4"), lv.M(), VertexingSV);
                         } else if (signalbb5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPP5"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPP5"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPP5"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPP5"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPP5"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPP5"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPP5"), lv.M(), VertexingSV);
                         } else if (signalbb6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPP6"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPP6"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPP6"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPP6"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPP6"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPP6"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPP6"), lv.M(), VertexingSV);
                         } else if (signalbb7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPP7"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPP7"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPP7"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPP7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPP7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPP7"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPP7"), lv.M(), VertexingSV);
                         } else if (signalbb8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbPP8"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbPP8"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbPP8"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbPP8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbPP8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbPP8"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbPP8"), lv.M(), VertexingSV);
                         } else if (signalcc->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPP"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPP"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPP"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPP"), lv.M(), VertexingSV);
                           if (signalcc1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPP1"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPP1"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPP1"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPP1"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPP1"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPP1"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPP1"), lv.M(), VertexingSV);
                           } else if (signalcc2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPP2"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPP2"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPP2"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPP2"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPP2"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPP2"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPP2"), lv.M(), VertexingSV);
                           } else if (signalcc3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPP3"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPP3"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPP3"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPP3"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPP3"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPP3"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPP3"), lv.M(), VertexingSV);
                           } else if (signalcc4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPP4"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPP4"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPP4"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPP4"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPP4"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPP4"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPP4"), lv.M(), VertexingSV);
                           } else if (signalcc5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPP5"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPP5"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPP5"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPP5"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPP5"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPP5"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPP5"), lv.M(), VertexingSV);
                           } else if (signalcc6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccPP6"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccPP6"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccPP6"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccPP6"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccPP6"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccPP6"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccPP6"), lv.M(), VertexingSV);
                           }
                         } else if (signalcc7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPP7"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPP7"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPP7"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP7"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPP7"), lv.M(), VertexingSV);
                         } else if (signalcc8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPP8"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPP8"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPP8"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP8"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPP8"), lv.M(), VertexingSV);
                         } else if (signalcc9->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPP9"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPP9"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPP9"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP9"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP9"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP9"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPP9"), lv.M(), VertexingSV);
                         } else if (signalcc10->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPP10"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPP10"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPP10"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP10"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP10"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP10"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPP10"), lv.M(), VertexingSV);
                         } else if (signalcc11->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPP11"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPP11"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPP11"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP11"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP11"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP11"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPP11"), lv.M(), VertexingSV);
                         } else if (signalcc12->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPP12"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPP12"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPP12"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP12"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP12"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP12"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPP12"), lv.M(), VertexingSV);
                         } else if (signalcc13->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPP13"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPP13"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPP13"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP13"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP13"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP13"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPP13"), lv.M(), VertexingSV);
                         } else if (signalcc14->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccPP14"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccPP14"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccPP14"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccPP14"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccPP14"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccPP14"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccPP14"), lv.M(), VertexingSV);
+                        }
+                        if (signalmufromphi->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufromomega->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufrometa->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufromrho->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufromjpsi->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          registry.fill(HIST("hMassvsDCAvecPP"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2vecPP"), lv.M(), chi2PCA);
+                          registry.fill(HIST("hMassvsSVvecPP"), lv.M(), VertexingSV);
                         }
                       } else if (fwdtrack1.signed1Pt() < 0 && fwdtrack2.signed1Pt() < 0) {
                         //fill mass vs DCA
                         //registry.fill(HIST("hMassvsPtMM"), lv.M(), lv.Pt());
                         registry.fill(HIST("hMassvsDCAMM"), lv.M(), DCAmumu);
                         registry.fill(HIST("hMassvsChi2MM"), lv.M(), chi2PCA);
-                        if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                          registry.fill(HIST("hMassvsDCAPt0MM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                          registry.fill(HIST("hMassvsDCAPt1MM"), lv.M(), DCAmumu);
-                        } else if (lv.Pt() >= 2) {
-                          registry.fill(HIST("hMassvsDCAPt2MM"), lv.M(), DCAmumu);
-                        }
+                        registry.fill(HIST("hMassvsSVMM"), lv.M(), VertexingSV);
                         //select muons from HF semileptonic decays
                         if(signalbb->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbMM"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbMM"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbMM"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbMM"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbMM"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbMM"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbMM"), lv.M(), VertexingSV);
                         } else if (signalbb1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbMM1"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbMM1"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbMM1"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbMM1"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbMM1"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbMM1"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbMM1"), lv.M(), VertexingSV);
                         } else if (signalbb2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbMM2"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbMM2"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbMM2"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbMM2"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbMM2"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbMM2"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbMM2"), lv.M(), VertexingSV);
                         } else if (signalbb3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbMM3"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbMM3"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbMM3"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbMM3"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbMM3"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbMM3"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbMM3"), lv.M(), VertexingSV);
                         } else if (signalbb4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbMM4"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbMM4"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbMM4"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbMM4"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbMM4"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbMM4"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbMM4"), lv.M(), VertexingSV);
                         } else if (signalbb5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbMM5"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbMM5"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbMM5"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbMM5"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbMM5"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbMM5"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbMM5"), lv.M(), VertexingSV);
                         } else if (signalbb6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbMM6"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbMM6"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbMM6"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbMM6"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbMM6"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbMM6"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbMM6"), lv.M(), VertexingSV);
                         } else if (signalbb7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbMM7"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbMM7"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbMM7"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbMM7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbMM7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbMM7"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbMM7"), lv.M(), VertexingSV);
                         } else if (signalbb8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtbbMM8"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAbbMM8"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2bbMM8"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0bbMM8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1bbMM8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2bbMM8"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVbbMM8"), lv.M(), VertexingSV);
                         } else if (signalcc->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccMM"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccMM"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccMM"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccMM"), lv.M(), VertexingSV);
                           if (signalcc1->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccMM1"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccMM1"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccMM1"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccMM1"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccMM1"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccMM1"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccMM1"), lv.M(), VertexingSV);
                           } else if (signalcc2->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccMM2"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccMM2"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccMM2"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccMM2"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccMM2"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccMM2"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccMM2"), lv.M(), VertexingSV);
                           } else if (signalcc3->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccMM3"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccMM3"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccMM3"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccMM3"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccMM3"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccMM3"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccMM3"), lv.M(), VertexingSV);
                           } else if (signalcc4->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccMM4"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccMM4"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccMM4"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccMM4"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccMM4"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccMM4"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccMM4"), lv.M(), VertexingSV);
                           } else if (signalcc5->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccMM5"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccMM5"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccMM5"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccMM5"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccMM5"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccMM5"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccMM5"), lv.M(), VertexingSV);
                           } else if (signalcc6->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                             //registry.fill(HIST("hMassvsPtccMM6"), lv.M(), lv.Pt());
                             registry.fill(HIST("hMassvsDCAccMM6"), lv.M(), DCAmumu);
                             registry.fill(HIST("hMassvsChi2ccMM6"), lv.M(), chi2PCA);
-                            if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                              registry.fill(HIST("hMassvsDCAPt0ccMM6"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                              registry.fill(HIST("hMassvsDCAPt1ccMM6"), lv.M(), DCAmumu);
-                            } else if (lv.Pt() >= 2) {
-                              registry.fill(HIST("hMassvsDCAPt2ccMM6"), lv.M(), DCAmumu);
-                            }
+                            registry.fill(HIST("hMassvsSVccMM6"), lv.M(), VertexingSV);
                           }
                         } else if (signalcc7->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccMM7"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccMM7"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccMM7"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM7"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM7"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccMM7"), lv.M(), VertexingSV);
                         } else if (signalcc8->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccMM8"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccMM8"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccMM8"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM8"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM8"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccMM8"), lv.M(), VertexingSV);
                         } else if (signalcc9->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccMM9"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccMM9"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccMM9"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM9"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM9"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM9"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccMM9"), lv.M(), VertexingSV);
                         } else if (signalcc10->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccMM10"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccMM10"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccMM10"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM10"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM10"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM10"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccMM10"), lv.M(), VertexingSV);
                         } else if (signalcc11->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccMM11"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccMM11"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccMM11"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM11"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM11"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM11"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccMM11"), lv.M(), VertexingSV);
                         } else if (signalcc12->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccMM12"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccMM12"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccMM12"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM12"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM12"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM12"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccMM12"), lv.M(), VertexingSV);
                         } else if (signalcc13->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccMM13"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccMM13"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccMM13"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM13"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM13"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM13"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccMM13"), lv.M(), VertexingSV);
                         } else if (signalcc14->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           //registry.fill(HIST("hMassvsPtccMM14"), lv.M(), lv.Pt());
                           registry.fill(HIST("hMassvsDCAccMM14"), lv.M(), DCAmumu);
                           registry.fill(HIST("hMassvsChi2ccMM14"), lv.M(), chi2PCA);
-                          if (lv.Pt() >= 0 && lv.Pt() < 1) {
-                            registry.fill(HIST("hMassvsDCAPt0ccMM14"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 1 && lv.Pt() < 2) {
-                            registry.fill(HIST("hMassvsDCAPt1ccMM14"), lv.M(), DCAmumu);
-                          } else if (lv.Pt() >= 2) {
-                            registry.fill(HIST("hMassvsDCAPt2ccMM14"), lv.M(), DCAmumu);
-                          }
+                          registry.fill(HIST("hMassvsSVccMM14"), lv.M(), VertexingSV);
+                        }
+                        if (signalmufromphi->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufromomega->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufrometa->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufromrho->CheckSignal(true, fwdparticle1, fwdparticle2) || signalmufromjpsi->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          registry.fill(HIST("hMassvsDCAvecMM"), lv.M(), DCAmumu);
+                          registry.fill(HIST("hMassvsChi2vecMM"), lv.M(), chi2PCA);
+                          registry.fill(HIST("hMassvsSVvecMM"), lv.M(), VertexingSV);
                         }
                       }
                     }
