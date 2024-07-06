@@ -125,7 +125,7 @@ struct dimuonall_data {
       float DCA1 = std::sqrt(dimuon.fwdDcaX1() * dimuon.fwdDcaX1() + dimuon.fwdDcaY1() * dimuon.fwdDcaY1());
       float DCA2 = std::sqrt(dimuon.fwdDcaX2() * dimuon.fwdDcaX2() + dimuon.fwdDcaY2() * dimuon.fwdDcaY2());
       float DCAmumu = std::sqrt((DCA1 * DCA1 + DCA2 * DCA2)/2);
-      double dcacut = 0.06;
+      double dcacut = 0.24;
       double pcacut = 2.;
       if (dimuon.sVertex() >= -20 || dimuon.sVertex() == -999) {
         if (dimuon.isAmbig1() == 0 && dimuon.isAmbig2() == 0) {

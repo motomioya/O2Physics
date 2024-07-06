@@ -986,6 +986,8 @@ void o2::aod::dqhistograms::DefineHistograms(HistogramManager* hm, const char* h
       }
       if (subGroupStr.Contains("lmmumu")) {
         hm->AddHistogram(histClass, "Mass_QuadDCAabsXY", "", false, 250, 0.0, 5.0, VarManager::kMass, 500, 0.0, 1, VarManager::kQuadDCAabsXY);
+        hm->AddHistogram(histClass, "Mass_SV", "", false, 250, 0.0, 5.0, VarManager::kMass, 200, -10.0, 10.0, VarManager::kVertexingSV);
+        hm->AddHistogram(histClass, "Mass_PCA", "", false, 250, 0.0, 5.0, VarManager::kMass, 100, 0.0, 10.0, VarManager::kVertexingChi2PCA);
       }
       if (subGroupStr.Contains("flow-dimuon")) {
         int varV2[6] = {VarManager::kMass, VarManager::kPt, VarManager::kRap, VarManager::kCentFT0C, VarManager::kU2Q2, VarManager::kCos2DeltaPhi};
