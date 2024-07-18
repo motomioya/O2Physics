@@ -89,6 +89,16 @@ o2physics_add_dpl_workflow(myhfanalysis
                   PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
                   COMPONENT_NAME Analysis)
 
+o2physics_add_dpl_workflow(mybbanalysis
+                  SOURCES mybbanalysis.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                  COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(myvmanalysis
+                  SOURCES myvmanalysis.cxx
+                  PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                  COMPONENT_NAME Analysis)
+
 o2physics_add_dpl_workflow(eventmixing
                   SOURCES eventmixing.cxx
                   PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore

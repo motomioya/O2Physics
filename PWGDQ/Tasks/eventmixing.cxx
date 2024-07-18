@@ -97,8 +97,8 @@ struct eventmixing {
   o2::base::MatLayerCylSet* lut = nullptr;
 
   Configurable<int> ndepth{"ndepth", 5, "depth for event mixing"};
-  ConfigurableAxis ConfVtxBins{"ConfVtxBins", {VARIABLE_WIDTH, -10.0f, -8.f, -6.f, -4.f, -2.f, 0.f, 2.f, 4.f, 6.f, 8.f, 10.f}, "Mixing bins - z-vertex"};
-  ConfigurableAxis ConfVtxBinsOne{"ConfVtxBinsOne", {VARIABLE_WIDTH, -10.0f, 10.f}, "Mixing bins - z-vertex"};
+  ConfigurableAxis ConfVtxBins{"ConfVtxBins", {VARIABLE_WIDTH, -10.0f, -7.5f, -5.0f, -2.5f, 0.0f, 2.5f, 5.0f, 7.5f, 10.0f}, "Mixing bins - z-vertex"};
+  ConfigurableAxis ConfVtxBinsOne{"ConfVtxBinsOne", {VARIABLE_WIDTH, -10.0f, 10.0f}, "Mixing bins - z-vertex"};
 
   BinningType colBinning{{ConfVtxBins}, true};
   BinningType colBinningOne{{ConfVtxBinsOne}, true};
@@ -106,12 +106,60 @@ struct eventmixing {
   HistogramRegistry registry{
     "registry", 
     {
-      {"hMassEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
-      {"hMassEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
-      {"hSV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
-      {"hMassEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
-      {"hMassEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
-      {"hSVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPMMassPtEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMMassPtEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMSV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPMMassPtEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMMassPtEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMSVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPMcut1MassPtEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMcut1MassPtEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMcut1SV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPMcut1MassPtEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMcut1MassPtEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMcut1SVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPMcut2MassPtEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMcut2MassPtEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMcut2SV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPMcut2MassPtEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMcut2MassPtEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPMcut2SVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPPMassPtEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPMassPtEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPSV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPPMassPtEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPMassPtEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPSVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPPcut1MassPtEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPcut1MassPtEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPcut1SV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPPcut1MassPtEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPcut1MassPtEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPcut1SVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPPcut2MassPtEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPcut2MassPtEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPcut2SV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hPPcut2MassPtEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPcut2MassPtEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hPPcut2SVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hMMMassPtEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMMassPtEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMSV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hMMMassPtEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMMassPtEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMSVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hMMcut1MassPtEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMcut1MassPtEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMcut1SV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hMMcut1MassPtEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMcut1MassPtEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMcut1SVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hMMcut2MassPtEM", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMcut2MassPtEMVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMcut2SV", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
+      {"hMMcut2MassPtEMSVcut", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMcut2MassPtEMSVcutVtx", "Invariant;Invariant Mass (GeV/c^{2});mass", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"hMMcut2SVVtx", "SV;SV(z);SV(z)", {HistType::kTH1F, {{1100, -1000, 100}}}},
     },
   };
 
@@ -134,6 +182,8 @@ struct eventmixing {
     float minParamChange = 1.0e-3;
     float minRelChi2Change = 0.9;
     bool useAbsDCA = false;
+    float ptcut1 = 0.5;
+    float ptcut2 = 1.0;
 
     lut = o2::base::MatLayerCylSet::rectifyPtrFromFile(ccdb->get<o2::base::MatLayerCylSet>("GLO/Param/MatLUT"));
     fgFitterTwoProngFwd.setTGeoMat(false);
@@ -149,7 +199,7 @@ struct eventmixing {
     for (auto& [collision1, collision2] : soa::selfCombinations(colBinning, ndepth, -1, collisions, collisions)) {
       auto muonIdsThisCollision1 = fwdtrackIndices.sliceBy(fwdtrackIndicesPerCollision, collision1.globalIndex());
       auto muonIdsThisCollision2 = fwdtrackIndices.sliceBy(fwdtrackIndicesPerCollision, collision2.globalIndex());
-      for (auto& [fwdtrackId1, fwdtrackId2] : combinations(o2::soa::CombinationsStrictlyUpperIndexPolicy(muonIdsThisCollision1, muonIdsThisCollision2))) {
+      for (auto& [fwdtrackId1, fwdtrackId2] : combinations(o2::soa::CombinationsFullIndexPolicy(muonIdsThisCollision1, muonIdsThisCollision2))) {
         for (auto& fwdtrack1 : fwdtracks) {
           if (fwdtrack1.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId1.fwdtrackId() == fwdtrack1.globalIndex() && fwdtrack1.chi2MatchMCHMFT() < 50 && fwdtrack1.compatibleCollIds().size() == 1) {
             for (auto& fwdtrack2 : fwdtracks) {
@@ -182,10 +232,66 @@ struct eventmixing {
                   VertexingSV = secondaryVertex[2];
                 }
 
-                registry.fill(HIST("hMassEMVtx"), lv.M());
-                registry.fill(HIST("hSVVtx"), VertexingSV);
-                if (VertexingSV >= -20 || VertexingSV == -999) {
-                  registry.fill(HIST("hMassEMSVcutVtx"), lv.M());
+                if (fwdtrack1.signed1Pt()*fwdtrack2.signed1Pt() < 0) {
+                  registry.fill(HIST("hPMMassPtEMVtx"), lv.M(), lv.Pt());
+                  registry.fill(HIST("hPMSVVtx"), VertexingSV);
+                  if (VertexingSV >= -20 || VertexingSV == -999) {
+                    registry.fill(HIST("hPMMassPtEMSVcutVtx"), lv.M(), lv.Pt());
+                  }
+                  if (fwdtrack1.pt() >= ptcut1 && fwdtrack2.pt() >= ptcut1) {
+                    registry.fill(HIST("hPMcut1MassPtEMVtx"), lv.M(), lv.Pt());
+                    registry.fill(HIST("hPMcut1SVVtx"), VertexingSV);
+                    if (VertexingSV >= -20 || VertexingSV == -999) {
+                      registry.fill(HIST("hPMcut1MassPtEMSVcutVtx"), lv.M(), lv.Pt());
+                    }
+                    if (fwdtrack1.pt() >= ptcut2 && fwdtrack2.pt() >= ptcut2) {
+                      registry.fill(HIST("hPMcut2MassPtEMVtx"), lv.M(), lv.Pt());
+                      registry.fill(HIST("hPMcut2SVVtx"), VertexingSV);
+                      if (VertexingSV >= -20 || VertexingSV == -999) {
+                        registry.fill(HIST("hPMcut2MassPtEMSVcutVtx"), lv.M(), lv.Pt());
+                      }
+                    }
+                  }
+                } else if (fwdtrack1.signed1Pt() >= 0 && fwdtrack2.signed1Pt() >= 0) {
+                  registry.fill(HIST("hPPMassPtEMVtx"), lv.M(), lv.Pt());
+                  registry.fill(HIST("hPPSVVtx"), VertexingSV);
+                  if (VertexingSV >= -20 || VertexingSV == -999) {
+                    registry.fill(HIST("hPPMassPtEMSVcutVtx"), lv.M(), lv.Pt());
+                  }
+                  if (fwdtrack1.pt() >= ptcut1 && fwdtrack2.pt() >= ptcut1) {
+                    registry.fill(HIST("hPPcut1MassPtEMVtx"), lv.M(), lv.Pt());
+                    registry.fill(HIST("hPPcut1SVVtx"), VertexingSV);
+                    if (VertexingSV >= -20 || VertexingSV == -999) {
+                      registry.fill(HIST("hPPcut1MassPtEMSVcutVtx"), lv.M(), lv.Pt());
+                    }
+                    if (fwdtrack1.pt() >= ptcut2 && fwdtrack2.pt() >= ptcut2) {
+                      registry.fill(HIST("hPPcut2MassPtEMVtx"), lv.M(), lv.Pt());
+                      registry.fill(HIST("hPPcut2SVVtx"), VertexingSV);
+                      if (VertexingSV >= -20 || VertexingSV == -999) {
+                        registry.fill(HIST("hPPcut2MassPtEMSVcutVtx"), lv.M(), lv.Pt());
+                      }
+                    }
+                  }
+                } else if (fwdtrack1.signed1Pt() < 0 && fwdtrack2.signed1Pt() < 0) {
+                  registry.fill(HIST("hMMMassPtEMVtx"), lv.M(), lv.Pt());
+                  registry.fill(HIST("hMMSVVtx"), VertexingSV);
+                  if (VertexingSV >= -20 || VertexingSV == -999) {
+                    registry.fill(HIST("hMMMassPtEMSVcutVtx"), lv.M(), lv.Pt());
+                  }
+                  if (fwdtrack1.pt() >= ptcut1 && fwdtrack2.pt() >= ptcut1) {
+                    registry.fill(HIST("hMMcut1MassPtEMVtx"), lv.M(), lv.Pt());
+                    registry.fill(HIST("hMMcut1SVVtx"), VertexingSV);
+                    if (VertexingSV >= -20 || VertexingSV == -999) {
+                      registry.fill(HIST("hMMcut1MassPtEMSVcutVtx"), lv.M(), lv.Pt());
+                    }
+                    if (fwdtrack1.pt() >= ptcut2 && fwdtrack2.pt() >= ptcut2) {
+                      registry.fill(HIST("hMMcut2MassPtEMVtx"), lv.M(), lv.Pt());
+                      registry.fill(HIST("hMMcut2SVVtx"), VertexingSV);
+                      if (VertexingSV >= -20 || VertexingSV == -999) {
+                        registry.fill(HIST("hMMcut2MassPtEMSVcutVtx"), lv.M(), lv.Pt());
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -196,7 +302,7 @@ struct eventmixing {
     for (auto& [collision1, collision2] : soa::selfCombinations(colBinningOne, ndepth, -1, collisions, collisions)) {
       auto muonIdsThisCollision1 = fwdtrackIndices.sliceBy(fwdtrackIndicesPerCollision, collision1.globalIndex());
       auto muonIdsThisCollision2 = fwdtrackIndices.sliceBy(fwdtrackIndicesPerCollision, collision2.globalIndex());
-      for (auto& [fwdtrackId1, fwdtrackId2] : combinations(o2::soa::CombinationsStrictlyUpperIndexPolicy(muonIdsThisCollision1, muonIdsThisCollision2))) {
+      for (auto& [fwdtrackId1, fwdtrackId2] : combinations(o2::soa::CombinationsFullIndexPolicy(muonIdsThisCollision1, muonIdsThisCollision2))) {
         for (auto& fwdtrack1 : fwdtracks) {
           if (fwdtrack1.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId1.fwdtrackId() == fwdtrack1.globalIndex() && fwdtrack1.chi2MatchMCHMFT() < 50 && fwdtrack1.compatibleCollIds().size() == 1) {
             for (auto& fwdtrack2 : fwdtracks) {
@@ -229,10 +335,66 @@ struct eventmixing {
                   VertexingSV = secondaryVertex[2];
                 }
 
-                registry.fill(HIST("hMassEM"), lv.M());
-                registry.fill(HIST("hSV"), VertexingSV);
-                if (VertexingSV >= -20 || VertexingSV == -999) {
-                  registry.fill(HIST("hMassEMSVcut"), lv.M());
+                if (fwdtrack1.signed1Pt()*fwdtrack2.signed1Pt() < 0) {
+                  registry.fill(HIST("hPMMassPtEM"), lv.M(), lv.Pt());
+                  registry.fill(HIST("hPMSV"), VertexingSV);
+                  if (VertexingSV >= -20 || VertexingSV == -999) {
+                    registry.fill(HIST("hPMMassPtEMSVcut"), lv.M(), lv.Pt());
+                  }
+                  if (fwdtrack1.pt() >= ptcut1 && fwdtrack2.pt() >= ptcut1) {
+                    registry.fill(HIST("hPMcut1MassPtEM"), lv.M(), lv.Pt());
+                    registry.fill(HIST("hPMcut1SV"), VertexingSV);
+                    if (VertexingSV >= -20 || VertexingSV == -999) {
+                      registry.fill(HIST("hPMcut1MassPtEMSVcut"), lv.M(), lv.Pt());
+                    }
+                    if (fwdtrack1.pt() >= ptcut2 && fwdtrack2.pt() >= ptcut2) {
+                      registry.fill(HIST("hPMcut2MassPtEM"), lv.M(), lv.Pt());
+                      registry.fill(HIST("hPMcut2SV"), VertexingSV);
+                      if (VertexingSV >= -20 || VertexingSV == -999) {
+                        registry.fill(HIST("hPMcut2MassPtEMSVcut"), lv.M(), lv.Pt());
+                      }
+                    }
+                  }
+                } else if (fwdtrack1.signed1Pt() >= 0 && fwdtrack2.signed1Pt() >= 0) {
+                  registry.fill(HIST("hPPMassPtEM"), lv.M(), lv.Pt());
+                  registry.fill(HIST("hPPSV"), VertexingSV);
+                  if (VertexingSV >= -20 || VertexingSV == -999) {
+                    registry.fill(HIST("hPPMassPtEMSVcut"), lv.M(), lv.Pt());
+                  }
+                  if (fwdtrack1.pt() >= ptcut1 && fwdtrack2.pt() >= ptcut1) {
+                    registry.fill(HIST("hPPcut1MassPtEM"), lv.M(), lv.Pt());
+                    registry.fill(HIST("hPPcut1SV"), VertexingSV);
+                    if (VertexingSV >= -20 || VertexingSV == -999) {
+                      registry.fill(HIST("hPPcut1MassPtEMSVcut"), lv.M(), lv.Pt());
+                    }
+                    if (fwdtrack1.pt() >= ptcut2 && fwdtrack2.pt() >= ptcut2) {
+                      registry.fill(HIST("hPPcut2MassPtEM"), lv.M(), lv.Pt());
+                      registry.fill(HIST("hPPcut2SV"), VertexingSV);
+                      if (VertexingSV >= -20 || VertexingSV == -999) {
+                        registry.fill(HIST("hPPcut2MassPtEMSVcut"), lv.M(), lv.Pt());
+                      }
+                    }
+                  }
+                } else if (fwdtrack1.signed1Pt() < 0 && fwdtrack2.signed1Pt() < 0) {
+                  registry.fill(HIST("hMMMassPtEM"), lv.M(), lv.Pt());
+                  registry.fill(HIST("hMMSV"), VertexingSV);
+                  if (VertexingSV >= -20 || VertexingSV == -999) {
+                    registry.fill(HIST("hMMMassPtEMSVcut"), lv.M(), lv.Pt());
+                  }
+                  if (fwdtrack1.pt() >= ptcut1 && fwdtrack2.pt() >= ptcut1) {
+                    registry.fill(HIST("hMMcut1MassPtEM"), lv.M(), lv.Pt());
+                    registry.fill(HIST("hMMcut1SV"), VertexingSV);
+                    if (VertexingSV >= -20 || VertexingSV == -999) {
+                      registry.fill(HIST("hMMcut1MassPtEMSVcut"), lv.M(), lv.Pt());
+                    }
+                    if (fwdtrack1.pt() >= ptcut2 && fwdtrack2.pt() >= ptcut2) {
+                      registry.fill(HIST("hMMcut2MassPtEM"), lv.M(), lv.Pt());
+                      registry.fill(HIST("hMMcut2SV"), VertexingSV);
+                      if (VertexingSV >= -20 || VertexingSV == -999) {
+                        registry.fill(HIST("hMMcut2MassPtEMSVcut"), lv.M(), lv.Pt());
+                      }
+                    }
+                  }
                 }
               }
             }
