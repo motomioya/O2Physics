@@ -349,9 +349,11 @@ struct mybbanalysis {
       auto muonIdsThisCollision = fwdtrackIndices.sliceBy(fwdtrackIndicesPerCollision, collision.globalIndex());
       for (auto& [fwdtrackId1, fwdtrackId2] : combinations(o2::soa::CombinationsStrictlyUpperIndexPolicy(muonIdsThisCollision, muonIdsThisCollision))) {
         for (auto& fwdtrack1 : fwdtracks) {
-          if (fwdtrack1.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId1.fwdtrackId() == fwdtrack1.globalIndex() && fwdtrack1.chi2MatchMCHMFT() < 50 && fwdtrack1.compatibleCollIds().size() == 1) {
+          //if (fwdtrack1.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId1.fwdtrackId() == fwdtrack1.globalIndex() && fwdtrack1.chi2MatchMCHMFT() < 50 && fwdtrack1.compatibleCollIds().size() == 1) {
+          if (fwdtrack1.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId1.fwdtrackId() == fwdtrack1.globalIndex()) {
             for (auto& fwdtrack2 : fwdtracks) {
-              if (fwdtrack2.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId2.fwdtrackId() == fwdtrack2.globalIndex() && fwdtrack2.chi2MatchMCHMFT() < 50 && fwdtrack2.compatibleCollIds().size() == 1) {
+              //if (fwdtrack2.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId2.fwdtrackId() == fwdtrack2.globalIndex() && fwdtrack2.chi2MatchMCHMFT() < 50 && fwdtrack2.compatibleCollIds().size() == 1) {
+              if (fwdtrack2.trackType() == aod::fwdtrack::ForwardTrackTypeEnum::GlobalMuonTrack && fwdtrackId2.fwdtrackId() == fwdtrack2.globalIndex()) {
                 //calculate mass
                 TLorentzVector lv1, lv2, lv;
                 lv1.SetPtEtaPhiM(fwdtrack1.pt(), fwdtrack1.eta(), fwdtrack1.phi(), muonMass);
@@ -386,7 +388,7 @@ struct mybbanalysis {
                 //Get secondary vertex using DCAFitterN
                 int procCode = fgFitterTwoProngFwd.process(pars1, pars2);
                 double chi2PCA = -999;
-                double VertexingSV = -999;
+                //double VertexingSV = -999;
                 double VertexingLxyz = -999;
                 if (procCode == 0 ) {
                   continue;
@@ -400,7 +402,7 @@ struct mybbanalysis {
                 VertexingLxy = std::sqrt(VertexingLxy);
                 VertexingLz = std::sqrt(VertexingLz);
                 VertexingLxyz = std::sqrt(VertexingLxyz);
-                VertexingSV = secondaryVertex[2];
+                //VertexingSV = secondaryVertex[2];
 
                 //Get secondary vertex using KFparticles
                 /*
@@ -469,7 +471,7 @@ struct mybbanalysis {
                   const auto mcmothersidlist2 = fwdparticle2.mothersIds();
                   if (fwdparticle1.globalIndex() != fwdparticle2.globalIndex()) {
                     //svcut
-                    if(VertexingSV > -20 || VertexingSV == -999) {
+                    //if(VertexingSV > -20 || VertexingSV == -999) {
                       if (fwdtrack1.signed1Pt()*fwdtrack2.signed1Pt() < 0) {
                         //fill mass vs DCA
                         registry.fill(HIST("hMassvsPtPM"), lv.M(), lv.Pt());
@@ -813,7 +815,7 @@ struct mybbanalysis {
                           */
                         }
                       }
-                    }
+                    //}
                   }
                 }
               }
