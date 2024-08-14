@@ -93,18 +93,31 @@ struct myvmanalysis {
   HistogramRegistry registry{
     "registry", 
     {
-      {"hJpsiMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
-      {"hJpsiDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
-      {"hJpsiLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
-      {"hJpsiPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
-      {"hnonPJpsiMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
-      {"hnonPJpsiDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
-      {"hnonPJpsiLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
-      {"hnonPJpsiPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
-      {"hPsi2sMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
-      {"hPsi2sDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
-      {"hPsi2sLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
-      {"hPsi2sPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"hetaMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hetaMassMcPM", "Invariant;Invariant MassMc (GeV/c^{2});MassMc", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hetaDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
+      {"hetaLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
+      {"hetaPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"hetaprimeMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hetaprimeMassMcPM", "Invariant;Invariant MassMc (GeV/c^{2});MassMc", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hetaprimeDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
+      {"hetaprimeLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
+      {"hetaprimePCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"hrhoMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hrhoMassMcPM", "Invariant;Invariant MassMc (GeV/c^{2});MassMc", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hrhoDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
+      {"hrhoLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
+      {"hrhoPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"homegaMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"homegaMassMcPM", "Invariant;Invariant MassMc (GeV/c^{2});MassMc", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"homegaDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
+      {"homegaLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
+      {"homegaPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"hphiMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hphiMassMcPM", "Invariant;Invariant MassMc (GeV/c^{2});MassMc", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hphiDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
+      {"hphiLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
+      {"hphiPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
     },
   };
 
@@ -139,18 +152,30 @@ struct myvmanalysis {
     fgFitterTwoProngFwd.setMinRelChi2Change(minRelChi2Change);
     fgFitterTwoProngFwd.setUseAbsDCA(useAbsDCA);
 
-    //Configuring signals bb -> mumu
-    MCSignal* signaljpsi;
-    MCProng prongjpsitomu(2, {13, 443}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {503}, {true});
-    signaljpsi = new MCSignal("Prompt J/psi", "mumu from non-prompt jpsi decays with beauty in decay chain", {prongjpsitomu, prongjpsitomu}, {1, 1});
+    MCSignal* signaleta;
+    MCProng prongeta(2, {13, 221}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongeta.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signaleta = new MCSignal("signaleta", "ee pairs from eta decays", {prongeta, prongeta}, {1, 1}); // signal at pair level
+                                                                                              //
+    MCSignal* signaletaprime;
+    MCProng prongetaprime(2, {13, 331}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongetaprime.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signaletaprime = new MCSignal("signaletaprime", "ee pairs from etaprime decays", {prongetaprime, prongetaprime}, {1, 1}); // signal at pair level
 
-    MCSignal* signalpsi2s;
-    MCProng prongpsi2s(2, {13, 100443}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
-    signalpsi2s = new MCSignal("Psi2STomumu", "mumu pairs from psi2s decays", {prongpsi2s, prongpsi2s}, {1, 1}); // signal at pair level
-                                                                                                                 //
-    MCSignal* signalnonpromptjpsi;
-    MCProng prongnonpromptjpsi(2, {13, 443}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {503}, {false});
-    signalnonpromptjpsi = new MCSignal("Non-Prompt J/psi", "mumu from non-prompt jpsi decays with beauty in decay chain", {prongnonpromptjpsi, prongnonpromptjpsi}, {1, 1});
+    MCSignal* signalrho;
+    MCProng prongrho(2, {13, 113}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongrho.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signalrho = new MCSignal("signalrho", "ee pairs from rho decays", {prongrho, prongrho}, {1, 1}); // signal at pair level
+                                                                                              
+    MCSignal* signalomega;
+    MCProng prongomega(2, {13, 223}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongomega.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signalomega = new MCSignal("signalomega", "ee pairs from omega decays", {prongomega, prongomega}, {1, 1}); // signal at pair level
+                                                                                                      
+    MCSignal* signalphi;
+    MCProng prongphi(2, {13, 333}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    prongphi.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signalphi = new MCSignal("signalphi", "ee pairs from phi decays", {prongphi, prongphi}, {1, 1}); // signal at pair level
 
     for (auto& collision : collisions) {
       //auto bc = collision.bc_as<aod::BCsWithTimestamps>();
@@ -283,27 +308,49 @@ struct myvmanalysis {
                   auto fwdparticle2 = fwdtrack2.mcParticle();
                   const auto mcmothersidlist1 = fwdparticle1.mothersIds();
                   const auto mcmothersidlist2 = fwdparticle2.mothersIds();
+                  TLorentzVector lvmc1, lvmc2, lvmc;
+                  lvmc1.SetPtEtaPhiM(fwdparticle1.pt(), fwdparticle1.eta(), fwdparticle1.phi(), muonMass);
+                  lvmc2.SetPtEtaPhiM(fwdparticle2.pt(), fwdparticle2.eta(), fwdparticle2.phi(), muonMass);
+                  lvmc = lvmc1 + lvmc2;
                   if (fwdparticle1.globalIndex() != fwdparticle2.globalIndex()) {
                     //svcut
                     if(VertexingSV > -20 || VertexingSV == -999) {
                       if (fwdtrack1.signed1Pt()*fwdtrack2.signed1Pt() < 0) {
-                        if(signaljpsi->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hJpsiMassPM"), lv.M());
-                          registry.fill(HIST("hJpsiDCAxyPM"), DCAmumu);
-                          registry.fill(HIST("hJpsiLxyzPM"), VertexingLxyz);
-                          registry.fill(HIST("hJpsiPCAchiPM"), chi2PCA);
+                        if(signaleta->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          registry.fill(HIST("hetaMassPM"), lv.M());
+                          registry.fill(HIST("hetaMassMcPM"), lvmc.M());
+                          registry.fill(HIST("hetaDCAxyPM"), DCAmumu);
+                          registry.fill(HIST("hetaLxyzPM"), VertexingLxyz);
+                          registry.fill(HIST("hetaPCAchiPM"), chi2PCA);
                         } 
-                        if(signalpsi2s->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hPsi2sMassPM"), lv.M());
-                          registry.fill(HIST("hPsi2sDCAxyPM"), DCAmumu);
-                          registry.fill(HIST("hPsi2sLxyzPM"), VertexingLxyz);
-                          registry.fill(HIST("hPsi2sPCAchiPM"), chi2PCA);
+                        if(signaletaprime->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          registry.fill(HIST("hetaprimeMassPM"), lv.M());
+                          registry.fill(HIST("hetaprimeMassMcPM"), lvmc.M());
+                          registry.fill(HIST("hetaprimeDCAxyPM"), DCAmumu);
+                          registry.fill(HIST("hetaprimeLxyzPM"), VertexingLxyz);
+                          registry.fill(HIST("hetaprimePCAchiPM"), chi2PCA);
                         }
-                        if(signalnonpromptjpsi->CheckSignal(true, fwdparticle1, fwdparticle2)) {
-                          registry.fill(HIST("hnonPJpsiMassPM"), lv.M());
-                          registry.fill(HIST("hnonPJpsiDCAxyPM"), DCAmumu);
-                          registry.fill(HIST("hnonPJpsiLxyzPM"), VertexingLxyz);
-                          registry.fill(HIST("hnonPJpsiPCAchiPM"), chi2PCA);
+                        if(signalrho->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          registry.fill(HIST("hrhoMassPM"), lv.M());
+                          registry.fill(HIST("hrhoMassMcPM"), lvmc.M());
+                          registry.fill(HIST("hrhoDCAxyPM"), DCAmumu);
+                          registry.fill(HIST("hrhoLxyzPM"), VertexingLxyz);
+                          registry.fill(HIST("hrhoPCAchiPM"), chi2PCA);
+                        }
+                        if(signalomega->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          registry.fill(HIST("homegaMassPM"), lv.M());
+                          registry.fill(HIST("homegaMassMcPM"), lvmc.M());
+                          registry.fill(HIST("hrhoDCAxyPM"), DCAmumu);
+                          registry.fill(HIST("homegaDCAxyPM"), DCAmumu);
+                          registry.fill(HIST("homegaLxyzPM"), VertexingLxyz);
+                          registry.fill(HIST("homegaPCAchiPM"), chi2PCA);
+                        }
+                        if(signalphi->CheckSignal(true, fwdparticle1, fwdparticle2)) {
+                          registry.fill(HIST("hphiMassPM"), lv.M());
+                          registry.fill(HIST("hphiMassMcPM"), lvmc.M());
+                          registry.fill(HIST("hphiDCAxyPM"), DCAmumu);
+                          registry.fill(HIST("hphiLxyzPM"), VertexingLxyz);
+                          registry.fill(HIST("hphiPCAchiPM"), chi2PCA);
                         }
                       }
                     }

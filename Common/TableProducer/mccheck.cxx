@@ -42,10 +42,24 @@ using namespace std;
 
 struct mccheck {
 
+  int muonPDGCode = 13;
+  TParticlePDG* muonParticle = TDatabasePDG::Instance()->GetParticle(muonPDGCode);
+  double muonMass = muonParticle->Mass();
+
   //MCSignal* mySignal;
   HistogramRegistry registry{
     "registry", //
     {
+      {"hetaMcMassPM", "Invariant;Invariant McMass (GeV/c^{2});McMass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hetaMcPtPM", "Invariant;Invariant McPt (GeV/c^{2});McPt", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hetaprimeMcMassPM", "Invariant;Invariant McMass (GeV/c^{2});McMass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hetaprimeMcPtPM", "Invariant;Invariant McPt (GeV/c^{2});McPt", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hrhoMcMassPM", "Invariant;Invariant McMass (GeV/c^{2});McMass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hrhoMcPtPM", "Invariant;Invariant McPt (GeV/c^{2});McPt", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"homegaMcMassPM", "Invariant;Invariant McMass (GeV/c^{2});McMass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"homegaMcPtPM", "Invariant;Invariant McPt (GeV/c^{2});McPt", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hphiMcMassPM", "Invariant;Invariant McMass (GeV/c^{2});McMass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hphiMcPtPM", "Invariant;Invariant McPt (GeV/c^{2});McPt", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
     },
   };
 
@@ -54,31 +68,48 @@ struct mccheck {
   }
 
   //void process(soa::Filtered<aod::McParticles> const& mcTracks)
-  void process(aod::McCollisions const& mcCollisions, aod::McParticles const& mcTracks)
+  void process(aod::McCollisions const& mcCollision, aod::McParticles const& mcTracks)
   {
-    for (auto& collision : mcCollisions) {
-      LOGF(info, "---------collision---------");
-      for (auto& mctrack : mcTracks) {
-        if (mctrack.mcCollisionId() == collision.globalIndex()){
-          if (mctrack.pdgCode() == 221 || mctrack.pdgCode() == -221 || mctrack.pdgCode() == 331 || mctrack.pdgCode() == -331 || mctrack.pdgCode() == 223 || mctrack.pdgCode() == -223 || mctrack.pdgCode() == 333 || mctrack.pdgCode() == -333 || mctrack.pdgCode() == 113 || mctrack.pdgCode() == -113) {
-            //LOGF(info, "---check from vector meson---", mctrack.globalIndex());
-            //LOGF(info, "mctrack.pdgCode() = %d", mctrack.pdgCode());
-            //LOGF(info, "mctrack.pdgCode() = %f", mctrack.pt());
-            //LOGF(info, "mctrack.pdgCode() = %f", mctrack.eta());
-            //if (mctrack.has_daughters()) {
-              //for (auto& d : mctrack.daughters_as<aod::McParticles>()) {
-                //LOGF(info, "daughter: pdg Code = %d", d.pdgCode());
-              //}
-            //}
-          }
-          if (mctrack.pdgCode() == 13 || mctrack.pdgCode() == -13) {
-            LOGF(info, "---check from muon---");
-            LOGF(info, "mctrack.pdgCode() = %d", mctrack.pdgCode());
-            for (auto& d : mctrack.mothers_as<aod::McParticles>()) {
-              LOGF(info, "mother: pdg Code = %d", d.pdgCode());
-              LOGF(info, "mother: eta = %f", d.eta());
-              LOGF(info, "mother: pt = %f", d.pt());
+    for (auto& mctrack : mcTracks) {
+      if (mctrack.pdgCode() == 221 || mctrack.pdgCode() == 331 || mctrack.pdgCode() == 113 || mctrack.pdgCode() == 223 || mctrack.pdgCode() == 333) {
+        TLorentzVector lv1, lv2, lv;
+
+        const auto mcdaughtersidlist = mctrack.daughtersIds();
+        bool hasmuon1 = 0;
+        bool hasmuon2 = 0;
+        if (mcdaughtersidlist.size() > 0 && mcdaughtersidlist.size() > 0) {
+          for (auto i = 0; i <= mcdaughtersidlist.size() - 1; i++) {
+            auto mcdaughter = mcTracks.iteratorAt(mcdaughtersidlist[i]);
+            if (mcdaughter.pdgCode() == 13) {
+              lv1.SetPtEtaPhiM(mcdaughter.pt(), mcdaughter.eta(), mcdaughter.phi(), muonMass);
+              hasmuon1 = 1;
             }
+            if (mcdaughter.pdgCode() == -13) {
+              lv2.SetPtEtaPhiM(mcdaughter.pt(), mcdaughter.eta(), mcdaughter.phi(), muonMass);
+              hasmuon2 = 1;
+            }
+          }
+          if (hasmuon1 == 0 || hasmuon2 == 0) continue;
+          lv = lv1 + lv2;
+          if (mctrack.pdgCode() == 221) {
+            registry.fill(HIST("hetaMcMassPM"), lv.M());
+            registry.fill(HIST("hetaMcPtPM"), mctrack.pt());
+          }
+          if (mctrack.pdgCode() == 331) {
+            registry.fill(HIST("hetaprimeMcMassPM"), lv.M());
+            registry.fill(HIST("hetaprimeMcPtPM"), mctrack.pt());
+          }
+          if (mctrack.pdgCode() == 113) {
+            registry.fill(HIST("hrhoMcMassPM"), lv.M());
+            registry.fill(HIST("hrhoMcPtPM"), mctrack.pt());
+          }
+          if (mctrack.pdgCode() == 223) {
+            registry.fill(HIST("homegaMcMassPM"), lv.M());
+            registry.fill(HIST("homegaMcPtPM"), mctrack.pt());
+          }
+          if (mctrack.pdgCode() == 333) {
+            registry.fill(HIST("hphiMcMassPM"), lv.M());
+            registry.fill(HIST("hphiMcPtPM"), mctrack.pt());
           }
         }
       }

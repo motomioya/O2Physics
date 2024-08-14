@@ -46,31 +46,32 @@ struct dimuonall_data {
     {
       {"dca1PM", "dca1PM", {HistType::kTH1F, {{1000, 0.0, 1.0}}}},
       {"dca2PM", "dca2PM", {HistType::kTH1F, {{1000, 0.0, 1.0}}}},
-      {"pairdcaPM", "pairdcaPM", {HistType::kTH1F, {{1000, 0.0, 0.1}}}},
+      {"pairdcaPM", "pairdcaPM", {HistType::kTH1F, {{1000, 0.0, 2}}}},
+      {"pairdcaambiPM", "pairdcaambiPM", {HistType::kTH1F, {{1000, 0.0, 2}}}},
       {"svPM", "svPM", {HistType::kTH1F, {{1000, 0., 20}}}},
-      {"pcachi2PM", "pcachi2PM", {HistType::kTH1F, {{1000, 0., 20}}}},
-      {"lxyzPM", "lxyzPM", {HistType::kTH1F, {{1000, 0, 15}}}},
+      {"pcachi2PM", "pcachi2PM", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"lxyzPM", "lxyzPM", {HistType::kTH1F, {{1000, 0, 8}}}},
 
       {"dca1PP", "dca1PP", {HistType::kTH1F, {{1000, 0.0, 1.0}}}},
       {"dca2PP", "dca2PP", {HistType::kTH1F, {{1000, 0.0, 1.0}}}},
-      {"pairdcaPP", "pairdcaPP", {HistType::kTH1F, {{1000, 0.0, 0.1}}}},
+      {"pairdcaPP", "pairdcaPP", {HistType::kTH1F, {{1000, 0.0, 2}}}},
       {"svPP", "svPP", {HistType::kTH1F, {{1000, 0., 20}}}},
-      {"pcachi2PP", "pcachi2PP", {HistType::kTH1F, {{1000, 0., 20}}}},
-      {"lxyzPP", "lxyzPP", {HistType::kTH1F, {{1000, 0, 15}}}},
+      {"pcachi2PP", "pcachi2PP", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"lxyzPP", "lxyzPP", {HistType::kTH1F, {{1000, 0, 8}}}},
 
       {"dca1MM", "dca1MM", {HistType::kTH1F, {{1000, 0.0, 1.0}}}},
       {"dca2MM", "dca2MM", {HistType::kTH1F, {{1000, 0.0, 1.0}}}},
-      {"pairdcaMM", "pairdcaMM", {HistType::kTH1F, {{1000, 0.0, 0.1}}}},
+      {"pairdcaMM", "pairdcaMM", {HistType::kTH1F, {{1000, 0.0, 2}}}},
       {"svMM", "svMM", {HistType::kTH1F, {{1000, 0., 20}}}},
-      {"pcachi2MM", "pcachi2MM", {HistType::kTH1F, {{1000, 0., 20}}}},
-      {"lxyzMM", "lxyzMM", {HistType::kTH1F, {{1000, 0, 15}}}},
+      {"pcachi2MM", "pcachi2MM", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"lxyzMM", "lxyzMM", {HistType::kTH1F, {{1000, 0, 8}}}},
 
       {"mass_ptPM", "mass_ptPM", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
       {"mass_ptMM", "mass_ptMM", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
       {"mass_ptPP", "mass_ptPP", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_dcaxyPM", "mass_dcaxyPM", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0.0, 0.1}}}},
-      {"mass_dcaxyMM", "mass_dcaxyMM", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0.0, 0.1}}}},
-      {"mass_dcaxyPP", "mass_dcaxyPP", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0.0, 0.1}}}},
+      {"mass_dcaxyPM", "mass_dcaxyPM", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0.0, 2}}}},
+      {"mass_dcaxyMM", "mass_dcaxyMM", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0.0, 2}}}},
+      {"mass_dcaxyPP", "mass_dcaxyPP", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0.0, 2}}}},
       {"mass_pcachiPM", "mass_pcachiPM", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0., 20}}}},
       {"mass_pcachiMM", "mass_pcachiMM", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0., 20}}}},
       {"mass_pcachiPP", "mass_pcachiPP", {HistType::kTH2F, {{750, 0.0, 15.0}, {1000, 0., 20}}}},
@@ -108,14 +109,14 @@ struct dimuonall_data {
       {"mass_ptPM_hfcut", "mass_ptPM_hfcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
       {"mass_ptMM_hfcut", "mass_ptMM_hfcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
       {"mass_ptPP_hfcut", "mass_ptPP_hfcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_lxyzlow", "mass_ptPM_lxyzlow", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
-      {"mass_ptMM_lxyzlow", "mass_ptMM_lxyzlow", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
-      {"mass_ptPP_lxyzlow", "mass_ptPP_lxyzlow", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
-      {"mass_ptPM_lxyzhigh", "mass_ptPM_lxyzhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
-      {"mass_ptMM_lxyzhigh", "mass_ptMM_lxyzhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
-      {"mass_ptPP_lxyzhigh", "mass_ptPP_lxyzhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
-      {"mass_ptPM_lxyzfail", "mass_ptPM_lxyzfail", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
-      {"mass_ptMM_lxyzfail", "mass_ptMM_lxyzfail", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
+      {"mass_ptPM_lxyzlow", "mass_ptPM_lxyzlow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"mass_ptMM_lxyzlow", "mass_ptMM_lxyzlow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"mass_ptPP_lxyzlow", "mass_ptPP_lxyzlow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"mass_ptPM_lxyzhigh", "mass_ptPM_lxyzhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"mass_ptMM_lxyzhigh", "mass_ptMM_lxyzhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"mass_ptPP_lxyzhigh", "mass_ptPP_lxyzhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"mass_ptPM_lxyzfail", "mass_ptPM_lxyzfail", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"mass_ptMM_lxyzfail", "mass_ptMM_lxyzfail", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
       {"mass_ptPP_lxyzfail", "mass_ptPP_lxyzfail", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
 
       {"pcaPM_singledcalowhigh", "pcaPM_singledcalowhigh", {HistType::kTH1F, {{10000, 0, 100}}}},
@@ -147,9 +148,9 @@ struct dimuonall_data {
       {"pcachi2MM_singleptcut", "pcachi2MM_singleptcut", {HistType::kTH1F, {{10000, 0, 100}}}},
       {"lxyzMM_singleptcut", "lxyzMM_singleptcut", {HistType::kTH1F, {{3000, 0, 30}}}},
 
-      {"mass_ptPM_singleptcut", "mass_ptPM_singleptcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut", "mass_ptMM_singleptcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut", "mass_ptPP_singleptcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"mass_ptPM_singleptcut", "mass_ptPM_singleptcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut", "mass_ptMM_singleptcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut", "mass_ptPP_singleptcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
       {"mass_dcaxyPM_singleptcut", "mass_dcaxyPM_singleptcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {2250, 0.0, 3.0}}}},
       {"mass_dcaxyMM_singleptcut", "mass_dcaxyMM_singleptcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {2250, 0.0, 3.0}}}},
       {"mass_dcaxyPP_singleptcut", "mass_dcaxyPP_singleptcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {2250, 0.0, 3.0}}}},
@@ -160,36 +161,36 @@ struct dimuonall_data {
       {"dca1_dca2MM_singleptcut", "dca1_dca2MM_singleptcut", {HistType::kTH2F, {{1000, 0.0, 1.0}, {1000, 0.0, 1.0}}}},
       {"dca1_dca2PP_singleptcut", "dca1_dca2PP_singleptcut", {HistType::kTH2F, {{1000, 0.0, 1.0}, {1000, 0.0, 1.0}}}},
 
-      {"mass_ptPM_singleptcut_dcaxylow", "mass_ptPM_singleptcut_dcaxylow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_dcaxylow", "mass_ptMM_singleptcut_dcaxylow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_dcaxylow", "mass_ptPP_singleptcut_dcaxylow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_singleptcut_dcaxyhigh", "mass_ptPM_singleptcut_dcaxyhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_dcaxyhigh", "mass_ptMM_singleptcut_dcaxyhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_dcaxyhigh", "mass_ptPP_singleptcut_dcaxyhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_singleptcut_singledcalow", "mass_ptPM_singleptcut_singledcalow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_singledcalow", "mass_ptMM_singleptcut_singledcalow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_singledcalow", "mass_ptPP_singleptcut_singledcalow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_singleptcut_singledcalowhigh", "mass_ptPM_singleptcut_singledcalowhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_singledcalowhigh", "mass_ptMM_singleptcut_singledcalowhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_singledcalowhigh", "mass_ptPP_singleptcut_singledcalowhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_singleptcut_singledcahigh", "mass_ptPM_singleptcut_singledcahigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_singledcahigh", "mass_ptMM_singleptcut_singledcahigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_singledcahigh", "mass_ptPP_singleptcut_singledcahigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_singleptcut_pcachilow", "mass_ptPM_singleptcut_pcachilow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_pcachilow", "mass_ptMM_singleptcut_pcachilow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_pcachilow", "mass_ptPP_singleptcut_pcachilow", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_singleptcut_pcachihigh", "mass_ptPM_singleptcut_pcachihigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_pcachihigh", "mass_ptMM_singleptcut_pcachihigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_pcachihigh", "mass_ptPP_singleptcut_pcachihigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_singleptcut_pcachifail", "mass_ptPM_singleptcut_pcachifail", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_pcachifail", "mass_ptMM_singleptcut_pcachifail", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_pcachifail", "mass_ptPP_singleptcut_pcachifail", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_singleptcut_vectormesoncut", "mass_ptPM_singleptcut_vectormesoncut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_vectormesoncut", "mass_ptMM_singleptcut_vectormesoncut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_vectormesoncut", "mass_ptPP_singleptcut_vectormesoncut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPM_singleptcut_hfcut", "mass_ptPM_singleptcut_hfcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptMM_singleptcut_hfcut", "mass_ptMM_singleptcut_hfcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
-      {"mass_ptPP_singleptcut_hfcut", "mass_ptPP_singleptcut_hfcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {750, 0.0, 15.0}}}},
+      {"mass_ptPM_singleptcut_dcaxylow", "mass_ptPM_singleptcut_dcaxylow", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_dcaxylow", "mass_ptMM_singleptcut_dcaxylow", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_dcaxylow", "mass_ptPP_singleptcut_dcaxylow", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPM_singleptcut_dcaxyhigh", "mass_ptPM_singleptcut_dcaxyhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_dcaxyhigh", "mass_ptMM_singleptcut_dcaxyhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_dcaxyhigh", "mass_ptPP_singleptcut_dcaxyhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPM_singleptcut_singledcalow", "mass_ptPM_singleptcut_singledcalow", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_singledcalow", "mass_ptMM_singleptcut_singledcalow", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_singledcalow", "mass_ptPP_singleptcut_singledcalow", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPM_singleptcut_singledcalowhigh", "mass_ptPM_singleptcut_singledcalowhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_singledcalowhigh", "mass_ptMM_singleptcut_singledcalowhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_singledcalowhigh", "mass_ptPP_singleptcut_singledcalowhigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPM_singleptcut_singledcahigh", "mass_ptPM_singleptcut_singledcahigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_singledcahigh", "mass_ptMM_singleptcut_singledcahigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_singledcahigh", "mass_ptPP_singleptcut_singledcahigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPM_singleptcut_pcachilow", "mass_ptPM_singleptcut_pcachilow", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_pcachilow", "mass_ptMM_singleptcut_pcachilow", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_pcachilow", "mass_ptPP_singleptcut_pcachilow", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPM_singleptcut_pcachihigh", "mass_ptPM_singleptcut_pcachihigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_pcachihigh", "mass_ptMM_singleptcut_pcachihigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_pcachihigh", "mass_ptPP_singleptcut_pcachihigh", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPM_singleptcut_pcachifail", "mass_ptPM_singleptcut_pcachifail", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_pcachifail", "mass_ptMM_singleptcut_pcachifail", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_pcachifail", "mass_ptPP_singleptcut_pcachifail", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPM_singleptcut_vectormesoncut", "mass_ptPM_singleptcut_vectormesoncut", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_vectormesoncut", "mass_ptMM_singleptcut_vectormesoncut", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_vectormesoncut", "mass_ptPP_singleptcut_vectormesoncut", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPM_singleptcut_hfcut", "mass_ptPM_singleptcut_hfcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptMM_singleptcut_hfcut", "mass_ptMM_singleptcut_hfcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
+      {"mass_ptPP_singleptcut_hfcut", "mass_ptPP_singleptcut_hfcut", {HistType::kTH2F, {{750, 0.0, 15.0}, {120, 0.0, 30}}}},
       {"mass_ptPM_singleptcut_lxyzlow", "mass_ptPM_singleptcut_lxyzlow", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
       {"mass_ptMM_singleptcut_lxyzlow", "mass_ptMM_singleptcut_lxyzlow", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
       {"mass_ptPP_singleptcut_lxyzlow", "mass_ptPP_singleptcut_lxyzlow", {HistType::kTH2F, {{750, 0.0, 15.0}, {730, 0.0, 15.0}}}},
@@ -226,10 +227,10 @@ struct dimuonall_data {
       float lz = std::sqrt((dimuon.posZ() - dimuon.sVertex()) * (dimuon.posZ() - dimuon.sVertex()));
       float lxyz = std::sqrt(lxy * lxy + lz * lz);
       if (dimuon.chi2pca() == -999) lxyz = -999;
-      double dcacut = 0.01;
-      double pcacut = 2.;
+      double pcacut = 0.05;
+      double lxyzcut = 0.5;
+      double dcacut = 0.2;
       //double singleptcut = 0.5;
-      double lxyzcut = 1.0;
       if (dimuon.sVertex() >= -20 || dimuon.sVertex() == -999) {
         if (dimuon.isAmbig1() == 0 && dimuon.isAmbig2() == 0) {
           if (dimuon.chi2MatchMCHMFT1() < 50 && dimuon.chi2MatchMCHMFT2() < 50) {
@@ -282,7 +283,7 @@ struct dimuonall_data {
               } else {
                 registry.fill(HIST("mass_ptPM_lxyzhigh"), dimuon.mass(), dimuon.pt());
               }
-              if ((dimuon.chi2pca() <= pcacut && dimuon.chi2pca() != -999) && ((DCA1 > dcacut && DCA2 > dcacut) || (DCA1 <= dcacut && DCA2 <= dcacut)) && (lxyz <= lxyzcut)) {
+              if ((dimuon.chi2pca() <= pcacut) && (dimuon.chi2pca() != -999) && (DCAmumu <= dcacut) && (lxyz <= lxyzcut)) {
                 registry.fill(HIST("mass_ptPM_vectormesoncut"), dimuon.mass(), dimuon.pt());
               } else {
                 registry.fill(HIST("mass_ptPM_hfcut"), dimuon.mass(), dimuon.pt());
@@ -317,7 +318,7 @@ struct dimuonall_data {
               } else {
                 registry.fill(HIST("mass_ptMM_singledcalowhigh"), dimuon.mass(), dimuon.pt());
               }
-              if ((dimuon.chi2pca() <= pcacut && dimuon.chi2pca() != -999) && ((DCA1 > dcacut && DCA2 > dcacut) || (DCA1 <= dcacut && DCA2 <= dcacut)) && (lxyz <= lxyzcut)) {
+              if ((dimuon.chi2pca() <= pcacut) && (dimuon.chi2pca() != -999) && (DCAmumu <= dcacut) && (lxyz <= lxyzcut)) {
                 registry.fill(HIST("mass_ptMM_vectormesoncut"), dimuon.mass(), dimuon.pt());
               } else {
                 registry.fill(HIST("mass_ptMM_hfcut"), dimuon.mass(), dimuon.pt());
@@ -359,7 +360,7 @@ struct dimuonall_data {
               } else {
                 registry.fill(HIST("mass_ptPP_singledcalowhigh"), dimuon.mass(), dimuon.pt());
               }
-              if ((dimuon.chi2pca() <= pcacut && dimuon.chi2pca() != -999) && ((DCA1 > dcacut && DCA2 > dcacut) || (DCA1 <= dcacut && DCA2 <= dcacut)) && (lxyz <= lxyzcut)) {
+              if ((dimuon.chi2pca() <= pcacut) && (dimuon.chi2pca() != -999) && (DCAmumu <= dcacut) && (lxyz <= lxyzcut)) {
                 registry.fill(HIST("mass_ptPP_vectormesoncut"), dimuon.mass(), dimuon.pt());
               } else {
                 registry.fill(HIST("mass_ptPP_hfcut"), dimuon.mass(), dimuon.pt());
@@ -371,6 +372,12 @@ struct dimuonall_data {
               } else {
                 registry.fill(HIST("mass_ptPP_lxyzhigh"), dimuon.mass(), dimuon.pt());
               }
+            }
+          }
+        } else {
+          if (dimuon.chi2MatchMCHMFT1() < 50 && dimuon.chi2MatchMCHMFT2() < 50) {
+            if (dimuon.sign() == 0) {
+              registry.fill(HIST("pairdcaambiPM"), DCAmumu);
             }
           }
         }
