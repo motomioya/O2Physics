@@ -354,7 +354,7 @@ struct AnalysisTrackSelection {
   HistogramManager* fHistMan;
   std::vector<AnalysisCompositeCut> fTrackCuts;
 
-  int fCurrentRun;                                            // current run kept to detect run changes and trigger loading params from CCDB
+  int fCurrentRun; // current run kept to detect run changes and trigger loading params from CCDB
 
   std::map<int64_t, std::vector<int64_t>> fNAssocsInBunch;    // key: track global index, value: vector of global index for events associated in-bunch (events that have in-bunch pileup or splitting)
   std::map<int64_t, std::vector<int64_t>> fNAssocsOutOfBunch; // key: track global index, value: vector of global index for events associated out-of-bunch (events that have no in-bunch pileup)
@@ -561,8 +561,8 @@ struct AnalysisMuonSelection {
   HistogramManager* fHistMan;
   std::vector<AnalysisCompositeCut> fMuonCuts;
 
-  int fCurrentRun; // current run kept to detect run changes and trigger loading params from CCDB
-                   //
+  int fCurrentRun;                                            // current run kept to detect run changes and trigger loading params from CCDB
+                                                              //
   std::map<int64_t, std::vector<int64_t>> fNAssocsInBunch;    // key: muon global index, value: vector of global index for events associated in-bunch (events that have in-bunch pileup or splitting)
   std::map<int64_t, std::vector<int64_t>> fNAssocsOutOfBunch; // key: muon global index, value: vector of global index for events associated out-of-bunch (events that have no in-bunch pileup)
 
