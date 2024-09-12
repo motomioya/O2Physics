@@ -245,3 +245,8 @@ o2physics_add_dpl_workflow(colhasmuon
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
                                           O2::ReconstructionDataFormats
                     COMPONENT_NAME Analysis)
+o2physics_add_dpl_workflow(etacheck
+                    SOURCES etacheck.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
+                                          O2::ReconstructionDataFormats
+                    COMPONENT_NAME Analysis)

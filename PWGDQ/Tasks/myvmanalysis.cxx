@@ -95,16 +95,34 @@ struct myvmanalysis {
     {
       {"hJpsiMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
       {"hJpsiDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
-      {"hJpsiLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
-      {"hJpsiPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"hJpsiLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 500}}}},
+      {"hJpsiPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 500}}}},
+      {"hJpsiMassLowPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hJpsiMassHighPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hJpsiMassFailPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hJpsiMassLowLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hJpsiMassHighLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hJpsiMassFailLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
       {"hnonPJpsiMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
       {"hnonPJpsiDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
-      {"hnonPJpsiLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
-      {"hnonPJpsiPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"hnonPJpsiLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 500}}}},
+      {"hnonPJpsiPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 500}}}},
+      {"hnonPJpsiMassLowPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hnonPJpsiMassHighPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hnonPJpsiMassFailPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hnonPJpsiMassLowLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hnonPJpsiMassHighLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hnonPJpsiMassFailLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
       {"hPsi2sMassPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
       {"hPsi2sDCAxyPM", "Invariant;Invariant Mass (GeV/c^{2});Pair DCA", {HistType::kTH1F, {{1000, 0.0, 2}}}},
-      {"hPsi2sLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 8}}}},
-      {"hPsi2sPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 6}}}},
+      {"hPsi2sLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Lxyz", {HistType::kTH1F, {{1000, 0, 500}}}},
+      {"hPsi2sPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});PCA(chi2)", {HistType::kTH1F, {{1000, 0., 500}}}},
+      {"hPsi2sMassLowPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hPsi2sMassHighPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hPsi2sMassFailPCAchiPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hPsi2sMassLowLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hPsi2sMassHighLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
+      {"hPsi2sMassFailLxyzPM", "Invariant;Invariant Mass (GeV/c^{2});Mass", {HistType::kTH1F, {{750, 0.0, 15.0}}}},
     },
   };
 
@@ -292,18 +310,60 @@ struct myvmanalysis {
                           registry.fill(HIST("hJpsiDCAxyPM"), DCAmumu);
                           registry.fill(HIST("hJpsiLxyzPM"), VertexingLxyz);
                           registry.fill(HIST("hJpsiPCAchiPM"), chi2PCA);
+                          if(VertexingLxyz == -999) {
+                            registry.fill(HIST("hJpsiMassFailLxyzPM"), lv.M());
+                          } else if (VertexingLxyz <= 0.5) {
+                            registry.fill(HIST("hJpsiMassLowLxyzPM"), lv.M());
+                          } else {
+                            registry.fill(HIST("hJpsiMassHighLxyzPM"), lv.M());
+                          }
+                          if(chi2PCA == -999) {
+                            registry.fill(HIST("hJpsiMassFailPCAchiPM"), lv.M());
+                          } else if (chi2PCA <= 2.0) {
+                            registry.fill(HIST("hJpsiMassLowPCAchiPM"), lv.M());
+                          } else {
+                            registry.fill(HIST("hJpsiMassHighPCAchiPM"), lv.M());
+                          }
                         } 
                         if(signalpsi2s->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           registry.fill(HIST("hPsi2sMassPM"), lv.M());
                           registry.fill(HIST("hPsi2sDCAxyPM"), DCAmumu);
                           registry.fill(HIST("hPsi2sLxyzPM"), VertexingLxyz);
                           registry.fill(HIST("hPsi2sPCAchiPM"), chi2PCA);
+                          if(VertexingLxyz == -999) {
+                            registry.fill(HIST("hPsi2sMassFailLxyzPM"), lv.M());
+                          } else if (VertexingLxyz <= 0.5) {
+                            registry.fill(HIST("hPsi2sMassLowLxyzPM"), lv.M());
+                          } else {
+                            registry.fill(HIST("hPsi2sMassHighLxyzPM"), lv.M());
+                          }
+                          if(chi2PCA == -999) {
+                            registry.fill(HIST("hPsi2sMassFailPCAchiPM"), lv.M());
+                          } else if (chi2PCA <= 2.0) {
+                            registry.fill(HIST("hPsi2sMassLowPCAchiPM"), lv.M());
+                          } else {
+                            registry.fill(HIST("hPsi2sMassHighPCAchiPM"), lv.M());
+                          }
                         }
                         if(signalnonpromptjpsi->CheckSignal(true, fwdparticle1, fwdparticle2)) {
                           registry.fill(HIST("hnonPJpsiMassPM"), lv.M());
                           registry.fill(HIST("hnonPJpsiDCAxyPM"), DCAmumu);
                           registry.fill(HIST("hnonPJpsiLxyzPM"), VertexingLxyz);
                           registry.fill(HIST("hnonPJpsiPCAchiPM"), chi2PCA);
+                          if(VertexingLxyz == -999) {
+                            registry.fill(HIST("hnonPJpsiMassFailLxyzPM"), lv.M());
+                          } else if (VertexingLxyz <= 0.5) {
+                            registry.fill(HIST("hnonPJpsiMassLowLxyzPM"), lv.M());
+                          } else {
+                            registry.fill(HIST("hnonPJpsiMassHighLxyzPM"), lv.M());
+                          }
+                          if(chi2PCA == -999) {
+                            registry.fill(HIST("hnonPJpsiMassFailPCAchiPM"), lv.M());
+                          } else if (chi2PCA <= 2.0) {
+                            registry.fill(HIST("hnonPJpsiMassLowPCAchiPM"), lv.M());
+                          } else {
+                            registry.fill(HIST("hnonPJpsiMassHighPCAchiPM"), lv.M());
+                          }
                         }
                       }
                     }

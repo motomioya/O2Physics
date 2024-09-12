@@ -59,3 +59,8 @@ o2physics_add_dpl_workflow(hmpid-converter
                     PUBLIC_LINK_LIBRARIES
                     COMPONENT_NAME Analysis)
 
+                  o2physics_add_dpl_workflow(mccollision-converter
+                    SOURCES mcCollisionConverter.cxx
+                    PUBLIC_LINK_LIBRARIES
+                    COMPONENT_NAME Analysis)
+
