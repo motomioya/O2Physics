@@ -113,3 +113,18 @@ o2physics_add_dpl_workflow(myanalysis-dimuonall-mc-cc
                     SOURCES myanalysis_dimuonAll_mc_cc.cxx
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
                     COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(mccheck
+                    SOURCES mcCheck.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                    COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(mccheckdpg
+                    SOURCES mcCheck_dpg.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                    COMPONENT_NAME Analysis)
+
+o2physics_add_dpl_workflow(mccheckambiguity
+                    SOURCES mcCheck_ambiguity.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                    COMPONENT_NAME Analysis)
