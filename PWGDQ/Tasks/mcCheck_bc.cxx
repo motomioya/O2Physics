@@ -46,14 +46,10 @@ struct mccheckambiguity {
   HistogramRegistry registry{
     "registry",
     {
-      {"hDeltaMcCollIdMuonFromPiplus", ";Delta McCollId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
-      {"hDeltaMcCollIdMuonFromPiplusReassoc", ";Delta McCollId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
-      {"hDeltaMcCollIdMuonFromLF", ";Delta McCollId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
-      {"hDeltaMcCollIdMuonFromLFReassoc", ";Delta McCollId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
-      {"hDeltaMcCollIdMuonFromCharm", ";Delta McCollId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
-      {"hDeltaMcCollIdMuonFromCharmReassoc", ";Delta McCollId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
-      {"hDeltaMcCollIdMuonFromBottom", ";Delta McCollId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
-      {"hDeltaMcCollIdMuonFromBottomReassoc", ";Delta McCollId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
+      {"hDeltaMcBcIdMuonFromPiplusReassoc", ";Delta McBcId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
+      {"hDeltaMcBcIdMuonFromLFReassoc", ";Delta McBcId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
+      {"hDeltaMcBcIdMuonFromCharmReassoc", ";Delta McBcId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
+      {"hDeltaMcBcIdMuonFromBottomReassoc", ";Delta McBcId;entries", {HistType::kTH1F, {{51, -25.5, 25.5}}}},
     }};
 
   void init(o2::framework::InitContext&)
@@ -61,7 +57,7 @@ struct mccheckambiguity {
   }
 
   //void process(soa::Filtered<aod::McParticles> const& mcTracks)
-  void process(MyEvents const& collisions, MyMuons const& muons, aod::FwdTrackAssoc const& muonAssocs, aod::McCollisions const& mcCollisions, aod::McParticles const& mcParticles)
+  void process(MyEvents const& collisions, MyMuons const& muons, aod::FwdTrackAssoc const& muonAssocs, aod::McCollisions const& mcCollisions, aod::McParticles const& mcParticles, aod::BCs)
   {
     MCProng prongpiplus(2, {13, 211}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
     MCSignal* signalpiplus;
@@ -103,28 +99,22 @@ struct mccheckambiguity {
         if (muon.eta() >= -4.0 && muon.eta() <= -2.5 && (((17.6 < muon.rAtAbsorberEnd()) && (muon.rAtAbsorberEnd() < 26.5) && (muon.pDca() < 594)) || ((26.5 < muon.rAtAbsorberEnd()) && (muon.rAtAbsorberEnd() < 89.5) && (muon.pDca() < 324)))){
           auto collisionassoc = muonAssoc.template collision_as<MyEvents>();
           if (!muon.has_mcParticle()) continue;
-          if (!muon.has_collision()) continue;
-          auto collision = muon.template collision_as<MyEvents>();
+          if (!muon.has_bcs()) continue;
+          auto bc = muon.bc();
           auto particle = muon.mcParticle();
-          if (!collision.has_mcCollision()) continue;
-          if (!collisionassoc.has_mcCollision()) continue;
-          auto mccollision = collision.mcCollision();
-          auto mccollisionassoc = collisionassoc.mcCollision();
+          if (!particle.has_bcs()) continue;
+          auto particlebc = particle.bc();
           if((*signalpiplus).CheckSignal(true, particle)) {
-            registry.fill(HIST("hDeltaMcCollIdMuonFromPiplus"), mccollision.globalIndex() - particle.mcCollisionId());
-            registry.fill(HIST("hDeltaMcCollIdMuonFromPiplusReassoc"), mccollisionassoc.globalIndex() - particle.mcCollisionId());
+            registry.fill(HIST("hDeltaMcCollIdMuonFromPiplusReassoc"), bc.globalBC() - particlebc.globalBC());
           }
           if((*signaleta).CheckSignal(true, particle) || (*signaletaprime).CheckSignal(true, particle) || (*signalrho).CheckSignal(true, particle) || (*signalomega).CheckSignal(true, particle) || (*signalphi).CheckSignal(true, particle)) {
-            registry.fill(HIST("hDeltaMcCollIdMuonFromLF"), mccollision.globalIndex() - particle.mcCollisionId());
-            registry.fill(HIST("hDeltaMcCollIdMuonFromLFReassoc"), mccollisionassoc.globalIndex() - particle.mcCollisionId());
+            registry.fill(HIST("hDeltaMcCollIdMuonFromLFReassoc"), bc.globalBC() - particlebc.globalBC());
           }
           if((*signalHc).CheckSignal(true, particle)) {
-            registry.fill(HIST("hDeltaMcCollIdMuonFromCharm"), mccollision.globalIndex() - particle.mcCollisionId());
-            registry.fill(HIST("hDeltaMcCollIdMuonFromCharmReassoc"), mccollisionassoc.globalIndex() - particle.mcCollisionId());
+            registry.fill(HIST("hDeltaMcCollIdMuonFromCharmReassoc"), bc.globalBC() - particlebc.globalBC());
           }
           if((*signalHb).CheckSignal(true, particle)) {
-            registry.fill(HIST("hDeltaMcCollIdMuonFromBottom"), mccollision.globalIndex() - particle.mcCollisionId());
-            registry.fill(HIST("hDeltaMcCollIdMuonFromBottomReassoc"), mccollisionassoc.globalIndex() - particle.mcCollisionId());
+            registry.fill(HIST("hDeltaMcCollIdMuonFromBottomReassoc"), bc.globalBC() - particlebc.globalBC());
           }
         }
       }

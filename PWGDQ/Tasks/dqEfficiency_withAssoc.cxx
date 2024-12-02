@@ -1337,6 +1337,7 @@ struct AnalysisSameEventPairing {
                   names.push_back(Form("PairsMuonSEPM_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEPM_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEPM_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  /*
                   names.push_back(Form("PairsMuonSEPPCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEPPIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEPP_ambiguousInBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
@@ -1359,6 +1360,7 @@ struct AnalysisSameEventPairing {
                   names.push_back(Form("PairsMuonSEMM_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEMM_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEMM_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  */
                 }
                 for (auto& n : names) {
                   histNames += Form("%s;", n.Data());
@@ -1731,6 +1733,7 @@ struct AnalysisSameEventPairing {
                   if (mcDecision & (uint32_t(1) << isig)) {
                     fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][1].Data(), VarManager::fgValues);
                     if (fConfigQA) {
+                      /*
                       if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) { // correct track-collision association
                         fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][14].Data(), VarManager::fgValues);
                       } else { // incorrect track-collision association
@@ -1760,6 +1763,7 @@ struct AnalysisSameEventPairing {
                           fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][24].Data(), VarManager::fgValues);
                         }
                       }
+                      */
                     }
                   }
                 }
@@ -1777,6 +1781,7 @@ struct AnalysisSameEventPairing {
                   if (mcDecision & (uint32_t(1) << isig)) {
                     fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][2].Data(), VarManager::fgValues);
                     if (fConfigQA) {
+                      /*
                       if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) { // correct track-collision association
                         fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][25].Data(), VarManager::fgValues);
                       } else { // incorrect track-collision association
@@ -1806,6 +1811,7 @@ struct AnalysisSameEventPairing {
                           fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][35].Data(), VarManager::fgValues);
                         }
                       }
+                      */
                     }
                   }
                 }
