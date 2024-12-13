@@ -12,6 +12,8 @@
 #include <vector>
 #include <utility>
 #include <random>
+#include <string>
+#include <algorithm>
 
 #include "Framework/runDataProcessing.h"
 #include "Framework/AnalysisTask.h"
@@ -183,6 +185,12 @@ struct tagRun2V0MCalibration {
   TFormula* mMCScale = nullptr;
 } Run2V0MInfo;
 
+struct tagRun2CL0Calibration {
+  bool mCalibrationStored = false;
+  TH1* mhVtxAmpCorr = nullptr;
+  TH1* mhMultSelCalib = nullptr;
+} Run2CL0Info;
+
 struct ebyeMaker {
   Produces<aod::CollEbyeTable> collisionEbyeTable;
   Produces<aod::MiniCollTable> miniCollTable;
@@ -276,6 +284,8 @@ struct ebyeMaker {
   Configurable<float> v0setting_nsigmatpc{"v0setting_nsigmatpc", 4.f, "nsigmatpc"};
   Configurable<float> lambdaMassCut{"lambdaMassCut", 0.02f, "maximum deviation from PDG mass (for QA histograms)"};
 
+  Configurable<bool> constDCASel{"constDCASel", true, "use DCA selections independent of pt"};
+
   Configurable<float> antidItsClsSizeCut{"antidItsClsSizeCut", 1.e-10f, "cluster size cut for antideuterons"};
   Configurable<float> antidPtItsClsSizeCut{"antidPtItsClsSizeCut", 10.f, "pt for cluster size cut for antideuterons"};
 
@@ -359,6 +369,11 @@ struct ebyeMaker {
     return sum / track.itsNCls();
   }
 
+  float dcaSigma(float const& pt)
+  {
+    return 0.0105 + 0.0350 / std::pow(std::abs(pt), 1.1);
+  }
+
   template <class Bc>
   void initCCDB(Bc const& bc)
   {
@@ -402,6 +417,15 @@ struct ebyeMaker {
         Run2V0MInfo.mCalibrationStored = true;
       } else {
         LOGF(fatal, "Calibration information from V0M for run %d corrupted", bc.runNumber());
+      }
+      if (doprocessRun2) {
+        Run2CL0Info.mhVtxAmpCorr = getccdb("hVtx_fnSPDClusters0_Normalized");
+        Run2CL0Info.mhMultSelCalib = getccdb("hMultSelCalib_CL0");
+        if ((Run2CL0Info.mhVtxAmpCorr != nullptr) && (Run2CL0Info.mhMultSelCalib != nullptr)) {
+          Run2CL0Info.mCalibrationStored = true;
+        } else {
+          LOGF(fatal, "Calibration information from CL0 multiplicity for run %d corrupted", bc.runNumber());
+        }
       }
     } else {
       auto grpmagPath{"GLO/Config/GRPMagField"};
@@ -477,9 +501,9 @@ struct ebyeMaker {
       mask |= kChi2TPCTight;
     else if (track.tpcchi2 < cfgTrackSels->get("chi2TpcMid"))
       mask |= kChi2TPCMid;
-    if (std::abs(track.dcaxypv) < cfgTrackSels->get("dcaxyTight"))
+    if (std::abs(track.dcaxypv) < cfgTrackSels->get("dcaxyTight") * (constDCASel ? 1. : dcaSigma(track.pt)))
       mask |= kDCAxyTight;
-    else if (std::abs(track.dcaxypv) < cfgTrackSels->get("dcaxyMid"))
+    else if (std::abs(track.dcaxypv) < cfgTrackSels->get("dcaxyMid") * (constDCASel ? 1. : dcaSigma(track.pt)))
       mask |= kDCAxyMid;
     if (std::abs(track.dcazpv) < cfgTrackSels->get("dcazTight"))
       mask |= kDCAzTight;
@@ -591,7 +615,10 @@ struct ebyeMaker {
       if (dca > cfgDcaSels->get("dca")) { // dca
         continue;
       }
-      if (std::abs(dcaInfo[0]) > cfgDcaSels->get("dcaxy") || std::abs(dcaInfo[1]) > cfgDcaSels->get("dcaz")) { // dcaxy and dcaz
+      if (std::abs(dcaInfo[1]) > cfgDcaSels->get("dcaz")) { // dcaz
+        continue;
+      }
+      if (std::abs(dcaInfo[0]) > cfgDcaSels->get("dcaxy") * (constDCASel ? 1. : dcaSigma(track.pt()))) { // dcaxy
         continue;
       }
       histos.fill(HIST("QA/tpcSignal"), track.tpcInnerParam(), track.tpcSignal());
@@ -975,22 +1002,24 @@ struct ebyeMaker {
           candidateV0.globalIndexPos);
       }
 
-      for (auto& candidateTrack : candidateTracks[1]) { // deuterons
-        nucleiEbyeTable(
-          collisionEbyeTable.lastIndex(),
-          candidateTrack.pt,
-          candidateTrack.eta,
-          candidateTrack.mass,
-          candidateTrack.dcapv,
-          candidateTrack.tpcncls,
-          candidateTrack.tpcnsigma,
-          candidateTrack.tofmass);
+      for (int iP{0}; iP < kNpart; ++iP) {
+        for (auto& candidateTrack : candidateTracks[iP]) { // deuterons + protons
+          nucleiEbyeTable(
+            collisionEbyeTable.lastIndex(),
+            candidateTrack.pt,
+            candidateTrack.eta,
+            candidateTrack.mass,
+            candidateTrack.dcapv,
+            candidateTrack.tpcncls,
+            candidateTrack.tpcnsigma,
+            candidateTrack.tofmass);
+        }
       }
     }
   }
   PROCESS_SWITCH(ebyeMaker, processRun3, "process (Run 3)", false);
 
-  void processRun2(soa::Join<aod::Collisions, aod::EvSels, aod::CentRun2CL0s, aod::TrackletMults> const& collisions, TracksFull const& tracks, aod::V0s const& V0s, aod::FV0As const& fv0as, aod::FV0Cs const& fv0cs, BCsWithRun2Info const&)
+  void processRun2(soa::Join<aod::Collisions, aod::EvSels, aod::TrackletMults> const& collisions, TracksFull const& tracks, aod::V0s const& V0s, aod::FV0As const& fv0as, aod::FV0Cs const& fv0cs, BCsWithRun2Info const&)
   {
     for (const auto& collision : collisions) {
       auto bc = collision.bc_as<BCsWithRun2Info>();
@@ -1010,7 +1039,11 @@ struct ebyeMaker {
       if (!(collision.sel7() && collision.alias_bit(kINT7)) && (!kINT7Intervals || (kINT7Intervals && ((cV0M >= 10 && cV0M < 30) || cV0M > 50))))
         continue;
 
-      auto centralityCl0 = collision.centRun2CL0();
+      auto centralityCl0 = 105.0f;
+      if (Run2CL0Info.mCalibrationStored) {
+        float cl0m = bc.spdClustersL0() * Run2CL0Info.mhVtxAmpCorr->GetBinContent(Run2CL0Info.mhVtxAmpCorr->FindFixBin(collision.posZ()));
+        centralityCl0 = Run2CL0Info.mhMultSelCalib->GetBinContent(Run2CL0Info.mhMultSelCalib->FindFixBin(cl0m));
+      }
       if (kUseEstimatorsCorrelationCut) {
         const auto& x = centralityCl0;
         const double center = estimatorsCorrelationCoef[0] + estimatorsCorrelationCoef[1] * x;
@@ -1051,16 +1084,18 @@ struct ebyeMaker {
           candidateV0.globalIndexPos);
       }
 
-      for (auto& candidateTrack : candidateTracks[1]) { // deuterons
-        nucleiEbyeTable(
-          collisionEbyeTable.lastIndex(),
-          candidateTrack.pt,
-          candidateTrack.eta,
-          candidateTrack.mass,
-          candidateTrack.dcapv,
-          candidateTrack.tpcncls,
-          candidateTrack.tpcnsigma,
-          candidateTrack.tofmass);
+      for (int iP{0}; iP < kNpart; ++iP) {
+        for (auto& candidateTrack : candidateTracks[iP]) { // deuterons + protons
+          nucleiEbyeTable(
+            collisionEbyeTable.lastIndex(),
+            candidateTrack.pt,
+            candidateTrack.eta,
+            candidateTrack.mass,
+            candidateTrack.dcapv,
+            candidateTrack.tpcncls,
+            candidateTrack.tpcnsigma,
+            candidateTrack.tofmass);
+        }
       }
     }
   }
@@ -1163,20 +1198,22 @@ struct ebyeMaker {
           candidateV0.isreco);
       }
 
-      for (auto& candidateTrack : candidateTracks[1]) { // deuterons
-        mcNucleiEbyeTable(
-          collisionEbyeTable.lastIndex(),
-          candidateTrack.pt,
-          candidateTrack.eta,
-          candidateTrack.mass,
-          candidateTrack.dcapv,
-          candidateTrack.tpcncls,
-          candidateTrack.tpcnsigma,
-          candidateTrack.tofmass,
-          candidateTrack.genpt,
-          candidateTrack.geneta,
-          candidateTrack.pdgcode,
-          candidateTrack.isreco);
+      for (int iP{0}; iP < kNpart; ++iP) {
+        for (auto& candidateTrack : candidateTracks[iP]) { // deuterons + protons
+          mcNucleiEbyeTable(
+            collisionEbyeTable.lastIndex(),
+            candidateTrack.pt,
+            candidateTrack.eta,
+            candidateTrack.mass,
+            candidateTrack.dcapv,
+            candidateTrack.tpcncls,
+            candidateTrack.tpcnsigma,
+            candidateTrack.tofmass,
+            candidateTrack.genpt,
+            candidateTrack.geneta,
+            candidateTrack.pdgcode,
+            candidateTrack.isreco);
+        }
       }
     }
   }
@@ -1229,20 +1266,22 @@ struct ebyeMaker {
           candidateV0.isreco);
       }
 
-      for (auto& candidateTrack : candidateTracks[1]) { // deuterons
-        mcNucleiEbyeTable(
-          collisionEbyeTable.lastIndex(),
-          candidateTrack.pt,
-          candidateTrack.eta,
-          candidateTrack.mass,
-          candidateTrack.dcapv,
-          candidateTrack.tpcncls,
-          candidateTrack.tpcnsigma,
-          candidateTrack.tofmass,
-          candidateTrack.genpt,
-          candidateTrack.geneta,
-          candidateTrack.pdgcode,
-          candidateTrack.isreco);
+      for (int iP{0}; iP < kNpart; ++iP) {
+        for (auto& candidateTrack : candidateTracks[iP]) { // deuterons + protons
+          mcNucleiEbyeTable(
+            collisionEbyeTable.lastIndex(),
+            candidateTrack.pt,
+            candidateTrack.eta,
+            candidateTrack.mass,
+            candidateTrack.dcapv,
+            candidateTrack.tpcncls,
+            candidateTrack.tpcnsigma,
+            candidateTrack.tofmass,
+            candidateTrack.genpt,
+            candidateTrack.geneta,
+            candidateTrack.pdgcode,
+            candidateTrack.isreco);
+        }
       }
     }
   }

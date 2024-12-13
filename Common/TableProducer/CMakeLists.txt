@@ -132,5 +132,8 @@ o2physics_add_dpl_workflow(ese-table-producer
 
 o2physics_add_dpl_workflow(quickcheck
                     SOURCES quickcheck.cxx
-                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore)
+o2physics_add_dpl_workflow(mftmch-matching-data
+                    SOURCES match-mft-mch-data.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2::DetectorsBase O2Physics::AnalysisCCDB O2Physics::PWGDQCore O2Physics::EventFilteringUtils
                     COMPONENT_NAME Analysis)
