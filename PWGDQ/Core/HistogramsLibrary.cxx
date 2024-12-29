@@ -1011,8 +1011,8 @@ void o2::aod::dqhistograms::DefineHistograms(HistogramManager* hm, const char* h
         hm->AddHistogram(histClass, "Mass_cos3DeltaPhi", "cos 3(#varphi-#Psi_{3}^{A}) vs m", true, 125, 0.0, 5.0, VarManager::kMass, 100, -1.0, 1.0, VarManager::kCos3DeltaPhi);
       }
     } else if (subGroupStr.Contains("dimuon")) {
-      hm->AddHistogram(histClass, "Mass_Pt", "", false, 750, 0.0, 15.0, VarManager::kMass, 120, 0.0, 30.0, VarManager::kPt);
-      hm->AddHistogram(histClass, "Mass_Rapidity", "", false, 750, 0.0, 15.0, VarManager::kMass, 150, 2.5, 4.0, VarManager::kRap);
+      hm->AddHistogram(histClass, "Mass_Pt", "", false, 250, 0.0, 5.0, VarManager::kMass, 120, 0.0, 30.0, VarManager::kPt);
+      //hm->AddHistogram(histClass, "Mass_Rapidity", "", false, 750, 0.0, 15.0, VarManager::kMass, 150, 2.5, 4.0, VarManager::kRap);
       if (subGroupStr.Contains("dimuon-multi-diff")) {
         int varsKine[3] = {VarManager::kMass, VarManager::kPt, VarManager::kRap};
         int binsKine[3] = {250, 120, 60};
@@ -1202,9 +1202,8 @@ void o2::aod::dqhistograms::DefineHistograms(HistogramManager* hm, const char* h
         hm->AddHistogram(histClass, "MassLow", "", false, 400, 0.0, 2.0, VarManager::kMass);
       }
       if (subGroupStr.Contains("lmmumu")) {
-        hm->AddHistogram(histClass, "Mass_QuadDCAabsXY", "", false, 250, 0.0, 5.0, VarManager::kMass, 900, 0.0, 3, VarManager::kQuadDCAabsXY);
-        hm->AddHistogram(histClass, "Mass_Lxyz", "", false, 250, 0.0, 5.0, VarManager::kMass, 1000, 0.0, 5, VarManager::kVertexingLxyz);
-        hm->AddHistogram(histClass, "Mass_OpeningAngle", "", false, 250, 0.0, 5.0, VarManager::kMass, 800, 0, 0.8, VarManager::kOpeningAngle);
+        hm->AddHistogram(histClass, "Mass_QuadDCAabsXY", "", false, 250, 0.0, 5.0, VarManager::kMass, 500, 0.0, 5, VarManager::kQuadDCAabsXY);
+        hm->AddHistogram(histClass, "Mass_Lxyz", "", false, 250, 0.0, 5.0, VarManager::kMass, 500, 0.0, 10, VarManager::kVertexingLxyz);
       }
       if (subGroupStr.Contains("flow-dimuon")) {
         int varV2[6] = {VarManager::kMass, VarManager::kPt, VarManager::kRap, VarManager::kCentFT0C, VarManager::kU2Q2, VarManager::kCos2DeltaPhi};
