@@ -471,6 +471,12 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     signal = new MCSignal(name, "Electrons from D0 decays", {prong}, {-1});
     return signal;
   }
+  if (!nameStr.compare("muFromD0")) {
+    MCProng prong(2, {13, Pdg::kD0}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
+    prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "Muons from D0 decays", {prong}, {-1});
+    return signal;
+  }
   if (!nameStr.compare("eFromChargedD")) {
     MCProng prong(2, {11, Pdg::kDPlus}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary);

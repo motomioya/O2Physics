@@ -41,7 +41,7 @@ using namespace o2::aod::evsel;
 using namespace std;
 using MyMuons = soa::Join<aod::FwdTracks, aod::FwdTracksCov, aod::McFwdTrackLabels>;
 
-struct mccheck {
+struct mccheck_cc {
 
   Preslice<aod::McParticles> particlePerCollision = aod::mcparticle::mcCollisionId;
   Preslice<aod::FwdTrack> fwdtrackIndicesPerCollision = aod::fwdtrack::collisionId;
@@ -345,6 +345,6 @@ struct mccheck {
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
 {
   return WorkflowSpec{
-    adaptAnalysisTask<mccheck>(cfgc)
+    adaptAnalysisTask<mccheck_cc>(cfgc)
   };
 }
