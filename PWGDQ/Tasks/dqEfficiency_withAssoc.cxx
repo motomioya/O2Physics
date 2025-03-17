@@ -1318,9 +1318,10 @@ struct AnalysisSameEventPairing {
           if (fEnableMuonHistos) {
             // assign pair hist directories for each required muon cut
             std::vector<TString> names = {
-              Form("PairsMuonSEPM_%s", objArray->At(icut)->GetName()),
-              Form("PairsMuonSEPP_%s", objArray->At(icut)->GetName()),
-              Form("PairsMuonSEMM_%s", objArray->At(icut)->GetName())};
+              //Form("PairsMuonSEPM_%s", objArray->At(icut)->GetName()),
+              //Form("PairsMuonSEPP_%s", objArray->At(icut)->GetName()),
+              //Form("PairsMuonSEMM_%s", objArray->At(icut)->GetName())
+              };
             if (fConfigQA) {
               // assign separate hist directories for ambiguous tracks
               //names.push_back(Form("PairsMuonSEPM_ambiguousInBunch_%s", objArray->At(icut)->GetName()));
@@ -1342,9 +1343,10 @@ struct AnalysisSameEventPairing {
               fNPairCuts = objArrayPair->GetEntries();
               for (int iPairCut = 0; iPairCut < fNPairCuts; ++iPairCut) { // loop over pair cuts
                 names = {
-                  Form("PairsMuonSEPM_%s_%s", objArray->At(icut)->GetName(), objArrayPair->At(iPairCut)->GetName()),
-                  Form("PairsMuonSEPP_%s_%s", objArray->At(icut)->GetName(), objArrayPair->At(iPairCut)->GetName()),
-                  Form("PairsMuonSEMM_%s_%s", objArray->At(icut)->GetName(), objArrayPair->At(iPairCut)->GetName())};
+                  //Form("PairsMuonSEPM_%s_%s", objArray->At(icut)->GetName(), objArrayPair->At(iPairCut)->GetName()),
+                  //Form("PairsMuonSEPP_%s_%s", objArray->At(icut)->GetName(), objArrayPair->At(iPairCut)->GetName()),
+                  //Form("PairsMuonSEMM_%s_%s", objArray->At(icut)->GetName(), objArrayPair->At(iPairCut)->GetName())
+                };
                 histNames += Form("%s;%s;%s;", names[0].Data(), names[1].Data(), names[2].Data());
                 fMuonHistNames[fNCutsMuon + icut * fNCutsMuon + iPairCut] = names;
               } // end loop (pair cuts)
@@ -1355,13 +1357,13 @@ struct AnalysisSameEventPairing {
               for (unsigned int isig = 0; isig < fRecMCSignals.size(); isig++) {
                 auto sig = fRecMCSignals.at(isig);
                 names = {
-                  Form("PairsMuonSEPM_%s_%s", objArray->At(icut)->GetName(), sig.GetName()),
-                  Form("PairsMuonSEPP_%s_%s", objArray->At(icut)->GetName(), sig.GetName()),
-                  Form("PairsMuonSEMM_%s_%s", objArray->At(icut)->GetName(), sig.GetName()),
+                  //Form("PairsMuonSEPM_%s_%s", objArray->At(icut)->GetName(), sig.GetName()),
+                  //Form("PairsMuonSEPP_%s_%s", objArray->At(icut)->GetName(), sig.GetName()),
+                  //Form("PairsMuonSEMM_%s_%s", objArray->At(icut)->GetName(), sig.GetName()),
                 };
                 if (fConfigQA) {
-                  names.push_back(Form("PairsMuonSEPMCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPMIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPMCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPMIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEPM_ambiguousInBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEPM_ambiguousInBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEPM_ambiguousInBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
@@ -1370,31 +1372,30 @@ struct AnalysisSameEventPairing {
                   //names.push_back(Form("PairsMuonSEPM_ambiguousOutOfBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEPM_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEPM_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPM_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  /*
-                  names.push_back(Form("PairsMuonSEPPCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPPIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPP_ambiguousInBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPP_ambiguousInBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPP_ambiguousInBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPP_ambiguousOutOfBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPP_ambiguousOutOfBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPP_ambiguousOutOfBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPM_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPPCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPPIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+
+                  //names.push_back(Form("PairsMuonSEPP_ambiguousInBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPP_ambiguousInBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPP_ambiguousInBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPP_ambiguousOutOfBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPP_ambiguousOutOfBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPP_ambiguousOutOfBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEPP_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEPP_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPP_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMMCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMMIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMM_ambiguousInBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMM_ambiguousInBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMM_ambiguousInBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMM_ambiguousOutOfBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMM_ambiguousOutOfBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMM_ambiguousOutOfBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEPP_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEMMCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEMMIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEMM_ambiguousInBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEMM_ambiguousInBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEMM_ambiguousInBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEMM_ambiguousOutOfBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEMM_ambiguousOutOfBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  //names.push_back(Form("PairsMuonSEMM_ambiguousOutOfBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEMM_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   names.push_back(Form("PairsMuonSEMM_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMM_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  */
+                  //names.push_back(Form("PairsMuonSEMM_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                 }
                 for (auto& n : names) {
                   histNames += Form("%s;", n.Data());
@@ -1711,15 +1712,15 @@ struct AnalysisSameEventPairing {
             isAmbiInBunch = (twoTrackFilter & (static_cast<uint32_t>(1) << 28)) || (twoTrackFilter & (static_cast<uint32_t>(1) << 29));
             isAmbiOutOfBunch = (twoTrackFilter & (static_cast<uint32_t>(1) << 30)) || (twoTrackFilter & (static_cast<uint32_t>(1) << 31));
             if (sign1 * sign2 < 0) {                                                    // +- pairs
-              fHistMan->FillHistClass(histNames[icut][0].Data(), VarManager::fgValues); // reconstructed, unmatched
+              //fHistMan->FillHistClass(histNames[icut][0].Data(), VarManager::fgValues); // reconstructed, unmatched
               for (unsigned int isig = 0; isig < fRecMCSignals.size(); isig++) {        // loop over MC signals
                 if (mcDecision & (static_cast<uint32_t>(1) << isig)) {
-                  fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][0].Data(), VarManager::fgValues); // matched signal
+                  //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][0].Data(), VarManager::fgValues); // matched signal
                   if (fConfigQA) {
                     if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) { // correct track-collision association
-                      fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][3].Data(), VarManager::fgValues);
+                      //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][3].Data(), VarManager::fgValues);
                     } else { // incorrect track-collision association
-                      fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][4].Data(), VarManager::fgValues);
+                      //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][4].Data(), VarManager::fgValues);
                     }
                     /*
                     if (isAmbiInBunch) { // ambiguous in bunch
@@ -1740,11 +1741,11 @@ struct AnalysisSameEventPairing {
                     }
                     */
                     if (!isAmbiOutOfBunch && !isAmbiInBunch) {
-                      fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][5].Data(), VarManager::fgValues);
+                      fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][0].Data(), VarManager::fgValues);
                       if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) {
-                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][6].Data(), VarManager::fgValues);
+                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][1].Data(), VarManager::fgValues);
                       } else {
-                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][7].Data(), VarManager::fgValues);
+                        //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][2].Data(), VarManager::fgValues);
                       }
                     }
                   }
@@ -1762,17 +1763,17 @@ struct AnalysisSameEventPairing {
               */
             } else {
               if (sign1 > 0) { // ++ pairs
-                fHistMan->FillHistClass(histNames[icut][1].Data(), VarManager::fgValues);
+                //fHistMan->FillHistClass(histNames[icut][1].Data(), VarManager::fgValues);
                 for (unsigned int isig = 0; isig < fRecMCSignals.size(); isig++) { // loop over MC signals
                   if (mcDecision & (static_cast<uint32_t>(1) << isig)) {
-                    fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][1].Data(), VarManager::fgValues);
+                    //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][1].Data(), VarManager::fgValues);
                     if (fConfigQA) {
-                      /*
                       if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) { // correct track-collision association
-                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][14].Data(), VarManager::fgValues);
+                        //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][8].Data(), VarManager::fgValues);
                       } else { // incorrect track-collision association
-                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][15].Data(), VarManager::fgValues);
+                        //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][9].Data(), VarManager::fgValues);
                       }
+                      /*
                       if (isAmbiInBunch) { // ambiguous in bunch
                         fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][16].Data(), VarManager::fgValues);
                         if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) {
@@ -1789,15 +1790,15 @@ struct AnalysisSameEventPairing {
                           fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][21].Data(), VarManager::fgValues);
                         }
                       }
+                      */
                       if (!isAmbiOutOfBunch && !isAmbiInBunch) {
-                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][22].Data(), VarManager::fgValues);
+                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][2].Data(), VarManager::fgValues);
                         if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) {
-                          fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][23].Data(), VarManager::fgValues);
+                          fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][3].Data(), VarManager::fgValues);
                         } else {
-                          fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][24].Data(), VarManager::fgValues);
+                          //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][5].Data(), VarManager::fgValues);
                         }
                       }
-                      */
                     }
                   }
                 }
@@ -1812,17 +1813,17 @@ struct AnalysisSameEventPairing {
                 }
                 */
               } else { // -- pairs
-                fHistMan->FillHistClass(histNames[icut][2].Data(), VarManager::fgValues);
+                //fHistMan->FillHistClass(histNames[icut][2].Data(), VarManager::fgValues);
                 for (unsigned int isig = 0; isig < fRecMCSignals.size(); isig++) { // loop over MC signals
                   if (mcDecision & (static_cast<uint32_t>(1) << isig)) {
-                    fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][2].Data(), VarManager::fgValues);
+                    //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][2].Data(), VarManager::fgValues);
                     if (fConfigQA) {
-                      /*
                       if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) { // correct track-collision association
-                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][25].Data(), VarManager::fgValues);
+                        //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][13].Data(), VarManager::fgValues);
                       } else { // incorrect track-collision association
-                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][26].Data(), VarManager::fgValues);
+                        //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][14].Data(), VarManager::fgValues);
                       }
+                      /*
                       if (isAmbiInBunch) { // ambiguous in bunch
                         fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][27].Data(), VarManager::fgValues);
                         if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) {
@@ -1839,15 +1840,15 @@ struct AnalysisSameEventPairing {
                           fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][32].Data(), VarManager::fgValues);
                         }
                       }
+                      */
                       if (!isAmbiOutOfBunch && !isAmbiInBunch) {
-                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][33].Data(), VarManager::fgValues);
+                        fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][4].Data(), VarManager::fgValues);
                         if (isCorrectAssoc_leg1 && isCorrectAssoc_leg2) {
-                          fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][34].Data(), VarManager::fgValues);
+                          fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][5].Data(), VarManager::fgValues);
                         } else {
-                          fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][35].Data(), VarManager::fgValues);
+                          //fHistMan->FillHistClass(histNamesMC[icut * fRecMCSignals.size() + isig][8].Data(), VarManager::fgValues);
                         }
                       }
-                      */
                     }
                   }
                 }
@@ -1868,12 +1869,12 @@ struct AnalysisSameEventPairing {
               if (!(cut.IsSelected(VarManager::fgValues))) // apply pair cuts
                 continue;
               if (sign1 * sign2 < 0) {
-                fHistMan->FillHistClass(histNames[ncuts + icut * ncuts + iPairCut][0].Data(), VarManager::fgValues);
+                //fHistMan->FillHistClass(histNames[ncuts + icut * ncuts + iPairCut][0].Data(), VarManager::fgValues);
               } else {
                 if (sign1 > 0) {
-                  fHistMan->FillHistClass(histNames[ncuts + icut * ncuts + iPairCut][1].Data(), VarManager::fgValues);
+                  //fHistMan->FillHistClass(histNames[ncuts + icut * ncuts + iPairCut][1].Data(), VarManager::fgValues);
                 } else {
-                  fHistMan->FillHistClass(histNames[ncuts + icut * ncuts + iPairCut][2].Data(), VarManager::fgValues);
+                  //fHistMan->FillHistClass(histNames[ncuts + icut * ncuts + iPairCut][2].Data(), VarManager::fgValues);
                 }
               }
             } // end loop (pair cuts)
@@ -1888,15 +1889,19 @@ struct AnalysisSameEventPairing {
 
   void runMCGen(ReducedMCEvents const& mcEvents, ReducedMCTracks const& mcTracks)
   {
+    //LOGF(info, "in runMCGen");
     // loop over mc stack and fill histograms for pure MC truth signals
     // group all the MC tracks which belong to the MC event corresponding to the current reconstructed event
     // auto groupedMCTracks = tracksMC.sliceBy(aod::reducedtrackMC::reducedMCeventId, event.reducedMCevent().globalIndex());
     for (auto& mctrack : mcTracks) {
+      //LOGF(info, "in mctrack");
       VarManager::FillTrackMC(mcTracks, mctrack);
+      //LOGF(info, "after filltrackmc");
       // NOTE: Signals are checked here mostly based on the skimmed MC stack, so depending on the requested signal, the stack could be incomplete.
       // NOTE: However, the working model is that the decisions on MC signals are precomputed during skimming and are stored in the mcReducedFlags member.
       // TODO:  Use the mcReducedFlags to select signals
       for (auto& sig : fGenMCSignals) {
+        //LOGF(info, "in sig loop");
         if (sig.GetNProngs() != 1) { // NOTE: 1-prong signals required here
           continue;
         }
@@ -1918,15 +1923,26 @@ struct AnalysisSameEventPairing {
         auto groupedMCTracks = mcTracks.sliceBy(perReducedMcEvent, event.globalIndex());
         groupedMCTracks.bindInternalIndicesTo(&mcTracks);
         for (auto& [t1, t2] : combinations(groupedMCTracks, groupedMCTracks)) {
-          auto t1_raw = groupedMCTracks.rawIteratorAt(t1.globalIndex());
-          auto t2_raw = groupedMCTracks.rawIteratorAt(t2.globalIndex());
-          for (auto& sig : fGenMCSignals) {
-            if (sig.GetNProngs() != 2) { // NOTE: 2-prong signals required here
+          //LOGF(info, "in groupdMCtrack loop");
+          ReducedMCTrack t1_raw = groupedMCTracks.rawIteratorAt(t1.globalIndex());
+          ReducedMCTrack t2_raw = groupedMCTracks.rawIteratorAt(t2.globalIndex());
+          //LOGF(info, "before fgenmcsignals loop");
+          //for (auto& sig : fGenMCSignals) {
+          for (auto sig = fGenMCSignals.begin(); sig != fGenMCSignals.end(); sig++) {
+           // LOGF(info, "in fgenmcsignals loop");
+            //LOGF(info, "before checksignal for test");
+            //LOGF(info, "after checksignal loop");
+            if ((*sig).GetNProngs() != 2) { // NOTE: 2-prong signals required here
+              //LOGF(info, "2-prong signals");
               continue;
             }
-            if (sig.CheckSignal(true, t1_raw, t2_raw)) {
+            //if (sig.CheckSignal(true, t1_raw, t2_raw)) {
+            if ((*sig).CheckSignal(true, t1_raw, t2_raw)) {
+              //LOGF(info, "in check signal if");
               VarManager::FillPairMC(t1, t2);
-              fHistMan->FillHistClass(Form("MCTruthGenPair_%s", sig.GetName()), VarManager::fgValues);
+              //LOGF(info, "after fillpairmc");
+              fHistMan->FillHistClass(Form("MCTruthGenPair_%s", (*sig).GetName()), VarManager::fgValues);
+              //LOGF(info, "after fillhistman");
             }
           } // end loop over MC signals
         } // end loop over pairs
@@ -1970,7 +1986,6 @@ struct AnalysisSameEventPairing {
   void processMuonOnlySkimmed(MyEventsVtxCovSelected const& events,
                               soa::Join<aod::ReducedMuonsAssoc, aod::MuonTrackCuts> const& muonAssocs, MyMuonTracksWithCovWithAmbiguities const& muons, ReducedMCEvents const& mcEvents, ReducedMCTracks const& mcTracks)
   {
-    LOGF(info, "mooya: in processMuonOnlySkimmed");
     runSameEventPairing<true, VarManager::kDecayToMuMu, gkEventFillMapWithCov, gkMuonFillMapWithCov>(events, muonAssocsPerCollision, muonAssocs, muons, mcEvents, mcTracks);
     if (fConfigMC.runMCGenPair) {
       runMCGen(mcEvents, mcTracks);

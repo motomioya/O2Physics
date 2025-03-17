@@ -139,6 +139,11 @@ o2physics_add_dpl_workflow(mccheckcc
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
                     COMPONENT_NAME Analysis)
 
+o2physics_add_dpl_workflow(mccheckccsingle
+                    SOURCES mcCheck_cc_single.cxx
+                    PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore
+                    COMPONENT_NAME Analysis)
+
 o2physics_add_dpl_workflow(task-fwd-track-pid
                     SOURCES taskFwdTrackPid.cxx
                     PUBLIC_LINK_LIBRARIES O2::Framework O2Physics::AnalysisCore O2Physics::PWGDQCore

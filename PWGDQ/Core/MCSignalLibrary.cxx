@@ -1306,6 +1306,22 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     signal = new MCSignal(name, "mumu pairs from Ds +/- decays, no beauty in history", {prong, prong}, {-1, -1});
     return signal;
   }
+  if (!nameStr.compare("mumuFromChargedDandDs")) {
+    MCProng prongDs(2, {13, Pdg::kDS}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
+    MCProng prongDch(2, {13, Pdg::kDPlus}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
+    prongDs.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    prongDch.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "one e from D+/- and one e from Ds decays, no beauty in history", {prongDs, prongDch}, {-1, -1});
+    return signal;
+  }
+  if (!nameStr.compare("mumuFromChargedDandDsBis")) {
+    MCProng prongDs(2, {13, Pdg::kDS}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
+    MCProng prongDch(2, {13, Pdg::kDPlus}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
+    prongDs.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    prongDch.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "one e from D+/- and one e from Ds decays, no beauty in history (inverse signal)", {prongDch, prongDs}, {-1, -1});
+    return signal;
+  }
 
   // Lambda_c->mu and Lambda_c->mu
   if (!nameStr.compare("mumuFromLambdaC")) {
@@ -1360,6 +1376,24 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     MCProng prong(2, {13, Pdg::kXiC0}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
     prong.SetSourceBit(0, MCProng::kPhysicalPrimary);
     signal = new MCSignal(name, "mumu pairs from Xi_c0, no beauty in history", {prong, prong}, {-1, -1});
+    return signal;
+  }
+  // Xic0 ->mu and Xic0 ->mu
+  if (!nameStr.compare("mumuFromChargedDandXiC0")) {
+    MCProng prongXiC0(2, {13, Pdg::kXiC0}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
+    MCProng prongDch(2, {13, Pdg::kDPlus}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
+    prongXiC0.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    prongDch.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "one e from D+/- and one e from Xi_c0 decays, no beauty in history (inverse signal)", {prongXiC0, prongDch}, {-1, -1});
+    return signal;
+  }
+  // Xic0 ->mu and Xic0 ->mu
+  if (!nameStr.compare("mumuFromChargedDandXiC0Bis")) {
+    MCProng prongXiC0(2, {13, Pdg::kXiC0}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
+    MCProng prongDch(2, {13, Pdg::kDPlus}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false}, false, {502}, {true});
+    prongXiC0.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    prongDch.SetSourceBit(0, MCProng::kPhysicalPrimary);
+    signal = new MCSignal(name, "one e from D+/- and one e from Xi_c0 decays, no beauty in history (inverse signal)", {prongDch, prongXiC0}, {-1, -1});
     return signal;
   }
 
