@@ -71,13 +71,14 @@ static constexpr int trkCutIdxN = 23;
 static constexpr int nSpecies = o2::track::PID::NIDs; // One per PDG
 static constexpr int nCharges = 2;
 static constexpr int nParticles = nSpecies * nCharges;
-static constexpr const char* particleTitle[nParticles] = {"e", "#mu", "#pi", "K", "p", "d", "t", "^{3}He", "#alpha",
-                                                          "e", "#mu", "#pi", "K", "p", "d", "t", "^{3}He", "#alpha"};
+static constexpr const char* particleTitle[nParticles] = {"e^{-}", "#mu^{-}", "#pi^{+}",
+                                                          "K^{+}", "p", "d",
+                                                          "t", "^{3}He", "#alpha",
+                                                          "e^{+}", "#mu^{+}", "#pi^{-}",
+                                                          "K^{-}", "#bar{p}", "#bar{d}",
+                                                          "#bar{t}", "^{3}#bar{He}", "#bar{#alpha}"};
 static constexpr int PDGs[nParticles] = {11, 13, 211, 321, 2212, 1000010020, 1000010030, 1000020030, 1000020040,
                                          -11, -13, -211, -321, -2212, -1000010020, -1000010030, -1000020030, -1000020040};
-
-// Histograms
-std::shared_ptr<TH1> hPtmotherGenerated; // histogram to store pT of Xi and Lambda
 
 // Pt
 std::array<std::shared_ptr<TH1>, nParticles> hPtIts;
@@ -106,6 +107,7 @@ std::array<std::shared_ptr<TH1>, nParticles> hPtItsTpcStr;
 std::array<std::shared_ptr<TH1>, nParticles> hPtTrkItsTpcStr;
 std::array<std::shared_ptr<TH1>, nParticles> hPtItsTpcTofStr;
 std::array<std::shared_ptr<TH1>, nParticles> hPtGeneratedStr;
+std::array<std::shared_ptr<TH1>, nParticles> hPtmotherGenerated; // histogram to store pT of mother
 std::array<std::shared_ptr<TH1>, nParticles> hdecaylengthmother; // histogram to store decaylength of mother
 
 // Pt for secondaries from material
@@ -205,6 +207,7 @@ struct QaEfficiency {
   Configurable<bool> checkForMothers{"checkForMothers", false, "Flag to use the array of mothers to check if the particle of interest come from any of those particles"};
   Configurable<std::vector<int>> mothersPDGs{"mothersPDGs", std::vector<int>{3312, -3312}, "PDGs of origin of the particle under study"};
   Configurable<bool> keepOnlyHfParticles{"keepOnlyHfParticles", false, "Flag to decide wheter to consider only HF particles"};
+  Configurable<int> eventGeneratorType{"eventGeneratorType", -1, "Flag to check specific event generator (for HF): -1 -> no check, 0 -> MB events, 4 -> charm triggered, 5 -> beauty triggered"};
   // Track only selection, options to select only specific tracks
   Configurable<bool> trackSelection{"trackSelection", true, "Local track selection"};
   Configurable<int> globalTrackSelection{"globalTrackSelection", 0, "Global track selection: 0 -> No Cut, 1 -> kGlobalTrack, 2 -> kGlobalTrackWoPtEta, 3 -> kGlobalTrackWoDCA, 4 -> kQualityTracks, 5 -> kInAcceptanceTracks, 6 -> custom track cuts via Configurable"};
@@ -338,7 +341,6 @@ struct QaEfficiency {
                                   phiMin, phiMax,
                                   yMin, yMax);
     const int histogramIndex = id + pdgSign * nSpecies;
-    hPtmotherGenerated = histos.add<TH1>("MC/mother/pt/generated", "Generated pT of mother Lambda or Xi", kTH1D, {axisPt});
 
     // Pt
     hPtIts[histogramIndex] = histos.add<TH1>(Form("MC/pdg%i/pt/its", PDGs[histogramIndex]), "ITS tracks " + tagPt, kTH1D, {axisPt});
@@ -367,7 +369,8 @@ struct QaEfficiency {
     hPtTrkItsTpcStr[histogramIndex] = histos.add<TH1>(Form("MC/pdg%i/pt/str/trk/its_tpc", PDGs[histogramIndex]), "ITS-TPC tracks (reco from weak decays) " + tagPt, kTH1D, {axisPt});
     hPtItsTpcTofStr[histogramIndex] = histos.add<TH1>(Form("MC/pdg%i/pt/str/its_tpc_tof", PDGs[histogramIndex]), "ITS-TPC-TOF tracks (from weak decays) " + tagPt, kTH1D, {axisPt});
     hPtGeneratedStr[histogramIndex] = histos.add<TH1>(Form("MC/pdg%i/pt/str/generated", PDGs[histogramIndex]), "Generated (from weak decays) " + tagPt, kTH1D, {axisPt});
-    hdecaylengthmother[histogramIndex] = histos.add<TH1>(Form("MC/pdg%i/pt/str/decayLength", PDGs[histogramIndex]), "Decay Length of mother particle" + tagPt, kTH1D, {axisPt});
+    hPtmotherGenerated[histogramIndex] = histos.add<TH1>(Form("MC/pdg%i/pt/str/generated_mother", PDGs[histogramIndex]), "Generated Mother " + tagPt, kTH1D, {axisPt});
+    hdecaylengthmother[histogramIndex] = histos.add<TH1>(Form("MC/pdg%i/pt/str/decayLength", PDGs[histogramIndex]), "Decay Length of mother particle" + tagPt, kTH1D, {axisDecayLength});
 
     // Ter
     hPtItsTpcTer[histogramIndex] = histos.add<TH1>(Form("MC/pdg%i/pt/ter/its_tpc", PDGs[histogramIndex]), "ITS-TPC tracks (from secondary weak decays) " + tagPt, kTH1D, {axisPt});
@@ -1158,12 +1161,13 @@ struct QaEfficiency {
           for (const auto& pdgToCheck : mothersPDGs.value) {
             if (mother.pdgCode() == pdgToCheck) {
               motherIsAccepted = true;
-              break;
-            }
-            if (motherIsAccepted) {
               // Calculate the decay length
               double decayLength = std::sqrt(std::pow(mother.vx() - mother.mcCollision().posX(), 2) + std::pow(mother.vy() - mother.mcCollision().posY(), 2) + std::pow(mother.vz() - mother.mcCollision().posZ(), 2));
               hdecaylengthmother[histogramIndex]->Fill(decayLength);
+              break;
+            }
+            if (motherIsAccepted) {
+              break;
             }
           }
         }
@@ -1262,10 +1266,11 @@ struct QaEfficiency {
             for (const auto& pdgToCheck : mothersPDGs.value) {
               if (mother.pdgCode() == pdgToCheck) {
                 motherIsAccepted = true; // Mother matches the list of specified PDGs
+                hPtmotherGenerated[histogramIndex]->Fill(mother.pt()); // Fill generated pT for mother
                 break;
               }
               if (motherIsAccepted) {
-                hPtmotherGenerated->Fill(mother.pt()); // Fill generated pT for Lambda
+                break;
               }
             }
           }
@@ -1778,6 +1783,11 @@ struct QaEfficiency {
       }
       histos.fill(HIST("MC/generatedCollisions"), 3);
 
+      if (eventGeneratorType >= 0 && mcCollision.getSubGeneratorId() != eventGeneratorType) {
+        LOG(debug) << "Skipping event with different type of generator than the one requested";
+        continue;
+      }
+
       /// loop over reconstructed collisions
       for (const auto& collision : groupedCollisions) {
         histos.fill(HIST("MC/generatedCollisions"), 4);
@@ -2071,8 +2081,8 @@ struct QaEfficiency {
       float trackEta = track.eta();
       float trackPhi = track.phi();
       float trackSign = track.sign();
-      float occupancy;
-      float centrality;
+      float occupancy{};
+      float centrality{};
       if (doOccupancy) {
         centrality = collision.centFT0C();
         if (useFT0OccEstimator) {
@@ -2203,7 +2213,7 @@ struct QaEfficiency {
       if (!isTrackSelected<false>(track, HIST("Data/trackSelection"))) {
         continue;
       }
-      if (abs(track.tpcNSigmaDe()) > nsigmaTPCDe) {
+      if (std::abs(track.tpcNSigmaDe()) > nsigmaTPCDe) {
         continue;
       }
       histos.fill(HIST("Data/trackLength"), track.length());

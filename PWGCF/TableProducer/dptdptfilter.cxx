@@ -75,6 +75,7 @@ using DptDptFullTracksFullPIDDetLevel = soa::Join<DptDptFullTracksDetLevel, DptD
 using DptDptFullTracksFullPIDDetLevelAmbiguous = soa::Join<DptDptFullTracksDetLevelAmbiguous, DptDptTracksFullPID>;
 
 bool fullDerivedData = false; /* produce full derived data for its external storage */
+TpcExcludeTrack tpcExcluder;  ///< the TPC excluder object instance
 
 /// \enum MatchRecoGenSpecies
 /// \brief The species considered by the matching test
@@ -104,7 +105,12 @@ const char* eventSelectionSteps[knCollisionSelectionFlags] = {
   "ISVERTEXITSTPC",
   "ISVERTEXTOFMATCHED",
   "ISVERTEXTRDMATCHED",
+  "NOCOLLINTIMERANGE",
+  "NOCOLLINROF",
   "OCCUPANCY",
+  "ISGOODITSLAYER3",
+  "ISGOODITSLAYER0123",
+  "ISGOODITSLAYERALL",
   "CENTRALITY",
   "ZVERTEX",
   "SELECTED"};
@@ -360,13 +366,32 @@ struct DptDptFilter {
   } cfginputfile;
   Configurable<bool> cfgFullDerivedData{"fullderiveddata", false, "Produce the full derived data for external storage. Default false"};
   Configurable<std::string> cfgCentMultEstimator{"centmultestimator", "V0M", "Centrality/multiplicity estimator detector: V0M,CL0,CL1,FV0A,FT0M,FT0A,FT0C,NTPV,NOCM: none. Default V0M"};
-  Configurable<std::string> cfgOccupancyEstimation{"occestimation", "None", "Occupancy estimation: None, Tracks, FT0C. Default None"};
-  Configurable<float> cfgMaxOccupancy{"occmax", 1e6f, "Maximum allowed occupancy. Depends on the occupancy estimation"};
+
+  struct : ConfigurableGroup {
+    std::string prefix = "cfgEventSelection";
+    Configurable<std::string> itsDeadMaps{"itsDeadMaps", "", "Level of inactive chips: nocheck(empty), goodIts3, goodIts0123, goodItsAll. Default empty"};
+    Configurable<int64_t> minOrbit{"minOrbit", -1, "Lowest orbit to track"};
+    Configurable<int64_t> maxOrbit{"maxOrbit", INT64_MAX, "Highest orbit to track"};
+    struct : ConfigurableGroup {
+      std::string prefix = "cfgOccupancySelection";
+      Configurable<std::string> cfgOccupancyEstimation{"cfgOccupancyEstimation", "None", "Occupancy estimation: None, Tracks, FT0C. Default None"};
+      Configurable<float> cfgMinOccupancy{"cfgMinOccupancy", 0.0f, "Minimum allowed occupancy. Depends on the occupancy estimation"};
+      Configurable<float> cfgMaxOccupancy{"cfgMaxOccupancy", 1e6f, "Maximum allowed occupancy. Depends on the occupancy estimation"};
+    } cfgOccupancySelection;
+  } cfgEventSelection;
   Configurable<std::string> cfgSystem{"syst", "PbPb", "System: pp, PbPb, Pbp, pPb, XeXe, ppRun3, PbPbRun3. Default PbPb"};
   Configurable<std::string> cfgDataType{"datatype", "data", "Data type: data, datanoevsel, MC, FastMC, OnTheFlyMC. Default data"};
   Configurable<std::string> cfgTriggSel{"triggsel", "MB", "Trigger selection: MB,VTXTOFMATCHED,VTXTRDMATCHED,VTXTRDTOFMATCHED,None. Default MB"};
   Configurable<std::string> cfgCentSpec{"centralities", "00-10,10-20,20-30,30-40,40-50,50-60,60-70,70-80", "Centrality/multiplicity ranges in min-max separated by commas"};
   Configurable<float> cfgOverallMinP{"overallminp", 0.0f, "The overall minimum momentum for the analysis. Default: 0.0"};
+  struct : ConfigurableGroup {
+    std::string prefix = "cfgTpcExclusion";
+    Configurable<int> method{"method", 0, "The method for excluding tracks within the TPC. 0: no exclusion; 1: static; 2: dynamic. Default: 0"};
+    Configurable<std::string> positiveLowCut{"positiveLowCut", "0.0787/x - 0.0236", "The lower cut function for positive tracks"};
+    Configurable<std::string> positiveUpCut{"positiveUpCut", "0.0892/x + 0.0251", "The upper cut function for positive tracks"};
+    Configurable<std::string> negativeLowCut{"negativeLowCut", "pi/9.0 - (0.0892/x + 0.0251)", "The lower cut function for negative tracks"};
+    Configurable<std::string> negativeUpCut{"negativeUpCut", "pi/9 - (0.0787/x - 0.0236)", "The upper cut function for negative tracks"};
+  } cfgTpcExclusion;
   Configurable<o2::analysis::DptDptBinningCuts> cfgBinning{"binning",
                                                            {28, -7.0, 7.0, 18, 0.2, 2.0, 16, -0.8, 0.8, 72, 0.5},
                                                            "triplets - nbins, min, max - for z_vtx, pT, eta and phi, binning plus bin fraction of phi origin shift"};
@@ -410,8 +435,11 @@ struct DptDptFilter {
       fCentMultEstimator = getCentMultEstimator(cfgCentMultEstimator);
     }
     /* the occupancy selection */
-    fOccupancyEstimation = getOccupancyEstimator(cfgOccupancyEstimation);
-    fMaxOccupancy = cfgMaxOccupancy;
+    fOccupancyEstimation = getOccupancyEstimator(cfgEventSelection.cfgOccupancySelection.cfgOccupancyEstimation);
+    fMinOccupancy = cfgEventSelection.cfgOccupancySelection.cfgMinOccupancy;
+    fMaxOccupancy = cfgEventSelection.cfgOccupancySelection.cfgMaxOccupancy;
+    /* the ITS dead map check */
+    fItsDeadMapCheck = getItsDeadMapCheck(cfgEventSelection.itsDeadMaps);
 
     /* the trigger selection */
     fTriggerSelection = getTriggerSelection(cfgTriggSel);
@@ -494,22 +522,22 @@ struct DptDptFilter {
   template <typename CollisionObject, typename TracksObject>
   void processReconstructed(CollisionObject const& collision, TracksObject const& ftracks, float centormult);
 
-  void processWithCent(aod::CollisionEvSelCent const& collision, DptDptFullTracks const& ftracks);
+  void processWithCent(aod::CollisionEvSelCent const& collision, DptDptFullTracks const& ftracks, const aod::BCsWithTimestamps&);
   PROCESS_SWITCH(DptDptFilter, processWithCent, "Process reco with centrality", false);
 
-  void processWithRun2Cent(aod::CollisionEvSelRun2Cent const& collision, DptDptFullTracks const& ftracks);
+  void processWithRun2Cent(aod::CollisionEvSelRun2Cent const& collision, DptDptFullTracks const& ftracks, const aod::BCsWithTimestamps&);
   PROCESS_SWITCH(DptDptFilter, processWithRun2Cent, "Process reco with Run !/2 centrality", false);
 
-  void processWithoutCent(aod::CollisionEvSel const& collision, DptDptFullTracks const& ftracks);
+  void processWithoutCent(aod::CollisionEvSel const& collision, DptDptFullTracks const& ftracks, const aod::BCsWithTimestamps&);
   PROCESS_SWITCH(DptDptFilter, processWithoutCent, "Process reco without centrality", false);
 
-  void processWithCentDetectorLevel(aod::CollisionEvSelCent const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&);
+  void processWithCentDetectorLevel(aod::CollisionEvSelCent const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&, const aod::BCsWithTimestamps&);
   PROCESS_SWITCH(DptDptFilter, processWithCentDetectorLevel, "Process MC detector level with centrality", false);
 
-  void processWithRun2CentDetectorLevel(aod::CollisionEvSelRun2Cent const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&);
+  void processWithRun2CentDetectorLevel(aod::CollisionEvSelRun2Cent const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&, const aod::BCsWithTimestamps&);
   PROCESS_SWITCH(DptDptFilter, processWithRun2CentDetectorLevel, "Process MC detector level with centrality", false);
 
-  void processWithoutCentDetectorLevel(aod::CollisionEvSel const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&);
+  void processWithoutCentDetectorLevel(aod::CollisionEvSel const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&, const aod::BCsWithTimestamps&);
   PROCESS_SWITCH(DptDptFilter, processWithoutCentDetectorLevel, "Process MC detector level without centrality", false);
 
   template <typename CollisionObject, typename ParticlesList>
@@ -556,13 +584,16 @@ void DptDptFilter::processReconstructed(CollisionObject const& collision, Tracks
   LOGF(DPTDPTFILTERLOGCOLLISIONS, "DptDptFilterTask::processReconstructed(). New collision with %d tracks", ftracks.size());
 
   float mult = extractMultiplicity(collision, fCentMultEstimator);
+  static const int32_t nBCsPerOrbit = o2::constants::lhc::LHCMaxBunches;
 
   fhCentMultB->Fill(tentativecentmult);
   fhMultB->Fill(mult);
   fhVertexZB->Fill(collision.posZ());
   uint8_t acceptedevent = uint8_t(false);
   float centormult = tentativecentmult;
-  if (isEventSelected(collision, centormult)) {
+  int64_t orbit = collision.template bc_as<aod::BCsWithTimestamps>().globalBC() / nBCsPerOrbit;
+  bool withinOrbitOfInterest = (cfgEventSelection.minOrbit <= orbit) && (orbit < cfgEventSelection.maxOrbit);
+  if (withinOrbitOfInterest && isEventSelected(collision, centormult)) {
     acceptedevent = true;
     fhCentMultA->Fill(centormult);
     fhMultA->Fill(mult);
@@ -586,32 +617,32 @@ void DptDptFilter::processReconstructed(CollisionObject const& collision, Tracks
   }
 }
 
-void DptDptFilter::processWithCent(aod::CollisionEvSelCent const& collision, DptDptFullTracks const& ftracks)
+void DptDptFilter::processWithCent(aod::CollisionEvSelCent const& collision, DptDptFullTracks const& ftracks, aod::BCsWithTimestamps const&)
 {
   processReconstructed(collision, ftracks, getCentMultPercentile(collision));
 }
 
-void DptDptFilter::processWithRun2Cent(aod::CollisionEvSelRun2Cent const& collision, DptDptFullTracks const& ftracks)
+void DptDptFilter::processWithRun2Cent(aod::CollisionEvSelRun2Cent const& collision, DptDptFullTracks const& ftracks, aod::BCsWithTimestamps const&)
 {
   processReconstructed(collision, ftracks, getCentMultPercentile(collision));
 }
 
-void DptDptFilter::processWithoutCent(aod::CollisionEvSel const& collision, DptDptFullTracks const& ftracks)
+void DptDptFilter::processWithoutCent(aod::CollisionEvSel const& collision, DptDptFullTracks const& ftracks, aod::BCsWithTimestamps const&)
 {
   processReconstructed(collision, ftracks, 50.0);
 }
 
-void DptDptFilter::processWithCentDetectorLevel(aod::CollisionEvSelCent const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&)
+void DptDptFilter::processWithCentDetectorLevel(aod::CollisionEvSelCent const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&, aod::BCsWithTimestamps const&)
 {
   processReconstructed(collision, ftracks, getCentMultPercentile(collision));
 }
 
-void DptDptFilter::processWithRun2CentDetectorLevel(aod::CollisionEvSelRun2Cent const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&)
+void DptDptFilter::processWithRun2CentDetectorLevel(aod::CollisionEvSelRun2Cent const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&, aod::BCsWithTimestamps const&)
 {
   processReconstructed(collision, ftracks, getCentMultPercentile(collision));
 }
 
-void DptDptFilter::processWithoutCentDetectorLevel(aod::CollisionEvSel const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&)
+void DptDptFilter::processWithoutCentDetectorLevel(aod::CollisionEvSel const& collision, DptDptFullTracksDetLevel const& ftracks, aod::McParticles const&, aod::BCsWithTimestamps const&)
 {
   processReconstructed(collision, ftracks, 50.0);
 }
@@ -654,8 +685,9 @@ void DptDptFilter::processGeneratorLevel(aod::McCollision const& mccollision,
       if (tmpcollision.mcCollisionId() == mccollision.globalIndex()) {
         typename AllCollisions::iterator const& collision = allcollisions.iteratorAt(tmpcollision.globalIndex());
         if (isEventSelected(collision, defaultcent)) {
-          fhTrueVertexZAA->Fill((mccollision.posZ()));
-          processGenerated(mccollision, mcparticles, defaultcent);
+          if (processGenerated(mccollision, mcparticles, defaultcent)) {
+            fhTrueVertexZAA->Fill((mccollision.posZ()));
+          }
           processed = true;
           break; /* TODO: only processing the first reconstructed accepted collision */
         }
@@ -761,7 +793,7 @@ struct DptDptFilterTracks {
   Configurable<o2::analysis::CheckRangeCfg> cfgTraceDCAOutliers{"trackdcaoutliers", {false, 0.0, 0.0}, "Track the generator level DCAxy outliers: false/true, low dcaxy, up dcaxy. Default {false,0.0,0.0}"};
   Configurable<float> cfgTraceOutOfSpeciesParticles{"trackoutparticles", false, "Track the particles which are not e,mu,pi,K,p: false/true. Default false"};
   Configurable<int> cfgRecoIdMethod{"recoidmethod", 0, "Method for identifying reconstructed tracks: 0 No PID, 1 PID, 2 mcparticle, 3 mcparticle only primaries, 4 mcparticle only sec, 5 mcparicle only sec from decays, 6 mcparticle only sec from material. Default 0"};
-  Configurable<o2::analysis::TrackSelectionTuneCfg> cfgTuneTrackSelection{"tunetracksel", {}, "Track selection: {useit: true/false, tpccls-useit, tpcxrws-useit, tpcxrfc-useit, dcaxy-useit, dcaz-useit}. Default {false,0.70,false,0.8,false,2.4,false,3.2,false}"};
+  Configurable<o2::analysis::TrackSelectionTuneCfg> cfgTuneTrackSelection{"tunetracksel", {}, "Track selection: {useit: true/false, tpccls-useit, tpcxrws-useit, tpcxrfc-useit, tpcshcls-useit, dcaxy-useit, dcaz-useit}. Default {false,0.70,false,0.8,false,0.4,false,2.4,false,3.2,false}"};
   Configurable<o2::analysis::TrackSelectionPIDCfg> cfgPionPIDSelection{"pipidsel",
                                                                        {},
                                                                        "PID criteria for pions"};
@@ -783,6 +815,8 @@ struct DptDptFilterTracks {
   PIDSpeciesSelection pidselector;
   bool checkAmbiguousTracks = false;
 
+  std::vector<bool> particleReconstructed;
+
   void init(InitContext& initContext)
   {
     LOGF(info, "DptDptFilterTracks::init()");
@@ -801,20 +835,51 @@ struct DptDptFilterTracks {
     getTaskOptionValue(initContext, "dpt-dpt-filter", "binning.mEtabins", etabins, false);
     getTaskOptionValue(initContext, "dpt-dpt-filter", "binning.mEtamin", etalow, false);
     getTaskOptionValue(initContext, "dpt-dpt-filter", "binning.mEtamax", etaup, false);
+    getTaskOptionValue(initContext, "dpt-dpt-filter", "binning.mPhibins", phibins, false);
+    getTaskOptionValue(initContext, "dpt-dpt-filter", "binning.mPhibinshift", phibinshift, false);
 
+    TpcExclusionMethod tpcExclude = kNOEXCLUSION; ///< exclude tracks within the TPC according to this method
+    std::string pLowCut;
+    std::string pUpCut;
+    std::string nLowCut;
+    std::string nUpCut;
+    {
+      int tmpTpcExclude = 0;
+      getTaskOptionValue(initContext, "dpt-dpt-filter", "cfgTpcExclusion.method", tmpTpcExclude, false);
+      getTaskOptionValue(initContext, "dpt-dpt-filter", "cfgTpcExclusion.positiveLowCut", pLowCut, false);
+      getTaskOptionValue(initContext, "dpt-dpt-filter", "cfgTpcExclusion.positiveUpCut", pUpCut, false);
+      getTaskOptionValue(initContext, "dpt-dpt-filter", "cfgTpcExclusion.negativeLowCut", nLowCut, false);
+      getTaskOptionValue(initContext, "dpt-dpt-filter", "cfgTpcExclusion.negativeUpCut", nUpCut, false);
+      tpcExclude = static_cast<TpcExclusionMethod>(tmpTpcExclude);
+    }
     /* self configure the CCDB access to the input file */
     getTaskOptionValue(initContext, "dpt-dpt-filter", "input_ccdburl", cfgCCDBUrl, false);
     getTaskOptionValue(initContext, "dpt-dpt-filter", "input_ccdbpath", cfgCCDBPathName, false);
     getTaskOptionValue(initContext, "dpt-dpt-filter", "input_ccdbdate", cfgCCDBDate, false);
     getTaskOptionValue(initContext, "dpt-dpt-filter", "input_ccdbperiod", cfgCCDBPeriod, false);
 
+    /* create the output list which will own the task histograms */
+    TList* fOutputList = new TList();
+    fOutputList->SetOwner(true);
+    fOutput.setObject(fOutputList);
+
     /* the track types and combinations */
     tracktype = cfgTrackType.value;
-    initializeTrackSelection(cfgTuneTrackSelection);
+
+    /* incorporate configuration parameters to the output */
+    fOutputList->Add(new TParameter<int>("TrackType", cfgTrackType, 'f'));
+    fOutputList->Add(new TParameter<int>("TrackOneCharge", 1, 'f'));
+    fOutputList->Add(new TParameter<int>("TrackTwoCharge", -1, 'f'));
+
+    DptDptTrackSelection::initializeTrackSelection(cfgTuneTrackSelection.value, fOutputList);
     traceDCAOutliers = cfgTraceDCAOutliers;
     traceOutOfSpeciesParticles = cfgTraceOutOfSpeciesParticles;
     recoIdMethod = cfgRecoIdMethod;
     onlyInOneSide = cfgOnlyInOneSide.value;
+
+    /* the TPC excluder object instance */
+    tpcExcluder = TpcExcludeTrack(tpcExclude);
+    tpcExcluder.setCuts(pLowCut, pUpCut, nLowCut, nUpCut);
 
     /* self configure system type and data type */
     /* if the system type is not known at this time, we have to put the initialization somewhere else */
@@ -847,16 +912,6 @@ struct DptDptFilterTracks {
     insertInPIDselector(cfgPionPIDSelection, 2);
     insertInPIDselector(cfgKaonPIDSelection, 3);
     insertInPIDselector(cfgProtonPIDSelection, 4);
-
-    /* create the output list which will own the task histograms */
-    TList* fOutputList = new TList();
-    fOutputList->SetOwner(true);
-    fOutput.setObject(fOutputList);
-
-    /* incorporate configuration parameters to the output */
-    fOutputList->Add(new TParameter<int>("TrackType", cfgTrackType, 'f'));
-    fOutputList->Add(new TParameter<int>("TrackOneCharge", 1, 'f'));
-    fOutputList->Add(new TParameter<int>("TrackTwoCharge", -1, 'f'));
 
     if ((fDataType == kData) || (fDataType == kDataNoEvtSel) || (fDataType == kMC)) {
       /* create the reconstructed data histograms */
@@ -1163,6 +1218,26 @@ struct DptDptFilterTracks {
          tracks.size());
   }
 
+  /* filter the tracks but not creating the filtered tracks table */
+  /* the aim is to fill the structure of the generated particles  */
+  /* that were reconstructed                                      */
+  template <typename passedtracks>
+  void filterTracksSpecial(soa::Join<aod::Collisions, aod::DptDptCFCollisionsInfo> const&, passedtracks const& tracks)
+  {
+    /* do check for special adjustments */
+    getCCDBInformation();
+
+    for (auto const& track : tracks) {
+      int8_t pid = -1;
+      if (track.has_collision() && (track.template collision_as<soa::Join<aod::Collisions, aod::DptDptCFCollisionsInfo>>()).collisionaccepted()) {
+        pid = selectTrack<kNODEBUG, soa::Join<aod::Collisions, aod::DptDptCFCollisionsInfo>>(track);
+        if (!(pid < 0)) {
+          particleReconstructed[track.mcParticleId()] = true;
+        }
+      }
+    }
+  }
+
   /* TODO: for the time being the full derived data is still not supported  */
   /* for doing that we need to get the index of the associated mc collision */
   void filterParticles(soa::Join<aod::McCollisions, aod::DptDptCFGenCollisionsInfo> const& gencollisions, aod::McParticles const& particles)
@@ -1192,6 +1267,59 @@ struct DptDptFilterTracks {
           pid = selectParticle(particle, mccollision);
           if (!(pid < 0)) {
             acceptedparticles++;
+          }
+        }
+      } else {
+        if ((particle.mcCollisionId() == 0) && traceCollId0) {
+          LOGF(DPTDPTFILTERLOGTRACKS, "Particle %d with fractional charge or equal to zero", particle.globalIndex());
+        }
+      }
+      if (!fullDerivedData) {
+        gentracksinfo(pid);
+      }
+    }
+    LOGF(DPTDPTFILTERLOGCOLLISIONS,
+         "Processed %d accepted generated collisions out of a total of %d with  %d accepted particles out of a "
+         "total of %d",
+         acceptedcollisions,
+         gencollisions.size(),
+         acceptedparticles,
+         particles.size());
+  }
+
+  /* we produce the derived particle table incoporating only the particles that were accepted but not were reconstructed */
+  void filterParticlesSpecial(soa::Join<aod::McCollisions, aod::DptDptCFGenCollisionsInfo> const& gencollisions, aod::McParticles const& particles)
+  {
+    using namespace dptdptfilter;
+
+    int acceptedparticles = 0;
+    int acceptedcollisions = 0;
+    if (!fullDerivedData) {
+      gentracksinfo.reserve(particles.size());
+    }
+
+    for (auto const& gencoll : gencollisions) {
+      if (gencoll.collisionaccepted()) {
+        acceptedcollisions++;
+      }
+    }
+
+    for (auto const& particle : particles) {
+      int8_t pid = -1;
+      auto pdgpart = fPDG->GetParticle(particle.pdgCode());
+      float charge = pdgpart != nullptr ? getCharge(pdgpart->Charge()) : 0;
+
+      if (charge != 0) {
+        if (particle.has_mcCollision() && (particle.template mcCollision_as<soa::Join<aod::McCollisions, aod::DptDptCFGenCollisionsInfo>>()).collisionaccepted()) {
+          auto mccollision = particle.template mcCollision_as<soa::Join<aod::McCollisions, aod::DptDptCFGenCollisionsInfo>>();
+          pid = selectParticle(particle, mccollision);
+          if (!(pid < 0)) {
+            if (particleReconstructed[particle.globalIndex()]) {
+              /* the particle was reconstructed and accepted, reject it */
+              pid = -1;
+            } else {
+              acceptedparticles++;
+            }
           }
         }
       } else {
@@ -1301,6 +1429,26 @@ struct DptDptFilterTracks {
     filterParticles(gencollisions, particles);
   }
   PROCESS_SWITCH(DptDptFilterTracks, filterGenerated, "Generated particles filtering", true)
+
+  void filterGeneratedNotReconstructed(soa::Join<aod::McCollisions, aod::DptDptCFGenCollisionsInfo> const& gencollisions, aod::McParticles const& particles,
+                                       soa::Join<aod::Collisions, aod::DptDptCFCollisionsInfo>& collisions, DptDptFullTracksPIDDetLevel const& tracks)
+  {
+    particleReconstructed.resize(particles.size());
+    filterTracksSpecial(collisions, tracks);
+    filterParticlesSpecial(gencollisions, particles);
+    particleReconstructed.clear();
+  }
+  PROCESS_SWITCH(DptDptFilterTracks, filterGeneratedNotReconstructed, "Generated particles filtering selecting not reconstructed using PID", false)
+
+  void filterGeneratedNotReconstructedWithoutPID(soa::Join<aod::McCollisions, aod::DptDptCFGenCollisionsInfo> const& gencollisions, aod::McParticles const& particles,
+                                                 soa::Join<aod::Collisions, aod::DptDptCFCollisionsInfo>& collisions, DptDptFullTracksDetLevel const& tracks)
+  {
+    particleReconstructed.resize(particles.size());
+    filterTracksSpecial(collisions, tracks);
+    filterParticlesSpecial(gencollisions, particles);
+    particleReconstructed.clear();
+  }
+  PROCESS_SWITCH(DptDptFilterTracks, filterGeneratedNotReconstructedWithoutPID, "Generated particles filtering selecting not reconstructed inclusive", false)
 };
 
 template <StrongDebugging outdebug, typename TrackObject>
