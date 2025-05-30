@@ -49,6 +49,7 @@
 #include "DetectorsBase/GeometryManager.h"
 #include "Common/Core/TableHelper.h"
 
+
 using std::cout;
 using std::endl;
 using std::string;
@@ -1525,8 +1526,8 @@ struct AnalysisSameEventPairing {
                   //names.push_back(Form("PairsMuonSEPM_ambiguousOutOfBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEPM_ambiguousOutOfBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEPM_ambiguousOutOfBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPM_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPM_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  names.push_back(Form("PairsMuonSEPM_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig->GetName()));
+                  names.push_back(Form("PairsMuonSEPM_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig->GetName()));
                   //names.push_back(Form("PairsMuonSEPM_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEPPCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEPPIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
@@ -1537,8 +1538,8 @@ struct AnalysisSameEventPairing {
                   //names.push_back(Form("PairsMuonSEPP_ambiguousOutOfBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEPP_ambiguousOutOfBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEPP_ambiguousOutOfBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPP_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEPP_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  names.push_back(Form("PairsMuonSEPP_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig->GetName()));
+                  names.push_back(Form("PairsMuonSEPP_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig->GetName()));
                   //names.push_back(Form("PairsMuonSEPP_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEMMCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEMMIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
@@ -1548,8 +1549,8 @@ struct AnalysisSameEventPairing {
                   //names.push_back(Form("PairsMuonSEMM_ambiguousOutOfBunch_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEMM_ambiguousOutOfBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                   //names.push_back(Form("PairsMuonSEMM_ambiguousOutOfBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMM_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
-                  names.push_back(Form("PairsMuonSEMM_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
+                  names.push_back(Form("PairsMuonSEMM_unambiguous_%s_%s", objArray->At(icut)->GetName(), sig->GetName()));
+                  names.push_back(Form("PairsMuonSEMM_unambiguousBunchCorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig->GetName()));
                   //names.push_back(Form("PairsMuonSEMM_unambiguousBunchIncorrectAssoc_%s_%s", objArray->At(icut)->GetName(), sig.GetName()));
                 }
                 for (auto& n : names) {
@@ -2137,7 +2138,8 @@ struct AnalysisSameEventPairing {
         auto groupedMCTracks = mcTracks.sliceBy(perReducedMcEvent, event.globalIndex());
         groupedMCTracks.bindInternalIndicesTo(&mcTracks);
         for (auto& [t1, t2] : combinations(groupedMCTracks, groupedMCTracks)) {
-<<<<<<< HEAD
+//<<<<<<< HEAD
+  /*
           //LOGF(info, "in groupdMCtrack loop");
           ReducedMCTrack t1_raw = groupedMCTracks.rawIteratorAt(t1.globalIndex());
           ReducedMCTrack t2_raw = groupedMCTracks.rawIteratorAt(t2.globalIndex());
@@ -2158,7 +2160,8 @@ struct AnalysisSameEventPairing {
               //LOGF(info, "after fillpairmc");
               fHistMan->FillHistClass(Form("MCTruthGenPair_%s", (*sig).GetName()), VarManager::fgValues);
               //LOGF(info, "after fillhistman");
-=======
+              */
+//=======
           auto t1_raw = groupedMCTracks.rawIteratorAt(t1.globalIndex());
           auto t2_raw = groupedMCTracks.rawIteratorAt(t2.globalIndex());
           for (auto& sig : fGenMCSignals) {
@@ -2173,7 +2176,7 @@ struct AnalysisSameEventPairing {
                 // WARNING! To be checked
                 dileptonMiniTreeGen(mcDecision, event.impactParameter(), t1.pt(), t1.eta(), t1.phi(), t2.pt(), t2.eta(), t2.phi());
               }
->>>>>>> master
+//>>>>>>> master
             }
             isig++;
           } // end loop over MC signals

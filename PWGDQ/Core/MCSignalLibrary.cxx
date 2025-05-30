@@ -254,6 +254,11 @@ MCSignal* o2::aod::dqmcsignals::GetMCSignal(const char* name)
     signal = new MCSignal(name, "Everything from beauty", {prong}, {-1});
     return signal;
   }
+  if (!nameStr.compare("everythingFromCharm")) {
+    MCProng prong(2, {0, 403}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
+    signal = new MCSignal(name, "Everything from beauty", {prong}, {-1});
+    return signal;
+  }
   if (!nameStr.compare("everythingFromBeautyFS")) {
     MCProng prong(2, {0, 503}, {true, true}, {false, false}, {0, 0}, {0, 0}, {false, false});
     prong.SetSourceBit(1, MCProng::kHEPMCFinalState);
